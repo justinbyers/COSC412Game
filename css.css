@@ -18,13 +18,13 @@
 }
 .PH_row{
     list-style: none;
+    padding: 0 0 0 0;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 0;
 }
 .PH_cell{
     
-    border: 1px solid black;
     display: inline-block;
     text-align: center;
 }
