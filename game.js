@@ -1,4 +1,5 @@
 // this is super unfinished
+//all work as of now is done by Justin Byers
 
 var gameData = {
         money: 0,
@@ -121,32 +122,17 @@ function findStart(type){
 
     }
 
-    // var x = -1;
-    // var y = -1;
-
-    // //right now it only checks the left side
-    // //of the map for a starting point
-    // //todo: make it check left AND top -- at least
-    // for(var i = 0; i < rows; i++){
-    //     //console.log(templateGrid[i][0] + " ");
-    //     if(templateGrid[i][0] == true){
-    //         //console.log("yes");
-    //         x = i; //row
-    //         y = 0; //col
-    //     }
-    //     else
-    //         console.log("no");
-    // }
-
-    // console.log("Starting point is at row: " + x + ". col: " + y);
-
-    // return x + " " + y;
-
 }
 
 var x = this.startX;
 var y = this.startY;
 
+
+//current problem is that the path doesnt acknowledge previous step, 
+//so it can get stuck in an infinite loop
+//maybe pass some sort of prevMove variable?
+//also x and y coords should be resolved to some sort of
+// moster/enermy/??? class-ish variable, so that each instance of enemy holds x and y
 function move(){
 
     console.log(templateGrid[x][y]);
