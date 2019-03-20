@@ -8,22 +8,28 @@
     <link rel="stylesheet" href="css.css" type="text/css">
 </head>
 <body>
+    <div id="wrapperHeader">
+        <div id="header">
+            <img src="C:\Users\mattk\Downloads\COSC412Game-master\COSC412Game-master\header.jpg" alt="header" />
+        </div>
+    </div>
 
-    <h1 class="aaa">title</h1>
-    <div id = "timer">Time Elapsed: <span id = "time">0</span> seconds</div>
-   
-    <div id = "container">
-        <div id = "grid">
-            
+    <div id="timer">Time Elapsed: <span id="time">0</span> seconds</div>
+
+    <div id="container">
+        <div id="grid">
+
         </div>
     </div>
-    <div id = buttonRow>
-        <div id = "topButtons">
-            <span class = "btn" id = "btn1" onclick="a()">PH1</span>
-            <span class = "btn" id = "btn2" onclick="stopMoving()">Pause</span>
-            <span class = "btn" id = "btn3" onclick="restart()">Restart</span>
+
+    <div id=buttonRow>
+        <div id="topButtons">
+            <input onclick="change()" type="button" value="Pause" id="myButton1" />
+
+            <input onclick="restart()" type="button" value="Restart" id="myButton2" />
         </div>
     </div>
+    
     <script src="game.js" charset="utf-8" type="text/javascript"></script>
 </body>
 </html>
