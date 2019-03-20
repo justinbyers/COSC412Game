@@ -1,40 +1,45 @@
-.mapzone {
-    background-color: #FFFFFF;
-    border: black;
-    border-width: 5px;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 15px;
-    height: 15px;
-  }
-.canvas{
-    float: left;
-    margin-right: 10px;
-    fill: #228B22;
-}
+
 .aaa{
     color:#228B22;
 }
 .PH_row{
     list-style: none;
-    padding: 0 0 0 0;
-    padding-left: 0;
-    margin-bottom: 0;
-    margin-top: 0;
+    padding: 0px 5px 0px 5px;
+    
 }
 .PH_cell{
     
     display: inline-block;
     text-align: center;
 }
-#grid, #mapgrid {
-    width: 100%;
-    height: 100%;
-    color: black;
-    background: rgba(209, 143, 143, 0.25);
-    text-align: left;
-	list-style: none;
-	padding-left: 0;
-	cursor: default;
+
+#grid {
+    display: inline-block;
+    padding: 0px 0px 0px 0px;
+    cursor: default;
+}
+#container{
+    display: inline-block;
+    min-width: 210px;
+    height: 200px;
+    border: "2px";
+    border: solid;
+    border-color: "#CCCCCC";
+    background-color: "#CCCCCC";
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+}
+.btn{
+    background-color: #228B22;
+    display: inline-block;
+    margin: 2vh 2vh 2vh 2vh;
+    padding: 2px 2px 2px 2px;
+    position: relative;
+    border: solid;
+
+}
+#topButtons{
+    background-color: #aaaaaa; 
+    border: solid;
+    display: inline-block;
 }
