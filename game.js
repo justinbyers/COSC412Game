@@ -304,8 +304,8 @@ default:
 function change()
 {
 var elem = document.getElementById("myButton1");
-if (elem.value == "Resume") elem.value = "Pause";
-else elem.value = "Resume";
+if (elem.value == '\u25B6') elem.value = '\u275A\u275A';
+else elem.value = '\u25B6';
 stopMoving();
 }
 
