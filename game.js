@@ -3,10 +3,11 @@
 //github repos @ https://github.com/justinbyers/COSC412Game
 
 /* TODO:
-    -fix restart() so that the pause/resume correctly resets -- i think works?
+    -fix restart() so that the pause/resume correctly resets -- done
     -remove excess console.logs that have no purpose anymore -- somewhat finished but prob best to keep some in case shit breaks again
-    -implement some enemy/monster variable to control x and y coords (instances) -- going to be difficult  
-    -figure out how to correctly implement some sort of pathing function 
+    
+    **-implement some enemy/monster variable to control x and y coords (instances) -- going to be difficult  
+    -figure out how to fix the current pathing function (or make a new&better one) 
         -by this i (justin) mean that it'll check like "can it move left, no? ok how about right, no? ok down, no? up? 
         -so there's instances where if the path goes left or up then it's stuck in an infinite loop (see "var grid" in gridtemplate.txt)
         -(current pathing will endlessly loop if there is 2+ left or up moves)
@@ -65,6 +66,9 @@ var templateGrid = //10x10 currently used
 var cols = 10;
 var rows = 10;
 var tileSize = 20;
+var pathColor = "#CCCCCC"; //path color
+var groundColor = "#228b22"; //rest of map color
+var monsterOnTileColor = "#f46542";
 
 //creates a quick little grid using variables col,rows,tileSize
 function createGrid() {
@@ -84,7 +88,7 @@ function createGrid() {
         row.style.paddingBottom = 0 + "px";
         row.style.margin = "0px 0px 0px 0px";
         row.style.listStyle = 0;
-        row.style.width = cols * tileSize + "px";
+        row.style.width = "220px";//cols * tileSize + "px"; //cols*tilesize+px is correct when cells have NO border
         row.style.height = tileSize + "px";
 
         for (var j = 0; j < cols; j++) {
@@ -94,12 +98,15 @@ function createGrid() {
 
             cell.style.width = tileSize + "px";
             cell.style.height = tileSize + "px";
-            cell.style.backgroundColor = "#228b22";
+            cell.style.backgroundColor = groundColor;
+
+            cell.style.border = "solid"; // may or may not be removed, added borders to see cells easier
+            cell.style.borderWidth = "1px"; //^
 
             cell.className = "PH_cell";
 
             if (templateGrid[i][j] == false) //just to differeniate the path cells
-                cell.style.backgroundColor = "#CCCCCC";
+                cell.style.backgroundColor = pathColor;
 
             counter++;
 
@@ -151,6 +158,7 @@ function findStart(type) {
 //really should be attached to monster/enemy instances
 var x = this.startX;
 var y = this.startY;
+var endMet = false;
 
 
 //current problem is that the path doesnt acknowledge previous step, 
@@ -161,11 +169,12 @@ var y = this.startY;
 function move() {
     document.getElementById(("cell" + (x) + y)).style.backgroundColor = "#222222";
 
-    console.log("GRID" + templateGrid[x][y]);
+    //console.log("GRID" + templateGrid[x][y]);
     if (x + 1 == 9) {
         x += 1;
         console.log("exit reached " + x + " " + y);
         continueMoving = false;
+        endMet = true;
     }
     else if (templateGrid[x + 1][y] == true) {
         x += 1;
@@ -187,12 +196,13 @@ function move() {
     else {
         console.log("EXIT REACHED");
         continueMoving = false;
+        endMet = true;
     }
 
-    //paints the current block "#EEEEEE" just for visibility
-    //document.getElementById(("cell" + (x) + y)).style.backgroundColor = "#EEEEEE";
-    setCellBackgroundColor(x, y, "#f46542");
 
+    //paints the current block "#EEEEEE" just for visibility
+    setCellBackgroundColor(x, y, monsterOnTileColor); 
+    console.log("x " + x + "  y " + y)
 }
 
 //--
@@ -220,7 +230,7 @@ function loadup() {
     console.log(gameData.startX + " " + gameData.startY);
 
 
-    setCellBackgroundColor(x, y, "#f46542");
+    setCellBackgroundColor(x, y, monsterOnTileColor);
     //move();
 
 }
@@ -238,11 +248,11 @@ function setCellBackgroundColor(cellX, cellY, color){
 }
 
 //stops the grid movement 
-//(currently doesnt update button .innerhtml correctly)
 function stopMoving() {
+    if(!endMet)
     continueMoving = !continueMoving;
 
-    var flag = document.getElementById("btn2").innerHTML;
+    var flag = document.getElementById("myButton2").innerHTML;
     console.log(flag);
     switch (flag.innerHTML) {
         case ("Resume"):
@@ -272,7 +282,8 @@ function restart() {
     this.gameData.startX = findStart("x");
     this.gameData.startY = findStart("y");
     console.log(gameData.startX + " " + gameData.startY);
+    continueMoving = true;
 
-    setCellBackgroundColor(x, y, "#EEEEEE");
+    setCellBackgroundColor(x, y, monsterOnTileColor);
 
 }
