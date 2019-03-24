@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tower Defense Game</title>
+    <link rel="stylesheet" href="" type="text/css">
+</head>
+
+<body>
+    <h1>Game</h1>
+
+
+    <div class="controls">
+        <div style="text-align:center">
+            <div class="indic">Level<br><span id="levelindic">5</span></div>&nbsp;&nbsp;&nbsp;
+            <div class="indic">Gold<br><span id="goldindic">100</span></div>
+        </div>
+        <div class="prog">
+            <div id="hpindic" style="width: 0px;"></div>
+        </div>
+        <input type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton" disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=2" value="Place AOE tower (200)" id="cTower2Bt"
+            disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=1" value="Place laser tower (40)" id="cTower1Bt"
+            disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=3" value="Place slow tower (1,000)" id="cTower3Bt"
+            disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=4" value="Place wall (10)" id="cTower4Bt" disabled=""><br>
+        <input type="button" onclick="sell()" value="Sell" id="sellbutton" disabled=""><br>
+        <br>
+        <br>
+        <input type="button" onclick="restart()" value="Restart">
+
+    </div>
+
+    <div>
+        <div id="losetext" style="visibility:visible;opacity:1">You lost the game</div>
+        <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)" onmousemove="mouseMove(event)">
+            Canvas not supported.
+        </canvas>
+    </div>
+
+    <script src="script.js" charset="utf-8" type="text/javascript"></script>
+</body>
+
+</html>
