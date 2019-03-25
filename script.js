@@ -75,6 +75,8 @@ function onLoadUp() {
 
 function setupPath() {
 
+    paintPath();
+
     path = new Array(new Point(0, 1),
         new Point(1, 1), new Point(2, 1),
         new Point(2, 2), new Point(2, 3),
@@ -82,7 +84,7 @@ function setupPath() {
         new Point(3, 5), new Point(4, 5),
         new Point(5, 5), new Point(5, 6),
         new Point(5, 7), new Point(5, 8),
-        new Point(5, 9));
+        new Point(5, 9)); //used to paint path on 
 
     directions = new Array();
     for (var i = 0; i < 10; i++) {
@@ -612,12 +614,56 @@ function mob(level) {
     }
 }
 
+function paintPath(){
+
+    context.globalAlpha = 1;
+    context.fillStyle = randomizedGroundColor();
+    //context.fillStyle = "#111111";
+
+    for(var i = 0; i < size; i++){
+        for(var j = 0; j < size; j++){
+            context.fillStyle = randomizedGroundColor();
+            context.fillRect(i * tilew + i, j * tileh + j, tilew, tileh);
+        }
+    }
+    context.beginPath();
+    context.stroke();
+}
+
+function randomizedGroundColor(){
+
+    // for(var i = 0; i < 6; i++){
+    //     color += "" + i; //randomized shit here, case maybe?? A thru F, 1 thru 9
+    // }
+
+    //context.fillStyle = color;
+    var num = Math.floor(Math.random() * 5);
+    var color = "#FFFFFF";
+
+    switch(num){
+        case 1: color = "#111111";
+        break;
+        case 2: color = "#999999";
+        break;
+        case 3: color = "#2fb3ee";
+        break;
+        case 4: color = "#2a1111";
+        break;
+        
+    }
+
+    return color;
+
+
+}
+
 function draw() {
     requestAnimFrame(draw);
     if (playerHealth <= 0) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.globalAlpha = 1;
+
     context.fillStyle = "#ad8461"; //PATH COLOR
     for (var i = 1; i < path.length; i++) {
         var a = path[i];
