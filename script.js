@@ -2,7 +2,8 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
 canvas.oncontextmenu = function () { return false; }
 
-var tilew, tileh;
+var tilew = 0.0;
+var tileh = 0.0;
 var towers = new Array();
 var mobs = new Array();
 var flakes = new Array();
@@ -20,7 +21,9 @@ var mobDelay = 0;
 var waveDelay = 100;
 var level = 1;
 var playerHealth = 100000;
-var gold = 1000000000000000000000;
+var gold = Infinity;
+var arr;
+var arr2;
 
 
 requestAnimFrame = (function () {
@@ -43,6 +46,8 @@ function onLoadUp() {
     document.getElementById('cTower2Bt').value = "Place AOE tower (" + numberFormat(towerCosts[1]) + ")";
     document.getElementById('cTower3Bt').value = "Place slow tower (" + numberFormat(towerCosts[2]) + ")";
     document.getElementById('cTower4Bt').value = "Place wall (" + numberFormat(towerCosts[3]) + ")";
+
+    arr = randomizedGroundColor();
 
     setupPath();
     genPath();
@@ -75,7 +80,6 @@ function onLoadUp() {
 
 function setupPath() {
 
-    paintPath();
 
     path = new Array(new Point(0, 1),
         new Point(1, 1), new Point(2, 1),
@@ -614,55 +618,104 @@ function mob(level) {
     }
 }
 
-function paintPath(){
+//SHIT LAGGY I THINK
+function paintPath() {
 
     context.globalAlpha = 1;
-    context.fillStyle = randomizedGroundColor();
-    //context.fillStyle = "#111111";
 
-    for(var i = 0; i < size; i++){
-        for(var j = 0; j < size; j++){
-            context.fillStyle = randomizedGroundColor();
-            context.fillRect(i * tilew + i, j * tileh + j, tilew, tileh);
+    var tile = 0;
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+
+             context.fillStyle = arr[tile++];
+            // context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); // bottom right of tile
+
+            // context.fillStyle = arr[tile++];
+            // context.fillRect((i * tilew) + i , (j * tileh) + j , tilew/2, tileh/2); //top left of tile
+
+            // context.fillStyle = arr[tile++];
+            //context.fillRect(tilew/2 + (i * tilew) + i , (j * tileh) + j , tilew/2, tileh/2); //top right of tile
+
+            // context.fillStyle = arr[tile++];
+            // context.fillRect((i * tilew) + i , tileh/2 + (j * tileh) + j , tilew/2, tileh/2); //bottom left of tile
+
+
+
+            context.fillStyle = arr[tile++];
+           //context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); 
+            context.fillStyle = arr[tile++];
+            //context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(26 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(13 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(0 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
+
+            context.fillStyle = arr[tile++];
+            context.fillRect(26 + (i * tilew + i),  13 + (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(13 + (i * tilew + i), 13 +  (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(0 + (i * tilew + i), 13 + (j * tileh) + j, tilew /3, tileh/3); 
+
+            context.fillStyle = arr[tile++];
+            context.fillRect(26 + (i * tilew + i),  26 + (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(13 + (i * tilew + i), 26 +  (j * tileh) + j, tilew /3, tileh/3); 
+            context.fillStyle = arr[tile++];
+            context.fillRect(0 + (i * tilew + i), 26 + (j * tileh) + j, tilew /3, tileh/3); 
+
+
+
+
+
+
         }
     }
     context.beginPath();
     context.stroke();
 }
 
-function randomizedGroundColor(){
 
-    // for(var i = 0; i < 6; i++){
-    //     color += "" + i; //randomized shit here, case maybe?? A thru F, 1 thru 9
-    // }
+function randomizedGroundColor() {
 
-    //context.fillStyle = color;
-    var num = Math.floor(Math.random() * 5);
-    var color = "#FFFFFF";
+    arr = new Array();
 
-    switch(num){
-        case 1: color = "#111111";
-        break;
-        case 2: color = "#999999";
-        break;
-        case 3: color = "#2fb3ee";
-        break;
-        case 4: color = "#2a1111";
-        break;
-        
+    for (var i = 0; i < 1200; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
+
+        var num = Math.floor(Math.random() * 5);
+        var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
+
+        switch (num) { //feel free to change these #hex codes to whatever. or add more
+            case 0: color = "#71aa3d";
+                break;
+            case 1: color = "#5b8e39";
+                break;
+            case 2: color = "#6fb231";
+                break;
+            case 3: color = "#7caf52";
+                break;
+            case 4: color = "#4b9b29";
+                break;
+
+        }
+        arr[i] = color;
     }
-
-    return color;
-
-
+    
+    return arr;
 }
-
+var counter = 0;
 function draw() {
     requestAnimFrame(draw);
     if (playerHealth <= 0) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.globalAlpha = 1;
+
+    //context.
+    if (counter < 1)
+        paintPath();
 
     context.fillStyle = "#ad8461"; //PATH COLOR
     for (var i = 1; i < path.length; i++) {
@@ -676,11 +729,11 @@ function draw() {
     }
     context.fillStyle = "#ad8461"; //start/end color
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
-    context.fillRect(path[path.length - 1].x * tilew + path[path.length - 1].x, path[path.length - 1].y * tileh + path[path.length - 1].y, tilew, tileh);
+    //context.fillRect(path[path.length - 1].x * tilew + path[path.length - 1].x, path[path.length - 1].y * tileh + path[path.length - 1].y, tilew, tileh);
 
     context.strokeStyle = "#111111"; //grid lines between tiles
     context.lineWidth = 1;
-    context.beginPath();
+    //context.beginPath();
     for (var i = 0; i < 21; i++) {
         context.moveTo(i * tilew + i, 0);
         context.lineTo(i * tilew + i, canvas.height);
