@@ -18,36 +18,39 @@
             <div class="indic">Level<br><span id="levelindic">5</span></div>&nbsp;&nbsp;&nbsp;
             <div class="indic">Gold<br><span id="goldindic">100</span></div>
         </div>
+
         <div class="prog">
             <div id="hpindic" style="width: 0px;"></div>
         </div>
+
         <input type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton" disabled=""><br>
-        <input type="button" onclick="ctower=true;towerType=2" value="Place AOE tower (200)" id="cTower2Bt"
-            disabled=""><br>
-        <input type="button" onclick="ctower=true;towerType=1" value="Place laser tower (40)" id="cTower1Bt"
-            disabled=""><br>
-        <input type="button" onclick="ctower=true;towerType=3" value="Place slow tower (1,000)" id="cTower3Bt"
-            disabled=""><br>
+       
+        <input type="button" onclick="ctower=true;towerType=2" value="Place AOE tower (200)" id="cTower2Bt" disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=1" value="Place laser tower (40)" id="cTower1Bt" disabled=""><br>
+        <input type="button" onclick="ctower=true;towerType=3" value="Place slow tower (1,000)" id="cTower3Bt" disabled=""><br>
         <input type="button" onclick="ctower=true;towerType=4" value="Place wall (10)" id="cTower4Bt" disabled=""><br>
-        <input type="button" onclick="sell()" value="Sell" id="sellbutton" disabled=""><br>
-        <br>
-        <br>
-        <input type="button" onclick="restart()" value="Restart">
+       
+        <input type="button" onclick="sell()" value="Sell" id="sellbutton" disabled="">
+        <br><br>
+
+        <input type="button" onclick="restart()" value="Restart"><br>
+        <input type="button" onclick="ctower=true;towerType=5" value="Place Poison tower (10)" id="cTower5Bt"
+            disabled="" ;>
 
     </div>
 
     <div>
-        <div id="losetext" style="visibility:visible;opacity:1">You lost the game</div>
         <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)" onmousemove="mouseMove(event)">
             Canvas not supported.
         </canvas>
     </div>
 
-    <div>
-        <input type="button" onclick = "test()">
-        <input type="button" onclick = "testt()">
-        <input type="button" onclick = "testtt()">
-        
+    <div id="testButtons">
+        <input type="button" onclick="test()">
+        <input type="button" onclick="testt()">
+        <input type="button" onclick="testtt()">
+        <input type="button" onclick="test4()" value="Reset Ground">
+
     </div>
 
     <script src="script.js" charset="utf-8" type="text/javascript"></script>

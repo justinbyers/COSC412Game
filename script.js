@@ -8,7 +8,7 @@ var towers = new Array();
 var mobs = new Array();
 var flakes = new Array();
 var size = 10;
-var towerCosts = new Array(40, 200, 1000, 10);
+var towerCosts = new Array(40, 200, 1000, 10, 10); //laser, aoe, slow, wall, x
 var directions;
 
 var ctower = false;
@@ -675,12 +675,12 @@ function paintPath() {
         }
     }
     */
-    for(var i = 0; i < size; i++){
-        for(var j = 0; j < size; j++){
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
             context.fillStyle = arr[tile++];
-            context.fillRect(i*tilew+i, j*tileh+j, size*size, size*size);
+            context.fillRect(i * tilew + i, j * tileh + j, size * size, size * size);
         }
-        
+
     }
     context.beginPath();
     context.stroke();
@@ -707,6 +707,7 @@ function randomizedGroundColor() {
                 break;
             case 4: color = "#4b9b29";
                 break;
+                
 
         }
         arr[i] = color;
@@ -947,6 +948,11 @@ function updateUI() {
     else
         document.getElementById('cTower4Bt').disabled = true;
 
+    if (gold >= towerCosts[4] && playerHealth > 0)
+        document.getElementById('cTower5Bt').disabled = false;
+    else
+        document.getElementById('cTower5Bt').disabled = true;
+
     document.getElementById('hpindic').style.width = Math.floor(212 * Math.max(playerHealth, 0) / 10) + "px";
     document.getElementById('levelindic').innerHTML = level;
     document.getElementById('goldindic').innerHTML = numberFormat(gold);
@@ -1040,6 +1046,107 @@ document.onkeydown = function (keyPress) {
 
 
 }
+
+
+
+
+
+
+
+function poisonTower(x, y) {
+    this.lvl = 1;
+    this.range = 2.3;
+    this.sel = false;
+    this.cost = 4;
+
+    this.x = x;
+    this.y = y;
+    this.dmg = function () {
+        return Math.pow(1.7, this.lvl) * 3;
+    }
+
+
+    this.getXCenter = function () {
+        return this.x * tilew + this.x + tilew / 2 + 0.5;
+    }
+    this.getYCenter = function () {
+        return this.y * tileh + this.y + tileh / 2 + 0.5;
+    }
+    this.getUpgradeCost = function () {
+        return towerCosts[0] + Math.floor(Math.pow(1.9, this.lvl) * 60);
+    }
+    this.getSellValue = function () {
+        return towerCosts[0] / 2 + Math.floor((Math.pow(1.9, this.lvl - 1) - 1) * 60);
+    }
+
+    this.draw = function () {
+        context.save();
+        context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
+
+
+        context.fillStyle = "#FF0000";
+        context.lineWidth = 2;
+        context.strokeStyle = "#880000";
+        context.beginPath();
+        context.moveTo(-0.40 * tilew, 0.42 * tileh);
+        context.lineTo(-0.15 * tilew, 0.2 * tileh);
+        context.lineTo(0, -0.2 * tileh);
+        context.lineTo(0.15 * tilew, 0.2 * tileh);
+        context.lineTo(0.4 * tilew, 0.42 * tileh);
+        context.lineTo(-0.4 * tilew, 0.42 * tileh);
+        context.fill();
+        context.stroke();
+
+        if (this.atk) {
+            context.fillStyle = "#FF0";
+            context.strokeStyle = "#D3D300";
+        }
+        context.beginPath();
+        context.arc(0, -0.2 * tileh, Math.floor(Math.min(tilew, tileh) * 0.2), 0, 2 * Math.PI, false);
+        context.fill();
+        context.stroke();
+
+        if (this.sel) {
+            context.strokeStyle = "#FF0";
+            context.beginPath();
+            context.moveTo(-tilew / 2, -tileh / 2);
+            context.lineTo(-tilew / 2, tileh / 2);
+            context.lineTo(tilew / 2, tileh / 2);
+            context.lineTo(tilew / 2, -tileh / 2);
+            context.lineTo(-tilew / 2, -tileh / 2);
+            context.stroke();
+        }
+
+        context.strokeStyle = '#FFF';
+        context.strokeText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
+        context.fillStyle = '#000';
+        context.fillText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
+        context.restore();
+    }
+
+    this.attack = function () {
+        this.atk = false;
+        for (var i = 0; i < mobs.length; i++) {
+            var xdist = mobs[i].x - this.x;
+            var ydist = mobs[i].y - this.y;
+            var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+            if (dist <= this.range) {
+                mobs[i].hp -= this.dmg();
+                this.atk = true;
+
+                context.beginPath();
+                context.lineWidth = 2;
+                context.moveTo(this.x * tilew + this.x + tilew / 2, this.y * tileh + this.y + tileh / 2 - 0.2 * tileh);
+                context.lineTo(mobs[i].getXCenter(), mobs[i].getYCenter());
+                context.strokeStyle = "#FF0";
+                context.stroke();
+                break;
+            }
+        }
+    }
+}
+
+//test functions below
 function test() {
     console.log("a");
     console.log(localStorage.length);
@@ -1059,5 +1166,11 @@ function testtt() {
     img.src = dataURL;
     img.onload = function () {
         context.drawImage(img, 0, 0);
+    }
+}
+function test4(){
+    var arrsize = arr.length;
+    for(var i = 0; i < arrsize; i++){
+        arr[i] = "#999999";
     }
 }
