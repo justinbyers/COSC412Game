@@ -624,6 +624,7 @@ function paintPath() {
     context.globalAlpha = 1;
 
     var tile = 0;
+    /* unblock this for complex 3x3 grid within each tile (uses more data)
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
 
@@ -673,6 +674,14 @@ function paintPath() {
 
         }
     }
+    */
+    for(var i = 0; i < size; i++){
+        for(var j = 0; j < size; j++){
+            context.fillStyle = arr[tile++];
+            context.fillRect(i*tilew+i, j*tileh+j, size*size, size*size);
+        }
+        
+    }
     context.beginPath();
     context.stroke();
 }
@@ -682,7 +691,7 @@ function randomizedGroundColor() {
 
     arr = new Array();
 
-    for (var i = 0; i < 1200; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
+    for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
 
         var num = Math.floor(Math.random() * 5);
         var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
@@ -702,7 +711,7 @@ function randomizedGroundColor() {
         }
         arr[i] = color;
     }
-    
+
     return arr;
 }
 var counter = 0;
@@ -1031,4 +1040,24 @@ document.onkeydown = function (keyPress) {
 
 
 }
-
+function test() {
+    console.log("a");
+    console.log(localStorage.length);
+    console.log(localStorage.key);
+}
+function testt() {
+    console.log("b");
+    localStorage.setItem(context, canvas.toDataURL());
+    context.clearRect(0, 0, 1000, 1000);
+    for (var i = 0; i < 400; i++)
+        arr[i] = 1;
+}
+function testtt() {
+    console.log("c");
+    var dataURL = localStorage.getItem(canvas);
+    var img = new Image;
+    img.src = dataURL;
+    img.onload = function () {
+        context.drawImage(img, 0, 0);
+    }
+}
