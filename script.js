@@ -79,7 +79,15 @@ function onLoadUp() {
 }
 
 function setupPath() {
-
+    
+    directions = new Array();
+    for (var i = 0; i < 10; i++) {
+        directions[i] = new Array();
+        for (var j = 0; j < 10; j++) {
+            directions[i][j] = new VisPoint(i, j);
+            directions[i][j].from = 1;
+        }
+    }
 
     // path = new Array(new Point(0, 1),
     //     new Point(1, 1), new Point(2, 1),
@@ -103,14 +111,6 @@ function setupPath() {
 
     
 
-    directions = new Array();
-    for (var i = 0; i < 10; i++) {
-        directions[i] = new Array();
-        for (var j = 0; j < 10; j++) {
-            directions[i][j] = new VisPoint(i, j);
-            directions[i][j].from = 1;
-        }
-    }
     
 
     //PATH 1 DIRECTIONS:
@@ -132,6 +132,29 @@ function setupPath() {
     //PATH 2 DIRECTIONS:
     directions[9][4].from = new VisPoint(8, 4);
     directions[8][4].from = new VisPoint(8, 3);
+    directions[8][3].from = new VisPoint(7, 3);
+    directions[7][3].from = new VisPoint(6, 3);
+    directions[6][3].from = new VisPoint(6, 2);
+    directions[6][2].from = new VisPoint(5, 2);
+    directions[5][2].from = new VisPoint(4, 2);
+    directions[4][2].from = new VisPoint(4, 1);
+    directions[4][1].from = new VisPoint(3, 1);
+    directions[3][1].from = new VisPoint(2, 1);
+    directions[2][1].from = new VisPoint(1, 1);
+    directions[1][1].from = new VisPoint(1, 2);
+    directions[1][2].from = new VisPoint(1, 3);
+    directions[1][3].from = new VisPoint(1, 4);
+    directions[1][4].from = new VisPoint(2, 4);
+    directions[2][4].from = new VisPoint(2, 5);
+    directions[2][5].from = new VisPoint(2, 6);
+    directions[2][6].from = new VisPoint(3, 6);
+    directions[3][6].from = new VisPoint(3, 7);
+    directions[3][7].from = new VisPoint(3, 8);
+    directions[3][8].from = new VisPoint(4, 8);
+    directions[4][8].from = new VisPoint(4, 9);
+    directions[4][9].from = new VisPoint(4, 10);
+    
+
 
 }
 
