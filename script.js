@@ -81,14 +81,27 @@ function onLoadUp() {
 function setupPath() {
 
 
-    path = new Array(new Point(0, 1),
-        new Point(1, 1), new Point(2, 1),
-        new Point(2, 2), new Point(2, 3),
-        new Point(2, 4), new Point(2, 5),
-        new Point(3, 5), new Point(4, 5),
-        new Point(5, 5), new Point(5, 6),
-        new Point(5, 7), new Point(5, 8),
-        new Point(5, 9)); //used to paint path on 
+    // path = new Array(new Point(0, 1),
+    //     new Point(1, 1), new Point(2, 1),
+    //     new Point(2, 2), new Point(2, 3),
+    //     new Point(2, 4), new Point(2, 5),
+    //     new Point(3, 5), new Point(4, 5),
+    //     new Point(5, 5), new Point(5, 6),
+    //     new Point(5, 7), new Point(5, 8),
+    //     new Point(5, 9)); //used to paint path on 
+
+    path = new Array(new Point(9, 4),
+    new Point(8, 4), new Point(8, 3), new Point(7, 3),
+    new Point(6, 3), new Point(6, 2), new Point(5, 2),
+    new Point(4, 2), new Point(4, 1), new Point(3, 1), 
+    new Point(2, 1), new Point(1, 1), new Point(1, 2), 
+    new Point(1, 3), new Point(1, 4), new Point(2, 4),
+    new Point(2, 5), new Point(2, 6), new Point(3, 6), 
+    new Point(3, 7), new Point(3, 8), new Point(4, 8),
+    new Point(4, 9)
+    );
+
+    
 
     directions = new Array();
     for (var i = 0; i < 10; i++) {
@@ -98,21 +111,27 @@ function setupPath() {
             directions[i][j].from = 1;
         }
     }
+    
 
-    directions[0][1].from = new VisPoint(1, 1);
-    directions[1][1].from = new VisPoint(2, 1);
-    directions[2][1].from = new VisPoint(2, 2);
-    directions[2][2].from = new VisPoint(2, 3);
-    directions[2][3].from = new VisPoint(2, 4);
-    directions[2][4].from = new VisPoint(2, 5);
-    directions[2][5].from = new VisPoint(3, 5);
-    directions[3][5].from = new VisPoint(4, 5);
-    directions[4][5].from = new VisPoint(5, 5);
-    directions[5][5].from = new VisPoint(5, 6);
-    directions[5][6].from = new VisPoint(5, 7);
-    directions[5][7].from = new VisPoint(5, 8);
-    directions[5][8].from = new VisPoint(5, 9);
-    directions[5][9].from = new VisPoint(5, 10);
+    //PATH 1 DIRECTIONS:
+    // directions[0][1].from = new VisPoint(1, 1);
+    // directions[1][1].from = new VisPoint(2, 1);
+    // directions[2][1].from = new VisPoint(2, 2);
+    // directions[2][2].from = new VisPoint(2, 3);
+    // directions[2][3].from = new VisPoint(2, 4);
+    // directions[2][4].from = new VisPoint(2, 5);
+    // directions[2][5].from = new VisPoint(3, 5);
+    // directions[3][5].from = new VisPoint(4, 5);
+    // directions[4][5].from = new VisPoint(5, 5);
+    // directions[5][5].from = new VisPoint(5, 6);
+    // directions[5][6].from = new VisPoint(5, 7);
+    // directions[5][7].from = new VisPoint(5, 8);
+    // directions[5][8].from = new VisPoint(5, 9);
+    // directions[5][9].from = new VisPoint(5, 10);
+
+    //PATH 2 DIRECTIONS:
+    directions[9][4].from = new VisPoint(8, 4);
+    directions[8][4].from = new VisPoint(8, 3);
 
 }
 
@@ -957,9 +976,9 @@ function updateUI() {
     document.getElementById('levelindic').innerHTML = level;
     document.getElementById('goldindic').innerHTML = numberFormat(gold);
     if (playerHealth <= 0) {
-        document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
+        //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {
-        document.getElementById("losetext").setAttribute("style", "visibility:hidden;opacity:0");
+        //document.getElementById("losetext").setAttribute("style", "visibility:hidden;opacity:0");
     }
 }
 
