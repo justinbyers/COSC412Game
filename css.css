@@ -5,15 +5,14 @@
   
 }
 #middlerow{
-    background: #222222;
-
-    display: inline
+    background: #2222228c;
+    display: inline-flex;
+    margin: 20px 20px 20px 20px
 }
 #leftCol{
-    border: 2px solid;
     display: inline-block;
     height: 400px;
-    width: 400px;
+    width: 75px;
 }
 #midCol{
     border: 2px solid;
@@ -23,12 +22,9 @@
 
 }
 #rightCol{
-    border:2px solid #888888;
+
     display: inline-block;
     height: 400px;
-    width: 400px;
-
-    background: #9c2e2e;
-
+    width: 75px;
 
 }
