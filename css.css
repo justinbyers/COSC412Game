@@ -2,7 +2,7 @@
     background: #aaaaaa;
     border: 2px solid;
     padding: 10px 10px 10px 10px;
-    width: 580px;
+    width: 600px;
 
   
 }
@@ -47,8 +47,9 @@
 #midCol{
     display: inline-block;
     height: 400px;
-    width: 400px;
+    width: auto;
     margin: 5px 5px 5px 5px;
+    position: relative;
 
 }
 #rightCol{
@@ -61,7 +62,7 @@
 #infoBox{
     border: 2px solid black;
     width: 125px;
-    height: 200px;
+    height: 156px;
     margin: 5px 5px 5px 5px;
 }
 #towerBtns{
@@ -82,7 +83,7 @@ a.button{
     background-color: blue;
 }
 sellbutton.button{
-    width: 300px;
+    width: 290px;
 }
 .controls
 {

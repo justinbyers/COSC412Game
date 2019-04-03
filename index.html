@@ -56,10 +56,17 @@
 
                 <div id="leftCol">
                     <div id="infoBox">
+                        Wave #: 
+                        <hr class="number" type="number" value="level" id="Wave#"> 
+                        Gold:
+                        <hr class="number" type="number" value="gold" id="goldAmount">
+                        HP: 
+                        <hr class="number" type="number" value="playerHealth" id="hp">
+                        
+                          
+                    </hr>
 
-                        Wave #:
-
-                    </div>
+                    </hr>
                     <div id="towerBtns">
                         <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
                             id="tower1bt" disabled="">
@@ -90,7 +97,7 @@
                     </div>
 
 
-                </div>
+                </hr>
                 <div id="midCol">
 
                     <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)"

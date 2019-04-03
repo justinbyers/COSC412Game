@@ -990,9 +990,9 @@ function updateUI() {
     // else
     //     document.getElementById('cTower5Bt').disabled = true;
 
-//    document.getElementById('hpindic').style.width = Math.floor(212 * Math.max(playerHealth, 0) / 10) + "px";
-//    document.getElementById('levelindic').innerHTML = level;
-//    document.getElementById('goldindic').innerHTML = numberFormat(gold);
+    document.getElementById('hp').innerHTML = playerHealth;
+    document.getElementById('Wave#').innerHTML = level;
+    document.getElementById('goldAmount').innerHTML = numberFormat(gold);
     if (playerHealth <= 0) {
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {
