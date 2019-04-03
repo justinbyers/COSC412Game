@@ -15,6 +15,7 @@
     border: 5px solid #867855;
         border-bottom: 0px;
     height: 100px;
+    width: auto;
 }
 #middleRow{
     background: #dfc98f;
@@ -31,15 +32,15 @@
     background: #dfc98f;
     border: 5px solid #867855;
     border-top: 0px;
-    width: 566px;
-    height: 100px;
+    width: 576px;
+    height: 230px;
     margin: 0px 0px 0px 0px;
 
 }
 #leftCol{
     display: inline-block;
     height: 400px;
-    width: auto;
+    width: 576px;
     text-align: center;
     margin: 5px 5px 5px 5px;
 
@@ -47,9 +48,11 @@
 #midCol{
     display: inline-block;
     height: 400px;
-    width: auto;
+    width: 398px;
     margin: 5px 5px 5px 5px;
-    position: relative;
+    position: fixed;
+    top: 120px;
+    left: 185px;
 
 }
 #rightCol{
@@ -104,10 +107,10 @@ sellbutton.button{
     text-decoration: none;
     font-size: 12px;
     padding: 1px 10px 1px 10px;
-    width: 130px;
+    width: 118px;
 
     cursor: pointer;
-
+    position: relative;
 }
 
 .upgrade{
