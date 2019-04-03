@@ -36,6 +36,21 @@
     width: auto;
 
 }
+#infoBox{
+    border: 2px solid black;
+    width: 125px;
+    height: 200px;
+    margin: 5px 5px 5px 5px;
+}
+#towerBtns{
+
+}
+#towerUtilBtns{
+
+    width: auto;
+
+    margin: 5px 5px 5px 5px;
+}
 
 /* CSS Document */
 a.button{
@@ -62,6 +77,8 @@ a.button{
     text-align: center;
     text-decoration: none;
     font-size: 12px;
+    padding: 1px 10px 1px 10px;
+    width: 130px;
 
     cursor: pointer;
 

@@ -55,6 +55,9 @@
 
 
             <div id="leftCol">
+                <div id="infoBox">
+
+                </div>
                 <div id="towerBtns">
                     <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
                         id="tower1bt" disabled="">
@@ -67,10 +70,22 @@
                     <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
 
                 </div>
-                <input class="b1" type='button' onclick="sell()" value="Sell" id="sellbutton" disabled="">
+                <div id="towerUtilBtns">
+                    
+                    <div class="sellBtn">
+                        <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton" disabled="">
+                    </div>
 
-                <input class='upgrade' type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton" disabled="">
-                <input class='restart' type="button" onclick="restart()" value="Restart">
+                    <div class="upgradeBtn">
+                        <input class="button" type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton"
+                            disabled="">
+                    </div>
+
+                </div>
+                <div id="gameUtilBtns">
+                    <input class='restart' type="button" onclick="restart()" value="Restart">
+                </div>
+
 
             </div>
             <div id="midCol">
