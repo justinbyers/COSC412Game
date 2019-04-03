@@ -13,17 +13,17 @@
 
 
     <div id="innerWrapper">
+        <div id="rowBox">
+            <div id="topRow">
+                <h1 class="pageTitle">Game</h1>
+                <div id="canvastop">
 
-        <div id="toprow">
-            <h1 class="pageTitle">Game</h1>
-            <div id="canvastop">
-
+                </div>
             </div>
-        </div>
-        <div id="middlerow">
+            <div id="middleRow">
 
 
-            <!-- <div class="controls" style="display: none">
+                <!-- <div class="controls" style="display: none">
                 <div style="text-align:center">
                     <div class="indic">Level<br><span id="levelindic">5</span></div>&nbsp;&nbsp;&nbsp;
                     <div class="indic">Gold<br><span id="goldindic">100</span></div>
@@ -54,64 +54,71 @@
             </div> -->
 
 
-            <div id="leftCol">
-                <div id="infoBox">
+                <div id="leftCol">
+                    <div id="infoBox">
 
-                </div>
-                <div id="towerBtns">
-                    <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
-                        id="tower1bt" disabled="">
-                    <input class="button" type="button" onclick="ctower=true;towerType=2" value="AOE tower (200)"
-                        id="tower2bt" disabled="">
-                    <input class="button" type="button" onclick="ctower=true;towerType=3" value="Slow tower (1,000)"
-                        id="tower3bt" disabled="">
-                    <input class="button" type="button" onclick="ctower=true;towerType=4" value="Wall (10)"
-                        id="tower4bt" disabled="">
-                    <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
+                        Wave #:
 
-                </div>
-                <div id="towerUtilBtns">
-                    
-                    <div class="sellBtn">
-                        <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton" disabled="">
+                    </div>
+                    <div id="towerBtns">
+                        <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
+                            id="tower1bt" disabled="">
+                        <input class="button" type="button" onclick="ctower=true;towerType=2" value="AOE tower (200)"
+                            id="tower2bt" disabled="">
+                        <input class="button" type="button" onclick="ctower=true;towerType=3" value="Slow tower (1,000)"
+                            id="tower3bt" disabled="">
+                        <input class="button" type="button" onclick="ctower=true;towerType=4" value="Wall (10)"
+                            id="tower4bt" disabled="">
+                        <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
+
+                    </div>
+                    <div id="towerUtilBtns">
+
+                        <div class="sellBtn">
+                            <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton"
+                                disabled="">
+                        </div>
+
+                        <div class="upgradeBtn">
+                            <input class="button" type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton"
+                                disabled="">
+                        </div>
+
+                    </div>
+                    <div id="gameUtilBtns">
+                        <input class='restart' type="button" onclick="restart()" value="Restart">
                     </div>
 
-                    <div class="upgradeBtn">
-                        <input class="button" type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton"
-                            disabled="">
-                    </div>
 
                 </div>
-                <div id="gameUtilBtns">
-                    <input class='restart' type="button" onclick="restart()" value="Restart">
+                <div id="midCol">
+
+                    <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)"
+                        onmousemove="mouseMove(event)" style="border: 1px solid black">
+                        Canvas not supported.
+                    </canvas>
+                </div>
+
+                <div id="rightCol">
+
                 </div>
 
 
             </div>
-            <div id="midCol">
-
-                <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)"
-                    onmousemove="mouseMove(event)">
-                    Canvas not supported.
-                </canvas>
-            </div>
-
-            <div id="rightCol">
+            <div id="bottomRow">
 
             </div>
 
+            <div id="testButtons" style="display:none">
+                <input type="button" onclick="test()">
+                <input type="button" onclick="testt()">
+                <input type="button" onclick="testtt()">
+                <input type="button" onclick="test4()" value="Reset Ground">
+
+
+            </div>
 
         </div>
-
-        <div id="testButtons">
-            <input type="button" onclick="test()">
-            <input type="button" onclick="testt()">
-            <input type="button" onclick="testtt()">
-            <input type="button" onclick="test4()" value="Reset Ground">
-
-
-        </div>
-
     </div>
 
     </div>

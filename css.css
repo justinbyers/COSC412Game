@@ -1,18 +1,40 @@
 #innerWrapper{
-    background: #ffffff;
+    background: #aaaaaa;
     border: 2px solid;
     padding: 10px 10px 10px 10px;
-    width: 560px;
+    width: 580px;
 
   
 }
-#middlerow{
-    background: #2222228c;
+#rowBox{
+    border: 2px solid black;
+    
+}
+#topRow{
+    background: #dfc98f;
+    border: 5px solid #867855;
+        border-bottom: 0px;
+    height: 100px;
+}
+#middleRow{
+    background: #dfc98f;
+    border: 5px solid #867855;
+    border-top: 0px;
+    border-bottom: 0px;
     display: inline-flex;
     margin: 0px auto 0px auto;
-    border: 2px solid #aaaaaa;
+
     position: relative;
     
+}
+#bottomRow{
+    background: #dfc98f;
+    border: 5px solid #867855;
+    border-top: 0px;
+    width: 566px;
+    height: 100px;
+    margin: 0px 0px 0px 0px;
+
 }
 #leftCol{
     display: inline-block;
@@ -46,11 +68,11 @@
 
 }
 #towerUtilBtns{
-
     width: auto;
-
     margin: 5px 5px 5px 5px;
+
 }
+
 
 /* CSS Document */
 a.button{
@@ -58,6 +80,9 @@ a.button{
     float: left;
     color: aqua;
     background-color: blue;
+}
+sellbutton.button{
+    width: 300px;
 }
 .controls
 {
@@ -106,7 +131,7 @@ a.button{
     text-decoration: none;
     font-size: 16px;
 
-    cursor: pointer;
+    margin: 20px 0px 20px 0px;
 
 }
 .restart:active
