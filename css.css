@@ -1,0 +1,34 @@
+#innerWrapper{
+    background: #ffffff;
+    border: 2px solid;
+    padding: 10px 10px 10px 10px;
+  
+}
+#middlerow{
+    background: #222222;
+
+    display: inline
+}
+#leftCol{
+    border: 2px solid;
+    display: inline-block;
+    height: 400px;
+    width: 400px;
+}
+#midCol{
+    border: 2px solid;
+    display: inline-block;
+    height: 400px;
+    width: 400px;
+
+}
+#rightCol{
+    border:2px solid #888888;
+    display: inline-block;
+    height: 400px;
+    width: 400px;
+
+    background: #9c2e2e;
+
+
+}
