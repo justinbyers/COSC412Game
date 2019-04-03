@@ -15,12 +15,15 @@
     <div id="innerWrapper">
 
         <div id="toprow">
-            <h1>Game</h1>
+            <h1 class="pageTitle">Game</h1>
+            <div id="canvastop">
+
+            </div>
         </div>
         <div id="middlerow">
 
 
-            <div class="controls" style="display: none">
+            <!-- <div class="controls" style="display: none">
                 <div style="text-align:center">
                     <div class="indic">Level<br><span id="levelindic">5</span></div>&nbsp;&nbsp;&nbsp;
                     <div class="indic">Gold<br><span id="goldindic">100</span></div>
@@ -48,12 +51,26 @@
                 <input type="button" onclick="ctower=true;towerType=5" value="Place Poison tower (10)" id="cTower5Bt"
                     disabled="" ;>
 
-            </div>
+            </div> -->
 
 
             <div id="leftCol">
-                <button>AAAA</button>
-                left side buttons here. perhaps things like towers
+                <div id="towerBtns">
+                    <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
+                        id="tower1bt" disabled="">
+                    <input class="button" type="button" onclick="ctower=true;towerType=2" value="AOE tower (200)"
+                        id="tower2bt" disabled="">
+                    <input class="button" type="button" onclick="ctower=true;towerType=3" value="Slow tower (1,000)"
+                        id="tower3bt" disabled="">
+                    <input class="button" type="button" onclick="ctower=true;towerType=4" value="Wall (10)"
+                        id="tower4bt" disabled="">
+                    <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
+
+                </div>
+                <input class="b1" type='button' onclick="sell()" value="Sell" id="sellbutton" disabled="">
+
+                <input class='upgrade' type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton" disabled="">
+                <input class='restart' type="button" onclick="restart()" value="Restart">
 
             </div>
             <div id="midCol">
@@ -63,9 +80,9 @@
                     Canvas not supported.
                 </canvas>
             </div>
+
             <div id="rightCol">
-                <button>TEST</button>
-                right side stuff here. maybe utility buttons like "call next wave early" etc
+
             </div>
 
 
@@ -76,6 +93,7 @@
             <input type="button" onclick="testt()">
             <input type="button" onclick="testtt()">
             <input type="button" onclick="test4()" value="Reset Ground">
+
 
         </div>
 

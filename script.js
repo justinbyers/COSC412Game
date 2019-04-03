@@ -42,10 +42,10 @@ function onLoadUp() {
 
     updateUI();
 
-    document.getElementById('cTower1Bt').value = "Place laser tower (" + numberFormat(towerCosts[0]) + ")";
-    document.getElementById('cTower2Bt').value = "Place AOE tower (" + numberFormat(towerCosts[1]) + ")";
-    document.getElementById('cTower3Bt').value = "Place slow tower (" + numberFormat(towerCosts[2]) + ")";
-    document.getElementById('cTower4Bt').value = "Place wall (" + numberFormat(towerCosts[3]) + ")";
+    document.getElementById('tower1bt').value = "Laser \ntower (" + numberFormat(towerCosts[0]) + ")";
+    document.getElementById('tower2bt').value = "AOE \ntower (" + numberFormat(towerCosts[1]) + ")";
+    document.getElementById('tower3bt').value = "Slow \ntower (" + numberFormat(towerCosts[2]) + ")";
+    document.getElementById('tower4bt').value = "Wall (" + numberFormat(towerCosts[3]) + ")";
 
     arr = randomizedGroundColor();
 
@@ -709,11 +709,6 @@ function paintPath() {
             context.fillStyle = arr[tile++];
             context.fillRect(0 + (i * tilew + i), 26 + (j * tileh) + j, tilew /3, tileh/3); 
 
-
-
-
-
-
         }
     }
     */
@@ -968,36 +963,36 @@ function updateUI() {
         }
     }
     if (gold >= towerCosts[0] && playerHealth > 0)
-        document.getElementById('cTower1Bt').disabled = false;
+        document.getElementById('tower1bt').disabled = false;
     else
-        document.getElementById('cTower1Bt').disabled = true;
+        document.getElementById('tower1bt').disabled = true;
 
 
     if (gold >= towerCosts[1] && playerHealth > 0)
-        document.getElementById('cTower2Bt').disabled = false;
+        document.getElementById('tower2bt').disabled = false;
     else
-        document.getElementById('cTower2Bt').disabled = true;
+        document.getElementById('tower2bt').disabled = true;
 
 
     if (gold >= towerCosts[2] && playerHealth > 0)
-        document.getElementById('cTower3Bt').disabled = false;
+        document.getElementById('tower3bt').disabled = false;
     else
-        document.getElementById('cTower3Bt').disabled = true;
+        document.getElementById('tower3bt').disabled = true;
 
 
     if (gold >= towerCosts[3] && playerHealth > 0)
-        document.getElementById('cTower4Bt').disabled = false;
+        document.getElementById('tower4bt').disabled = false;
     else
-        document.getElementById('cTower4Bt').disabled = true;
+        document.getElementById('tower4bt').disabled = true;
 
-    if (gold >= towerCosts[4] && playerHealth > 0)
-        document.getElementById('cTower5Bt').disabled = false;
-    else
-        document.getElementById('cTower5Bt').disabled = true;
+    // if (gold >= towerCosts[4] && playerHealth > 0)
+    //     document.getElementById('cTower5Bt').disabled = false;
+    // else
+    //     document.getElementById('cTower5Bt').disabled = true;
 
-    document.getElementById('hpindic').style.width = Math.floor(212 * Math.max(playerHealth, 0) / 10) + "px";
-    document.getElementById('levelindic').innerHTML = level;
-    document.getElementById('goldindic').innerHTML = numberFormat(gold);
+//    document.getElementById('hpindic').style.width = Math.floor(212 * Math.max(playerHealth, 0) / 10) + "px";
+//    document.getElementById('levelindic').innerHTML = level;
+//    document.getElementById('goldindic').innerHTML = numberFormat(gold);
     if (playerHealth <= 0) {
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {
@@ -1211,8 +1206,13 @@ function testtt() {
     }
 }
 function test4(){
-    var arrsize = arr.length;
-    for(var i = 0; i < arrsize; i++){
-        arr[i] = "#999999";
+    // var arrsize = arr.length;
+    // for(var i = 0; i < arrsize; i++){
+    //     arr[i] = "#999999";
+    // }
+
+    for (var i = 0; i < towerCosts.length; i++){
+        console.log(towerCosts[i]);
     }
+    console.log((gold >= towerCosts[0] && playerHealth > 0))
 }

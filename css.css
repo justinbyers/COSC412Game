@@ -2,29 +2,121 @@
     background: #ffffff;
     border: 2px solid;
     padding: 10px 10px 10px 10px;
+    width: 560px;
+
   
 }
 #middlerow{
     background: #2222228c;
     display: inline-flex;
-    margin: 20px 20px 20px 20px
+    margin: 0px auto 0px auto;
+    border: 2px solid #aaaaaa;
+    position: relative;
+    
 }
 #leftCol{
     display: inline-block;
     height: 400px;
-    width: 75px;
+    width: auto;
+    text-align: center;
+    margin: 5px 5px 5px 5px;
+
 }
 #midCol{
-    border: 2px solid;
     display: inline-block;
     height: 400px;
     width: 400px;
+    margin: 5px 5px 5px 5px;
 
 }
 #rightCol{
 
     display: inline-block;
     height: 400px;
-    width: 75px;
+    width: auto;
 
+}
+
+/* CSS Document */
+a.button{
+    display: block;
+    float: left;
+    color: aqua;
+    background-color: blue;
+}
+.controls
+{
+ 
+    font-size: 1em;
+    font-weight: 700
+    
+}
+.pageTitle{
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #0051ae
+}
+.button{
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+
+    cursor: pointer;
+
+}
+
+.upgrade{
+    background-color: rgb(155, 155, 155);
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 8px 1px;
+    cursor: pointer;
+    
+}
+.restart{
+    background-color: rgb(126, 14, 14);
+    border: none;
+    color: white;
+
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+.restart:active
+{
+    background-color: rgb(126, 14, 14);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+.container
+{
+    color: #27558a;
+}
+.b1{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    
+    text-align: center;
+    font-size: 16px;
+
+}
+.b1:hover:not(.active)
+{
+    background-color: #ddd;
+}
+.button:hover:not(.active)
+{
+    background-color: #ddd;
+    
 }
