@@ -1,0 +1,13 @@
+TODO List:
+
+- Speed up / Slow down button feature
+- rightCol (middleRow) section with tower / selected tower info
+- bottomRow section with premium features (boosts, boons, etc)
+- More towers
+- Diverse mobs (shapes)
+- Diverse mobs (color/type (fast, slow, more hp))
+- 
+-
+-
+-
+-
