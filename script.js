@@ -22,6 +22,7 @@ var waveDelay = 100;
 var level = 1;
 var playerHealth = 100000;
 var gold = Infinity;
+var score = 0;
 var arr;
 var arr2;
 
@@ -626,7 +627,8 @@ function mob(level) {
     }
     this.update = function () {
         if (this.hp <= 0) {
-            gold += Math.floor(Math.pow(1.175, this.lvl)) + 5;
+            gold += Math.floor(Math.pow(1.175, this.lvl)) + 5; //GOLD CONTROL
+            score += Math.floor(Math.pow(1.18, this.lvl)) + 0; //SCORE CONTROL
             updateUI();
             return false;
         }
@@ -993,7 +995,7 @@ function updateUI() {
     document.getElementById('hp').innerHTML = playerHealth;
     document.getElementById('Wave#').innerHTML = level;
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
-    document.getElementById('scoreTotal').innerHTML = "need2codethis";
+    document.getElementById('scoreTotal').innerHTML = score;
     if (playerHealth <= 0) {
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {
@@ -1002,7 +1004,7 @@ function updateUI() {
 }
 
 function restart() {
-    // if (!confirm("Are you sure you want to restart?")) return;
+    if (!confirm("Are you sure you want to restart?")) return;
     towers = new Array();
     mobs = new Array();
     flakes = new Array();
@@ -1081,15 +1083,7 @@ document.onkeydown = function (keyPress) {
         ctower = true;
         towerType = 4;
     }
-
-
 }
-
-
-
-
-
-
 
 function poisonTower(x, y) {
     this.lvl = 1;
@@ -1186,9 +1180,7 @@ function poisonTower(x, y) {
 
 //test functions below
 function test() {
-    console.log("a");
-    console.log(localStorage.length);
-    console.log(localStorage.key);
+    console.log(waveSize);
 }
 function testt() {
     console.log("b");
