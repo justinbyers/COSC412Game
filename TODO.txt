@@ -6,7 +6,7 @@ TODO List:
 - More towers
 - Diverse mobs (shapes)
 - Diverse mobs (color/type (fast, slow, more hp))
-- 
+- Change title name and visual to something more creative
 -
 -
 -

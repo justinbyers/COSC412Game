@@ -18,9 +18,9 @@ var towerType = 1;
 
 var waveSize = 0;
 var mobDelay = 0;
-var waveDelay = 100;
+var waveDelay = 400;
 var level = 1;
-var playerHealth = 100000;
+var playerHealth = 1;
 var gold = Infinity;
 var score = 0;
 var arr;
@@ -523,22 +523,27 @@ function laserTower(x, y) {
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
 
-        context.fillStyle = "#FF0000";
+        context.fillStyle = "#777777"; //body color
         context.lineWidth = 2;
-        context.strokeStyle = "#880000";
+        context.strokeStyle = "#353535"; //outline color
         context.beginPath();
-        context.moveTo(-0.40 * tilew, 0.42 * tileh);
-        context.lineTo(-0.15 * tilew, 0.2 * tileh);
-        context.lineTo(0, -0.2 * tileh);
-        context.lineTo(0.15 * tilew, 0.2 * tileh);
-        context.lineTo(0.4 * tilew, 0.42 * tileh);
-        context.lineTo(-0.4 * tilew, 0.42 * tileh);
+        // context.moveTo(-0.40 * tilew, 0.42 * tileh);
+        // context.lineTo(-0.15 * tilew, 0.2 * tileh);
+        // context.lineTo(0, -0.2 * tileh);
+        // context.lineTo(0.15 * tilew, 0.2 * tileh);
+        // context.lineTo(0.4 * tilew, 0.42 * tileh);
+        // context.lineTo(-0.4 * tilew, 0.42 * tileh);
+        context.lineTo(0 * tilew, .4 * tileh);
+        context.lineTo(.35 * tilew, -8);
+        context.lineTo(-.35 * tilew, -8);
+        context.lineTo(0, .4 * tileh);
+        context.lineTo(0, .4 * tileh);
         context.fill();
         context.stroke();
 
         if (this.atk) {
-            context.fillStyle = "#FF0";
-            context.strokeStyle = "#D3D300";
+            context.fillStyle = "#ff6363";
+            context.strokeStyle = "#FF1C1C";
         }
         context.beginPath();
         context.arc(0, -0.2 * tileh, Math.floor(Math.min(tilew, tileh) * 0.2), 0, 2 * Math.PI, false);
@@ -556,7 +561,7 @@ function laserTower(x, y) {
             context.stroke();
         }
 
-        context.strokeStyle = '#FFF';
+        context.strokeStyle = '#FFF'; // tower level color
         context.strokeText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
         context.fillStyle = '#000';
         context.fillText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
@@ -577,7 +582,7 @@ function laserTower(x, y) {
                 context.lineWidth = 2;
                 context.moveTo(this.x * tilew + this.x + tilew / 2, this.y * tileh + this.y + tileh / 2 - 0.2 * tileh);
                 context.lineTo(mobs[i].getXCenter(), mobs[i].getYCenter());
-                context.strokeStyle = "#FF0";
+                context.strokeStyle = "#ff1c1c"; //beam color
                 context.stroke();
                 break;
             }
@@ -997,6 +1002,7 @@ function updateUI() {
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
     document.getElementById('scoreTotal').innerHTML = score;
     if (playerHealth <= 0) {
+        document.getElementById("pageTitle").innerHTML = "GAME OVER";
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {
         //document.getElementById("losetext").setAttribute("style", "visibility:hidden;opacity:0");
@@ -1014,8 +1020,8 @@ function restart() {
     mobDelay = 0;
     waveDelay = 400;
     level = 1;
-    playerHealth = 1000000000000000;
-    gold = 100000000000000000000000000000;
+    playerHealth = 50;
+    gold = 100;
     updateUI();
     genPath();
 }
