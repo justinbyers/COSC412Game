@@ -18,9 +18,9 @@ var towerType = 1;
 
 var waveSize = 0;
 var mobDelay = 0;
-var waveDelay = 400;
+var waveDelay = 200; //how fast the wave starts
 var level = 1;
-var playerHealth = 1;
+var playerHealth = 1000;
 var gold = Infinity;
 var score = 0;
 var arr;
@@ -43,9 +43,9 @@ function onLoadUp() {
 
     updateUI();
 
-    document.getElementById('tower1bt').value = "Laser \ntower (" + numberFormat(towerCosts[0]) + ")";
-    document.getElementById('tower2bt').value = "AOE \ntower (" + numberFormat(towerCosts[1]) + ")";
-    document.getElementById('tower3bt').value = "Slow \ntower (" + numberFormat(towerCosts[2]) + ")";
+    document.getElementById('tower1bt').value = "Laser tower (" + numberFormat(towerCosts[0]) + ")";
+    document.getElementById('tower2bt').value = "Shock tower (" + numberFormat(towerCosts[1]) + ")";
+    document.getElementById('tower3bt').value = "Ice tower (" + numberFormat(towerCosts[2]) + ")";
     // document.getElementById('tower4bt').value = "Wall (" + numberFormat(towerCosts[3]) + ")";
 
     arr = randomizedGroundColor();
@@ -80,7 +80,7 @@ function onLoadUp() {
 }
 
 function setupPath() {
-    
+
     directions = new Array();
     for (var i = 0; i < 10; i++) {
         directions[i] = new Array();
@@ -100,19 +100,19 @@ function setupPath() {
     //     new Point(5, 9)); //used to paint path on 
 
     path = new Array(new Point(9, 4),
-    new Point(8, 4), new Point(8, 3), new Point(7, 3),
-    new Point(6, 3), new Point(6, 2), new Point(5, 2),
-    new Point(4, 2), new Point(4, 1), new Point(3, 1), 
-    new Point(2, 1), new Point(1, 1), new Point(1, 2), 
-    new Point(1, 3), new Point(1, 4), new Point(2, 4),
-    new Point(2, 5), new Point(2, 6), new Point(3, 6), 
-    new Point(3, 7), new Point(3, 8), new Point(4, 8),
-    new Point(4, 9)
+        new Point(8, 4), new Point(8, 3), new Point(7, 3),
+        new Point(6, 3), new Point(6, 2), new Point(5, 2),
+        new Point(4, 2), new Point(4, 1), new Point(3, 1),
+        new Point(2, 1), new Point(1, 1), new Point(1, 2),
+        new Point(1, 3), new Point(1, 4), new Point(2, 4),
+        new Point(2, 5), new Point(2, 6), new Point(3, 6),
+        new Point(3, 7), new Point(3, 8), new Point(4, 8),
+        new Point(4, 9)
     );
 
-    
 
-    
+
+
 
     //PATH 1 DIRECTIONS:
     // directions[0][1].from = new VisPoint(1, 1);
@@ -154,7 +154,7 @@ function setupPath() {
     directions[3][8].from = new VisPoint(4, 8);
     directions[4][8].from = new VisPoint(4, 9);
     directions[4][9].from = new VisPoint(4, 10);
-    
+
 
 
 }
@@ -197,87 +197,89 @@ function snowParticle(dir, x, y) {
         context.translate(this.x * tilew + this.x + tileh / 2, this.y * tileh + this.y + tileh / 2);
         context.rotate(Math.PI * 2 * this.life);
         context.beginPath();
-        context.moveTo(0, -1);
-        context.lineTo(0, 5);
-        context.moveTo(0, -1);
-        context.lineTo(4, 2);
-        context.moveTo(0, -1);
-        context.lineTo(3.5, -5);
-        context.moveTo(0, -1);
-        context.lineTo(-3.5, -5);
-        context.moveTo(0, -1);
-        context.lineTo(-4, 2);
-        context.lineWidth = 3;
-        context.strokeStyle = "#4CC5C3";
-        context.stroke();
-        context.lineWidth = 1;
-        context.strokeStyle = "#FFF";
-        context.stroke();
-        context.globalAlpha = 1;
 
-        context.restore();
-    }
-
-}
-
-function wallTower(x, y) {
-    this.sel = false;
-
-    this.x = x;
-    this.y = y;
-    this.getXCenter = function () {
-        return this.x * tilew + this.x + tilew / 2 + 0.5;
-    }
-    this.getYCenter = function () {
-        return this.y * tileh + this.y + tileh / 2 + 0.5;
-    }
-    this.attack = function () { }
-
-    this.getUpgradeCost = function () {
-        return 0;
-    }
-    this.getSellValue = function () {
-        return 0;
-    }
-
-    this.draw = function () {
-        context.save();
-        context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
-        if (this.sel) {
-            context.strokeStyle = "#FF0";
-            context.lineWidth = 2;
-            context.beginPath();
-            context.moveTo(-tilew / 2, -tileh / 2);
-            context.lineTo(-tilew / 2, tileh / 2);
-            context.lineTo(tilew / 2, tileh / 2);
-            context.lineTo(tilew / 2, -tileh / 2);
-            context.lineTo(-tilew / 2, -tileh / 2);
-            context.stroke();
-        }
-        context.fillStyle = "#D04532";
-        context.strokeStyle = "#A62727";
-
+        context.fillStyle = "#4cc5c3";
+        context.arc(0, 0, Math.floor(20), 0, Math.PI * .5, false);
+        context.fill();
         context.lineWidth = 2;
-        context.fillRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
-        context.strokeRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
+        context.strokeStyle = "#111111"; // outer circle
+        context.strokeStyle = "#4CC5C3"; // snow color 
 
-        context.strokeStyle = "#A6807A";
-        context.beginPath();
-        for (var i = 1; i < 5; i++) {
-            context.moveTo(-0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
-            context.lineTo(0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
-        }
-        for (var i = 0; i < 5; i++) {
-            for (var j = 1 - i % 2; j < 3; j++) {
-                context.moveTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + i * (0.8 * tileh) / 5);
-                context.lineTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + (i + 1) * (0.8 * tileh) / 5);
-            }
-        }
         context.stroke();
+        // context.lineWidth = 1;
+        // context.strokeStyle = "#FFF"; // snow color
+        // context.stroke();
+        // context.globalAlpha = 1;
+
+        // context.fillStyle = "#ff1c1c";
+        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
+        // context.fill();
+        // context.lineWidth = 2;
+        // context.strokeStyle = "#111111"; // outer circle
 
         context.restore();
     }
+
 }
+
+// function wallTower(x, y) {
+//     this.sel = false;
+
+//     this.x = x;
+//     this.y = y;
+//     this.getXCenter = function () {
+//         return this.x * tilew + this.x + tilew / 2 + 0.5;
+//     }
+//     this.getYCenter = function () {
+//         return this.y * tileh + this.y + tileh / 2 + 0.5;
+//     }
+//     this.attack = function () { }
+
+//     this.getUpgradeCost = function () {
+//         return 0;
+//     }
+//     this.getSellValue = function () {
+//         return 0;
+//     }
+
+//     this.draw = function () {
+//         context.save();
+//         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
+//         if (this.sel) {
+//             context.strokeStyle = "#FF0";
+//             context.lineWidth = 2;
+//             context.beginPath();
+//             context.moveTo(-tilew / 2, -tileh / 2);
+//             context.lineTo(-tilew / 2, tileh / 2);
+//             context.lineTo(tilew / 2, tileh / 2);
+//             context.lineTo(tilew / 2, -tileh / 2);
+//             context.lineTo(-tilew / 2, -tileh / 2);
+//             context.stroke();
+//         }
+//         context.fillStyle = "#D04532";
+//         context.strokeStyle = "#A62727";
+
+//         context.lineWidth = 2;
+//         context.fillRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
+//         context.strokeRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
+
+//         context.strokeStyle = "#A6807A";
+//         context.beginPath();
+//         for (var i = 1; i < 5; i++) {
+//             context.moveTo(-0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
+//             context.lineTo(0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
+//         }
+//         for (var i = 0; i < 5; i++) {
+//             for (var j = 1 - i % 2; j < 3; j++) {
+//                 context.moveTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + i * (0.8 * tileh) / 5);
+//                 context.lineTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + (i + 1) * (0.8 * tileh) / 5);
+//             }
+//         }
+//         context.stroke();
+
+//         context.restore();
+//     }
+// }
 
 function slowTower(x, y) {
     this.lvl = 1;
@@ -312,33 +314,41 @@ function slowTower(x, y) {
         context.rotate(Math.PI * this.anim / 180);
 
         context.beginPath();
-        context.moveTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-        context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-        context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-        context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-        context.lineTo(0, -0.8 * tileh / 2);
-        context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-        context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-        context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-        context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        for (var i = 0; i < 5; i++) {
-            context.rotate(Math.PI / 3);
-            context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-            context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-            context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-            context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-            context.lineTo(0, -0.8 * tileh / 2);
-            context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-            context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-            context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-            context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        }
-        context.closePath();
-        context.fillStyle = "#86F5FF";
-        context.lineWidth = 2;
-        context.strokeStyle = "#4CC4C2";
+        // context.moveTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
+        // context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
+        // context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
+        // context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
+        // context.lineTo(0, -0.8 * tileh / 2);
+        // context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
+        // context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
+        // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
+        // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
+        // for (var i = 0; i < 5; i++) {
+        //     context.rotate(Math.PI / 3);
+        //     context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
+        //     context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
+        //     context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
+        //     context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
+        //     context.lineTo(0, -0.8 * tileh / 2);
+        //     context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
+        //     context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
+        //     context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
+        //     context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
+        // }
+        // context.closePath();
+        // context.fillStyle = "#86F5FF";
+        // context.lineWidth = 2;
+        // context.strokeStyle = "#4CC4C2";
+        // context.fill();
+        // context.stroke();
+        context.fillStyle = "#a1ebf4";
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
         context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = "#546d70"; // outer circle
         context.stroke();
+
+
         context.restore();
 
         if (this.sel) {
@@ -405,26 +415,29 @@ function aoeTower(x, y) {
         context.save();
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
-
-        context.fillStyle = "#B0F";
+        // var a = rgb(223, 201, 143);
+        // : radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
+        
+        context.fillStyle = "#FF0"; // body fill color
+        
         context.beginPath();
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
         context.fill();
         context.lineWidth = 2;
-        context.strokeStyle = "#8800B9";
+        context.strokeStyle = "#111111"; // outer circle
         context.stroke();
-        context.fillStyle = "#000";
+        // context.fillStyle = "#FF1c1c"; //obsolete?? 
 
-        if (this.charge >= 0) {
+        if (this.charge >= 0) { //waiting to pulse
             context.globalAlpha = 0.4;
-            context.fillStyle = "#FFF";
+            context.fillStyle = "#Faff00";
             context.beginPath();
-            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45 * (this.charge / this.recharge)), 0, Math.PI * 2, false);
+            //context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45 * (this.charge / this.recharge)), 0, Math.PI * 2, false);
             context.fill();
             context.globalAlpha = 1;
-        } else {
-            context.globalAlpha = 0.2 * (1 - (Math.abs(this.charge) / 20));
-            context.fillStyle = "#000";
+        } else { //pulses
+            context.globalAlpha = .8 * (1 - (Math.abs(this.charge) / 20));
+            context.fillStyle = "#faff00";
             context.beginPath();
             context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * this.range), 0, Math.PI * 2, false);
             context.fill();
@@ -433,20 +446,35 @@ function aoeTower(x, y) {
 
         context.fillStyle = "#FFF";
         context.save();
+        context.beginPath();
         if (this.charge == 0) {
             this.anim = (this.anim + 1) % 360;
         }
-        context.rotate(Math.PI * this.anim / 180);
-        context.beginPath();
-        context.moveTo(0, 0);
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), 0, Math.PI * 2 / 6, false);
-        context.lineTo(0, 0);
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), Math.PI * 4 / 6, Math.PI * 6 / 6, false);
-        context.lineTo(0, 0);
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), Math.PI * 8 / 6, Math.PI * 10 / 6, false);
-        context.lineTo(0, 0);
-        context.fill();
+        // context.rotate(Math.PI * this.anim / 180);
+        // context.beginPath();
+        // context.moveTo(0, 0);
+        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), 0, Math.PI * 2 / 6, false);
+        // context.lineTo(0, 0);
+        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), Math.PI * 4 / 6, Math.PI * 6 / 6, false);
+        // context.lineTo(0, 0);
+        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.33), Math.PI * 8 / 6, Math.PI * 10 / 6, false);
+        // context.lineTo(0, 0);
+        // context.fill();
+        // context.stroke();
+
+        // context.lineTo(10, 20);
+        // context.lineTo(1, -20);
+        // context.lineTo(-5, 8);
+        // context.lineTo(3, 3);
+
+        context.lineTo(3, -10);
+        context.lineTo(-5, 1);
+        context.lineTo(5, -1);
+        context.lineTo(-3, 10);
+
+
         context.stroke();
+
         context.restore();
 
         if (this.sel) {
@@ -751,7 +779,7 @@ function randomizedGroundColor() {
                 break;
             case 4: color = "#4b9b29";
                 break;
-                
+
 
         }
         arr[i] = color;
@@ -1204,13 +1232,13 @@ function testtt() {
         context.drawImage(img, 0, 0);
     }
 }
-function test4(){
+function test4() {
     // var arrsize = arr.length;
     // for(var i = 0; i < arrsize; i++){
     //     arr[i] = "#999999";
     // }
 
-    for (var i = 0; i < towerCosts.length; i++){
+    for (var i = 0; i < towerCosts.length; i++) {
         console.log(towerCosts[i]);
     }
     console.log((gold >= towerCosts[0] && playerHealth > 0))

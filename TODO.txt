@@ -8,6 +8,6 @@ TODO List:
 - Diverse mobs (color/type (fast, slow, more hp))
 - Change title name and visual to something more creative
 -
--
--
+- make shock tower less squiggly
+- make gradient circular colors for the shock and ice towers
 -
