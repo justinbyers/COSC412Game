@@ -20,8 +20,8 @@ var waveSize = 0;
 var mobDelay = 0;
 var waveDelay = 200; //how fast the wave starts
 var level = 1;
-var playerHealth = 1000;
-var gold = Infinity;
+var playerHealth = 100;
+var gold = 500;
 var score = 0;
 var arr;
 var arr2;
@@ -645,9 +645,11 @@ function mob(level) {
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
         context.fillStyle = "#00B615"; //monster color
+        context.strokeStyle = "#006d0c";
         context.beginPath();
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
         context.fill();
+        context.stroke();
         if (this.hp < this.maxhp) {
             context.fillStyle = "#000"; //missing hp color
             context.beginPath();
@@ -660,7 +662,7 @@ function mob(level) {
     }
     this.update = function () {
         if (this.hp <= 0) {
-            gold += Math.floor(Math.pow(1.175, this.lvl)) + 5; //GOLD CONTROL
+            gold += Math.floor(Math.pow(2.175, this.lvl)) + 5; //GOLD CONTROL
             score += Math.floor(Math.pow(1.18, this.lvl)) + 0; //SCORE CONTROL
             updateUI();
             return false;
@@ -1049,7 +1051,7 @@ function restart() {
     waveDelay = 400;
     level = 1;
     playerHealth = 50;
-    gold = 100;
+    gold = 500;
     updateUI();
     genPath();
 }
