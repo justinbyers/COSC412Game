@@ -45,7 +45,7 @@ function onLoadUp() {
     document.getElementById('tower1bt').value = "Laser \ntower (" + numberFormat(towerCosts[0]) + ")";
     document.getElementById('tower2bt').value = "AOE \ntower (" + numberFormat(towerCosts[1]) + ")";
     document.getElementById('tower3bt').value = "Slow \ntower (" + numberFormat(towerCosts[2]) + ")";
-    document.getElementById('tower4bt').value = "Wall (" + numberFormat(towerCosts[3]) + ")";
+    // document.getElementById('tower4bt').value = "Wall (" + numberFormat(towerCosts[3]) + ")";
 
     arr = randomizedGroundColor();
 
@@ -764,7 +764,7 @@ function draw() {
     if (counter < 1)
         paintPath();
 
-    context.fillStyle = "#ad8461"; //PATH COLOR
+    context.fillStyle = "#83644a"; //PATH COLOR
     for (var i = 1; i < path.length; i++) {
         var a = path[i];
         context.fillRect(a.x * tilew + a.x, a.y * tileh + a.y, tilew, tileh);
@@ -774,7 +774,7 @@ function draw() {
         context.fillStyle = "#29FF37"; //color of tile when you press a tower and then hover a tile
         context.fillRect(ingameXsel * tilew + ingameXsel, ingameYsel * tileh + ingameYsel, tilew, tileh);
     }
-    context.fillStyle = "#ad8461"; //start/end color
+    context.fillStyle = "#83644a"; //start/end color
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
     //context.fillRect(path[path.length - 1].x * tilew + path[path.length - 1].x, path[path.length - 1].y * tileh + path[path.length - 1].y, tilew, tileh);
 
@@ -980,10 +980,10 @@ function updateUI() {
         document.getElementById('tower3bt').disabled = true;
 
 
-    if (gold >= towerCosts[3] && playerHealth > 0)
-        document.getElementById('tower4bt').disabled = false;
-    else
-        document.getElementById('tower4bt').disabled = true;
+    // if (gold >= towerCosts[3] && playerHealth > 0)
+    //     document.getElementById('tower4bt').disabled = false;
+    // else
+    //     document.getElementById('tower4bt').disabled = true;
 
     // if (gold >= towerCosts[4] && playerHealth > 0)
     //     document.getElementById('cTower5Bt').disabled = false;
@@ -993,6 +993,7 @@ function updateUI() {
     document.getElementById('hp').innerHTML = playerHealth;
     document.getElementById('Wave#').innerHTML = level;
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
+    document.getElementById('scoreTotal').innerHTML = "need2codethis";
     if (playerHealth <= 0) {
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
     } else {

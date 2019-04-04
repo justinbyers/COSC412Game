@@ -21,83 +21,49 @@
                 </div>
             </div>
             <div id="middleRow">
-
-
-                <!-- <div class="controls" style="display: none">
-                <div style="text-align:center">
-                    <div class="indic">Level<br><span id="levelindic">5</span></div>&nbsp;&nbsp;&nbsp;
-                    <div class="indic">Gold<br><span id="goldindic">100</span></div>
-                </div>
-
-                <div class="prog">
-                    <div id="hpindic" style="width: 0px;"></div>
-                </div>
-
-                <input type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton" disabled=""><br>
-
-                <input type="button" onclick="ctower=true;towerType=2" value="Place AOE tower (200)" id="cTower2Bt"
-                    disabled=""><br>
-                <input type="button" onclick="ctower=true;towerType=1" value="Place laser tower (40)" id="cTower1Bt"
-                    disabled=""><br>
-                <input type="button" onclick="ctower=true;towerType=3" value="Place slow tower (1,000)" id="cTower3Bt"
-                    disabled=""><br>
-                <input type="button" onclick="ctower=true;towerType=4" value="Place wall (10)" id="cTower4Bt"
-                    disabled=""><br>
-
-                <input type="button" onclick="sell()" value="Sell" id="sellbutton" disabled="">
-                <br><br>
-
-                <input type="button" onclick="restart()" value="Restart"><br>
-                <input type="button" onclick="ctower=true;towerType=5" value="Place Poison tower (10)" id="cTower5Bt"
-                    disabled="" ;>
-
-            </div> -->
-
-
                 <div id="leftCol">
                     <div id="infoBox">
-                        Wave #: 
-                        <hr class="number" type="number" value="level" id="Wave#"> 
+                        Wave #:
+                        <hr class="number" type="number" value="level" id="Wave#">
                         Gold:
                         <hr class="number" type="number" value="gold" id="goldAmount">
-                        HP: 
+                        HP:
                         <hr class="number" type="number" value="playerHealth" id="hp">
-                        
-                          
-                    </hr>
-
-                    </hr>
-                    <div id="towerBtns">
-                        <input class="button" type="button" onclick="ctower=true;towerType=1" value="Laser tower (40)"
-                            id="tower1bt" disabled="">
-                        <input class="button" type="button" onclick="ctower=true;towerType=2" value="AOE tower (200)"
-                            id="tower2bt" disabled="">
-                        <input class="button" type="button" onclick="ctower=true;towerType=3" value="Slow tower (1,000)"
-                            id="tower3bt" disabled="">
-                        <input class="button" type="button" onclick="ctower=true;towerType=4" value="Wall (10)"
-                            id="tower4bt" disabled="">
-                        <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
+                        Score:
+                        <hr class="number" type="number" value="score" id="scoreTotal">
 
                     </div>
-                    <div id="towerUtilBtns">
+                        <div id="towerBtns">
+                            <input class="button" type="button" onclick="ctower=true;towerType=1"
+                                value="Laser tower (40)" id="tower1bt" disabled="">
+                            <input class="button" type="button" onclick="ctower=true;towerType=2"
+                                value="AOE tower (200)" id="tower2bt" disabled="">
+                            <input class="button" type="button" onclick="ctower=true;towerType=3"
+                                value="Slow tower (1,000)" id="tower3bt" disabled="">
+                            <!-- <input class="button" type="button" onclick="ctower=true;towerType=4" value="Wall (10)"
+                                id="tower4bt" disabled=""> -->
+                            <!-- <input class ='b1' type="button" onclick="ctower=true;towerType=5" value="Poison Tower (10)" id="cTower5Bt" disabled=""> -->
 
-                        <div class="sellBtn">
-                            <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton"
-                                disabled="">
                         </div>
+                        <div id="towerUtilBtns">
 
-                        <div class="upgradeBtn">
-                            <input class="button" type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton"
-                                disabled="">
+                            <div class="sellBtn">
+                                <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton"
+                                    disabled="">
+                            </div>
+
+                            <div class="upgradeBtn">
+                                <input class="button" type="button" onclick="upgrade()" value="Upgrade"
+                                    id="upgradebutton" disabled="">
+                            </div>
+
                         </div>
-
+                        <div id="gameUtilBtns">
+                            <input class='restart' type="button" onclick="restart()" value="Restart">
+                        </div>
                     </div>
-                    <div id="gameUtilBtns">
-                        <input class='restart' type="button" onclick="restart()" value="Restart">
-                    </div>
 
-
-                </hr>
+                    </hr>
                 <div id="midCol">
 
                     <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)"

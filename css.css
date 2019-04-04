@@ -1,119 +1,127 @@
-#innerWrapper{
+#innerWrapper {
     background: #aaaaaa;
     border: 2px solid;
     padding: 10px 10px 10px 10px;
-    width: 600px;
+    width: 604px;
+}
 
-  
-}
-#rowBox{
+#rowBox {
     border: 2px solid black;
-    
 }
-#topRow{
+
+#topRow {
     background: #dfc98f;
     border: 5px solid #867855;
-        border-bottom: 0px;
+    border-bottom: 0px;
     height: 100px;
     width: auto;
 }
-#middleRow{
+
+#middleRow {
     background: #dfc98f;
     border: 5px solid #867855;
     border-top: 0px;
     border-bottom: 0px;
-    display: inline-flex;
     margin: 0px auto 0px auto;
-
+    width: 590px;
+    height: 450px;
     position: relative;
-    
 }
-#bottomRow{
+
+#bottomRow {
     background: #dfc98f;
     border: 5px solid #867855;
     border-top: 0px;
-    width: 576px;
-    height: 230px;
+    width: 590px;
+    height: 20px;
     margin: 0px 0px 0px 0px;
-
 }
-#leftCol{
-    display: inline-block;
+
+#leftCol {
+    float: left;
     height: 400px;
-    width: 576px;
+    width: 160px;
     text-align: center;
-    margin: 5px 5px 5px 5px;
-
+    margin: 0px 5px 5px 5px;
 }
-#midCol{
-    display: inline-block;
+
+#midCol {
+    float: left;
     height: 400px;
     width: 398px;
     margin: 5px 5px 5px 5px;
-    position: fixed;
-    top: 120px;
-    left: 185px;
-
+    position: relative;
 }
-#rightCol{
 
-    display: inline-block;
+#rightCol {
+    float: left;
     height: 400px;
     width: auto;
-
 }
-#infoBox{
-    border: 2px solid black;
-    width: 125px;
-    height: 156px;
+
+#infoBox {
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 140px;
+    height: 208px;
     margin: 5px 5px 5px 5px;
-}
-#towerBtns{
 
 }
-#towerUtilBtns{
+
+#towerBtns {
+    margin: 10px 5px 5px 5px;
+}
+
+#towerUtilBtns {
     width: auto;
-    margin: 5px 5px 5px 5px;
-
-}
-
-
-/* CSS Document */
-a.button{
-    display: block;
-    float: left;
-    color: aqua;
-    background-color: blue;
-}
-sellbutton.button{
-    width: 290px;
-}
-.controls
-{
- 
-    font-size: 1em;
-    font-weight: 700
+    margin: 10px 5px 10px 5px;
     
 }
-.pageTitle{
-    font-size: 3em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #0051ae
-}
-.button{
 
+#gameUtilBtns {
+    width: auto;
+    margin: 10px 5px 5px 5px;
+    background-color: rgb(126, 14, 14);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 20px 0px 20px 0px;
+}
+
+/* CSS Document */
+
+.button {
     text-align: center;
     text-decoration: none;
     font-size: 12px;
     padding: 1px 10px 1px 10px;
     width: 118px;
-
     cursor: pointer;
     position: relative;
 }
 
-.upgrade{
+a.button {
+    display: block;
+    float: left;
+    color: aqua;
+    background-color: blue;
+}
+
+.controls {
+    font-size: 1em;
+    font-weight: 700
+}
+
+.pageTitle {
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #0051ae
+}
+
+.upgrade {
     background-color: rgb(155, 155, 155);
     border: none;
     color: white;
@@ -123,46 +131,40 @@ sellbutton.button{
     font-size: 16px;
     margin: 8px 1px;
     cursor: pointer;
-    
 }
-.restart{
+
+/* .restart {
     background-color: rgb(126, 14, 14);
     border: none;
     color: white;
-
-
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-
     margin: 20px 0px 20px 0px;
-
 }
-.restart:active
-{
+
+.restart:active {
     background-color: rgb(126, 14, 14);
     box-shadow: 0 5px #666;
     transform: translateY(4px);
-}
-.container
-{
+} */
+
+.container {
     color: #27558a;
 }
-.b1{
+
+.b1 {
     background-color: #4CAF50;
     color: white;
     border: none;
-    
     text-align: center;
     font-size: 16px;
+}
 
-}
-.b1:hover:not(.active)
-{
+.b1:hover:not(.active) {
     background-color: #ddd;
 }
-.button:hover:not(.active)
-{
+
+.button:hover:not(.active) {
     background-color: #ddd;
-    
 }
