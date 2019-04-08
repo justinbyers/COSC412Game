@@ -38,6 +38,12 @@ requestAnimFrame(draw);
 
 
 function onLoadUp() {
+
+    if(true){ //cheat commands
+        gold = Infinity;
+        playerHealth = Infinity;
+    }
+
     tilew = Math.floor((canvas.width - size) / size);
     tileh = Math.floor((canvas.width - size) / size);
 
@@ -790,6 +796,7 @@ function randomizedGroundColor() {
     return arr;
 }
 var counter = 0;
+
 function draw() {
     requestAnimFrame(draw);
     if (playerHealth <= 0) return;
@@ -797,7 +804,6 @@ function draw() {
 
     context.globalAlpha = 1;
 
-    //context.
     if (counter < 1)
         paintPath();
 
@@ -813,7 +819,18 @@ function draw() {
     }
     context.fillStyle = "#83644a"; //start/end color
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
-    //context.fillRect(path[path.length - 1].x * tilew + path[path.length - 1].x, path[path.length - 1].y * tileh + path[path.length - 1].y, tilew, tileh);
+    
+    var startX = path[0].x;
+    var startY = path[0].y;
+
+    context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
+    context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
+    context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
+    
+    context.moveTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
+    context.lineTo(startX * tilew + startX + 35, startY * tileh + startY + 20);
+
+    context.stroke();
 
     context.strokeStyle = "#111111"; //grid lines between tiles
     context.lineWidth = 1;
@@ -1028,7 +1045,7 @@ function updateUI() {
     //     document.getElementById('cTower5Bt').disabled = true;
 
     document.getElementById('hp').innerHTML = playerHealth;
-    document.getElementById('Wave#').innerHTML = level;
+    document.getElementById('Wave#').innerHTML = level-1;
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
     document.getElementById('scoreTotal').innerHTML = score;
     if (playerHealth <= 0) {
