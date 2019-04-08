@@ -42,6 +42,11 @@ function onLoadUp() {
     if(true){ //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
+
+        towers[0] = new aoeTower(5, 5); //remove these 3 to start game w/ blank map
+        towers[1] = new slowTower(6, 5); //used for quickly testing tower .lineTo() drawings
+        towers[2] = new laserTower(7, 5);
+    
     }
 
     tilew = Math.floor((canvas.width - size) / size);
@@ -82,6 +87,7 @@ function onLoadUp() {
     // directions[5][7].from = new VisPoint(5, 8);
     // directions[5][8].from = new VisPoint(5, 9);
     // directions[5][9].from = new VisPoint(5, 10);
+
 
 }
 
@@ -472,11 +478,15 @@ function aoeTower(x, y) {
         // context.lineTo(1, -20);
         // context.lineTo(-5, 8);
         // context.lineTo(3, 3);
+ 
+        context.lineTo(3, -12);
+        context.lineTo(-7, 1.5);
+        context.lineTo(1, 1.5);
+        context.lineTo(-2, 10);
 
-        context.lineTo(3, -10);
-        context.lineTo(-5, 1);
-        context.lineTo(5, -1);
-        context.lineTo(-3, 10);
+        context.lineTo(8, -1.5);
+        context.lineTo(0, -1.5);
+        context.lineTo(3, -12);
 
 
         context.stroke();
@@ -823,6 +833,7 @@ function draw() {
     var startX = path[0].x;
     var startY = path[0].y;
 
+    context.strokeStyle = "#111111"; //starting point arrow
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
     context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
