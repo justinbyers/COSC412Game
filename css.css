@@ -1,5 +1,5 @@
 #wrapper {
-    width: 600px;
+    width: 760px;
     height: 600px;
     position: absolute;
     left: 50%;
@@ -13,7 +13,7 @@
     background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
     border: 2px solid;
     padding: 10px 10px 10px 10px;
-    width: 614px;
+    width: 794px;
 }
 
 #rowBox {
@@ -42,7 +42,7 @@
     border: 5px solid #867855;
     border-top: 0px;
     width: auto;
-    height: 20px;
+    height: 150px;
     margin: 0px 0px 0px 0px;
 }
 
@@ -68,8 +68,13 @@
 
 #rightCol {
     float: left;
-    height: 402px;
-    width: auto;
+    height: 400px;
+    width: 160px;
+    text-align: center;
+    margin: 5px 5px 5px 5px;
+    border: 5px solid #867855;
+    background: rgb(134, 120, 85);
+    background: linear-gradient(180deg, rgba(134, 120, 85, 1) 0%, rgba(94, 85, 60, 1) 100%);
 }
 
 #infoBox {
