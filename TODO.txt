@@ -8,7 +8,8 @@ TODO List:
 - Diverse mobs (color/type (fast, slow, more hp))
 - Change title name and visual to something more creative
 - make gradient circular colors for the shock and ice towers
--
+- revert slow tower particles, or create a better particle (upgraded tower has too much junk shooting out)
+
 
 
 
