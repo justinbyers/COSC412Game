@@ -207,91 +207,33 @@ function snowParticle(dir, x, y) {
         context.save();
         context.globalAlpha = this.life;
         context.translate(this.x * tilew + this.x + tileh / 2, this.y * tileh + this.y + tileh / 2);
-        context.rotate(Math.PI * 2 * this.life);
+
+        context.rotate(Math.PI * 1.5 * this.life);
+
         context.beginPath();
-
-        context.fillStyle = "#4cc5c3";
-        context.arc(0, 0, Math.floor(20), 0, Math.PI * .5, false);
-        context.fill();
-        context.lineWidth = 2;
-        context.strokeStyle = "#111111"; // outer circle
-        context.strokeStyle = "#4CC5C3"; // snow color 
-
+        context.moveTo(0, -1);
+        context.lineTo(0, 5);
+        context.moveTo(0, -1);
+        context.lineTo(4, 2);
+        context.moveTo(0, -1);
+        context.lineTo(3.5, -5);
+        context.moveTo(0, -1);
+        context.lineTo(-3.5, -5);
+        context.moveTo(0, -1);
+        context.lineTo(-4, 2);
+        context.lineWidth = 3;
+        context.strokeStyle = "#4CC5C3";
         context.stroke();
-        // context.lineWidth = 1;
-        // context.strokeStyle = "#FFF"; // snow color
-        // context.stroke();
-        // context.globalAlpha = 1;
-
-        // context.fillStyle = "#ff1c1c";
-        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
-        // context.fill();
-        // context.lineWidth = 2;
-        // context.strokeStyle = "#111111"; // outer circle
+        context.lineWidth = 1;
+        context.strokeStyle = "#FFF";
+        context.stroke();
+        context.globalAlpha = 1;
 
         context.restore();
+
     }
 
 }
-
-// function wallTower(x, y) {
-//     this.sel = false;
-
-//     this.x = x;
-//     this.y = y;
-//     this.getXCenter = function () {
-//         return this.x * tilew + this.x + tilew / 2 + 0.5;
-//     }
-//     this.getYCenter = function () {
-//         return this.y * tileh + this.y + tileh / 2 + 0.5;
-//     }
-//     this.attack = function () { }
-
-//     this.getUpgradeCost = function () {
-//         return 0;
-//     }
-//     this.getSellValue = function () {
-//         return 0;
-//     }
-
-//     this.draw = function () {
-//         context.save();
-//         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
-//         if (this.sel) {
-//             context.strokeStyle = "#FF0";
-//             context.lineWidth = 2;
-//             context.beginPath();
-//             context.moveTo(-tilew / 2, -tileh / 2);
-//             context.lineTo(-tilew / 2, tileh / 2);
-//             context.lineTo(tilew / 2, tileh / 2);
-//             context.lineTo(tilew / 2, -tileh / 2);
-//             context.lineTo(-tilew / 2, -tileh / 2);
-//             context.stroke();
-//         }
-//         context.fillStyle = "#D04532";
-//         context.strokeStyle = "#A62727";
-
-//         context.lineWidth = 2;
-//         context.fillRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
-//         context.strokeRect(-0.4 * tilew, -0.4 * tileh, 0.8 * tilew, 0.8 * tileh);
-
-//         context.strokeStyle = "#A6807A";
-//         context.beginPath();
-//         for (var i = 1; i < 5; i++) {
-//             context.moveTo(-0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
-//             context.lineTo(0.4 * tilew, -0.4 * tileh + i * (0.8 * tileh) / 5);
-//         }
-//         for (var i = 0; i < 5; i++) {
-//             for (var j = 1 - i % 2; j < 3; j++) {
-//                 context.moveTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + i * (0.8 * tileh) / 5);
-//                 context.lineTo(-0.4 * tilew + (j + (i % 2) * 0.5) * (0.8 * tilew) / 3, -0.4 * tileh + (i + 1) * (0.8 * tileh) / 5);
-//             }
-//         }
-//         context.stroke();
-
-//         context.restore();
-//     }
-// }
 
 function slowTower(x, y) {
     this.lvl = 1;
@@ -323,7 +265,7 @@ function slowTower(x, y) {
 
         this.anim = (this.anim + 1.8) % 360;
         context.save();
-        context.rotate(Math.PI * this.anim / 180);
+        // context.rotate(Math.PI * this.anim / 180);
 
         context.beginPath();
         // context.moveTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
@@ -335,30 +277,37 @@ function slowTower(x, y) {
         // context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
         // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
         // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        // for (var i = 0; i < 5; i++) {
-        //     context.rotate(Math.PI / 3);
-        //     context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-        //     context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-        //     context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-        //     context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-        //     context.lineTo(0, -0.8 * tileh / 2);
-        //     context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-        //     context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-        //     context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-        //     context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        // }
-        // context.closePath();
-        // context.fillStyle = "#86F5FF";
-        // context.lineWidth = 2;
-        // context.strokeStyle = "#4CC4C2";
-        // context.fill();
-        // context.stroke();
-        context.fillStyle = "#a1ebf4";
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
-        context.fill();
+
+        context.moveTo(-10, 10);
+        context.lineTo(0, 0);
+        context.lineTo(0, -2);
+
+        for (var i = 0; i < 4; i++) {
+            context.rotate(Math.PI / 2.5);
+            // context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
+            // context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
+            // context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
+            // context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
+            // context.lineTo(0, -0.8 * tileh / 2);
+            // context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
+            // context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
+            // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
+            // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
+        }
+        context.closePath();
+        context.fillStyle = "#86F5FF";
         context.lineWidth = 2;
-        context.strokeStyle = "#546d70"; // outer circle
+        context.strokeStyle = "#4CC4C2";
+        context.fill();
         context.stroke();
+
+
+        // context.fillStyle = "#a1ebf4";
+        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
+        // context.fill();
+        // context.lineWidth = 2;
+        // context.strokeStyle = "#546d70"; // outer circle
+        // context.stroke();
 
 
         context.restore();
