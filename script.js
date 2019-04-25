@@ -25,6 +25,8 @@ var gold = 500;
 var score = 0;
 var arr;
 var arr2;
+var monstersLeft = 0;
+var totalKilled = 0;
 
 
 var grad = context.createRadialGradient(75, 50, 5, 90, 60, 100);
@@ -45,14 +47,14 @@ requestAnimFrame(draw);
 
 function onLoadUp() {
 
-    if(true){ //cheat commands
+    if (true) { //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
         var num = 0;
         towers[num++] = new aoeTower(5, 5); //remove these 3 to start game w/ blank map
         towers[num++] = new slowTower(6, 5); //used for quickly testing tower .lineTo() drawings
         towers[num++] = new laserTower(7, 5);
-    
+
     }
 
     tilew = Math.floor((canvas.width - size) / size);
@@ -276,11 +278,11 @@ function slowTower(x, y) {
         context.fillStyle = "#FFFFFF";
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
         context.fill();
-        context.stroke();
+
 
         context.strokeStyle = slowTowerFillColor;
         context.lineWidth = 1.5;
-        
+
         context.moveTo(0, 0);
         context.lineTo(0, -8);
         context.lineTo(-4, -11);
@@ -291,22 +293,22 @@ function slowTower(x, y) {
         context.moveTo(-3, -5);
         context.lineTo(3, -5);
 
-        for(var i = 0; i < 5; i++){
+        for (var i = 0; i < 5; i++) {
             context.rotate(Math.PI / 3);
-        context.moveTo(0, 0);
-        context.lineTo(0, -8);
-        context.lineTo(-4, -11);
-        context.moveTo(0, -8);
-        context.lineTo(4, -11);
-        context.lineTo(0, -8);
-        context.lineTo(0, -13);
-        
-        context.moveTo(-3, -5);
-        context.lineTo(3, -5);
+            context.moveTo(0, 0);
+            context.lineTo(0, -8);
+            context.lineTo(-4, -11);
+            context.moveTo(0, -8);
+            context.lineTo(4, -11);
+            context.lineTo(0, -8);
+            context.lineTo(0, -13);
+
+            context.moveTo(-3, -5);
+            context.lineTo(3, -5);
 
         }
         context.stroke();
-        
+
 
         context.restore();
 
@@ -376,9 +378,9 @@ function aoeTower(x, y) {
 
         // var a = rgb(223, 201, 143);
         // : radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-        
+
         context.fillStyle = "#FF0"; // body fill color
-        
+
         context.beginPath();
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
         context.fill();
@@ -425,7 +427,7 @@ function aoeTower(x, y) {
         // context.lineTo(1, -20);
         // context.lineTo(-5, 8);
         // context.lineTo(3, 3);
- 
+
         context.lineTo(3, -12);
         context.lineTo(-7, 1.5);
         context.lineTo(1, 1.5);
@@ -435,7 +437,7 @@ function aoeTower(x, y) {
         context.lineTo(0, -1.5);
         context.lineTo(3, -12);
 
-
+        context.lineWidth = 1.5;
         context.stroke();
 
         context.restore();
@@ -627,6 +629,8 @@ function mob(level) {
         if (this.hp <= 0) {
             gold += Math.floor(Math.pow(2.175, this.lvl)) + 5; //GOLD CONTROL
             score += Math.floor(Math.pow(1.18, this.lvl)) + 0; //SCORE CONTROL
+            monstersLeft--;
+            totalKilled++;
             updateUI();
             return false;
         }
@@ -666,52 +670,7 @@ function paintPath() {
     context.globalAlpha = 1;
 
     var tile = 0;
-    /* unblock this for complex 3x3 grid within each tile (uses more data)
-    for (var i = 0; i < size; i++) {
-        for (var j = 0; j < size; j++) {
 
-             context.fillStyle = arr[tile++];
-            // context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); // bottom right of tile
-
-            // context.fillStyle = arr[tile++];
-            // context.fillRect((i * tilew) + i , (j * tileh) + j , tilew/2, tileh/2); //top left of tile
-
-            // context.fillStyle = arr[tile++];
-            //context.fillRect(tilew/2 + (i * tilew) + i , (j * tileh) + j , tilew/2, tileh/2); //top right of tile
-
-            // context.fillStyle = arr[tile++];
-            // context.fillRect((i * tilew) + i , tileh/2 + (j * tileh) + j , tilew/2, tileh/2); //bottom left of tile
-
-
-
-            context.fillStyle = arr[tile++];
-           //context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); 
-            context.fillStyle = arr[tile++];
-            //context.fillRect((i * tilew) + i, (j * tileh) + j, tilew, tileh); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(26 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(13 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(0 + (i * tilew + i),  (j * tileh) + j, tilew /3, tileh/3); 
-
-            context.fillStyle = arr[tile++];
-            context.fillRect(26 + (i * tilew + i),  13 + (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(13 + (i * tilew + i), 13 +  (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(0 + (i * tilew + i), 13 + (j * tileh) + j, tilew /3, tileh/3); 
-
-            context.fillStyle = arr[tile++];
-            context.fillRect(26 + (i * tilew + i),  26 + (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(13 + (i * tilew + i), 26 +  (j * tileh) + j, tilew /3, tileh/3); 
-            context.fillStyle = arr[tile++];
-            context.fillRect(0 + (i * tilew + i), 26 + (j * tileh) + j, tilew /3, tileh/3); 
-
-        }
-    }
-    */
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
             context.fillStyle = arr[tile++];
@@ -776,7 +735,7 @@ function draw() {
     }
     context.fillStyle = "#83644a"; //start/end color
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
-    
+
     var startX = path[0].x;
     var startY = path[0].y;
 
@@ -784,7 +743,7 @@ function draw() {
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
     context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
-    
+
     context.moveTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
     context.lineTo(startX * tilew + startX + 35, startY * tileh + startY + 20);
 
@@ -830,6 +789,7 @@ function draw() {
             updateUI();
             waveDelay = 200;
             waveSize = Math.floor(level / 2) + 2;
+            document.getElementById('monstersLeft').innerHTML = waveSize;
         }
     }
     if (waveSize > 0 && mobDelay-- <= 0) {
@@ -856,16 +816,18 @@ function mouseDown(e) {
 
     var foundOne = false;
     for (var i = 0; i < towers.length; i++) {
-        if (towers[i].x == ingameXsel && towers[i].y == ingameYsel) {
+        if (towers[i].x == ingameXsel && towers[i].y == ingameYsel) { //tower selected
             towers[i].sel = true;
             updateUI();
             foundOne = true;
             ctower = false;
+            document.getElementById('a').setAttribute("style", "visibility:hidden");
+            document.getElementById('aa').setAttribute("style", "visibility:visible");
         } else {
             towers[i].sel = false;
         }
     }
-    if (!foundOne && ctower) {
+    if (!foundOne && ctower) { //tower placed
         if (e.button == 2) {
             ctower = false;
             return false;
@@ -905,8 +867,11 @@ function mouseDown(e) {
         }
         updateUI();
     }
-    else if (!foundOne)
+    else if (!foundOne){
+        document.getElementById('aa').setAttribute("style", "visibility:hidden");
+        document.getElementById('a').setAttribute("style", "visibility:visible");
         updateUI();
+    }
 
     return false;
 }
@@ -1003,9 +968,12 @@ function updateUI() {
     //     document.getElementById('cTower5Bt').disabled = true;
 
     document.getElementById('hp').innerHTML = playerHealth;
-    document.getElementById('Wave#').innerHTML = level-1;
+    document.getElementById('Wave#').innerHTML = level - 1;
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
     document.getElementById('scoreTotal').innerHTML = score;
+
+ 
+    document.getElementById('totalKilled').innerHTML = totalKilled;
     if (playerHealth <= 0) {
         document.getElementById("pageTitle").innerHTML = "GAME OVER";
         //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
@@ -1193,8 +1161,8 @@ function poisonTower(x, y) {
 function test() { //show tower info
     document.getElementById('a').setAttribute("style", "visibility:hidden");
     document.getElementById('aa').setAttribute("style", "visibility:visible");
-            //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
-    
+    //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
+
 }
 function testt() { //show mob info
 
