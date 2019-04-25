@@ -30,6 +30,7 @@ var arr2;
 var grad = context.createRadialGradient(75, 50, 5, 90, 60, 100);
 grad.addColorStop(.9, "red");
 grad.addColorStop(1, "blue");
+var slowTowerFillColor = "#4CC4C2";
 
 
 requestAnimFrame = (function () {
@@ -47,10 +48,10 @@ function onLoadUp() {
     if(true){ //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
-
-        towers[0] = new aoeTower(5, 5); //remove these 3 to start game w/ blank map
-        towers[1] = new slowTower(6, 5); //used for quickly testing tower .lineTo() drawings
-        towers[2] = new laserTower(7, 5);
+        var num = 0;
+        towers[num++] = new aoeTower(5, 5); //remove these 3 to start game w/ blank map
+        towers[num++] = new slowTower(6, 5); //used for quickly testing tower .lineTo() drawings
+        towers[num++] = new laserTower(7, 5);
     
     }
 
@@ -266,81 +267,46 @@ function slowTower(x, y) {
 
     this.draw = function () {
         context.save();
+        context.beginPath();
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
         this.anim = (this.anim + 1.8) % 360;
         context.save();
-        // context.rotate(Math.PI * this.anim / 180);
 
-        context.beginPath();
-        // context.moveTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-        // context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-        // context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-        // context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-        // context.lineTo(0, -0.8 * tileh / 2);
-        // context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-        // context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-        // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-        // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-
-
-        context.moveTo(-10, 10);
-        context.lineTo(0, 0);
-        context.lineTo(0, -2);
-
-        for (var i = 0; i < 4; i++) {
-            context.rotate(Math.PI / 2.5);
-            // context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-            // context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-            // context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-            // context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-            // context.lineTo(0, -0.8 * tileh / 2);
-            // context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-            // context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-            // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-            // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        }
-        context.closePath();
-        context.fillStyle = "#86F5FF";
-
-        // for (var i = 0; i < 5; i++) {
-        //     context.rotate(Math.PI / 3);
-        //     context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
-        //     context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
-        //     context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
-        //     context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
-        //     context.lineTo(0, -0.8 * tileh / 2);
-        //     context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
-        //     context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
-        //     context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
-        //     context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
-        // }
-        // context.closePath();
-        // context.fillStyle = "#86F5FF";
-        // context.lineWidth = 2;
-        // context.strokeStyle = "#4CC4C2";
-        // context.fill();
-        // context.stroke();
-
-
-
-        context.fillStyle = grad;
+        context.fillStyle = "#FFFFFF";
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
-        context.fill();
-
-        context.lineWidth = 2;
-        context.strokeStyle = "#4CC4C2";
         context.fill();
         context.stroke();
 
+        context.strokeStyle = slowTowerFillColor;
+        context.lineWidth = 1.5;
+        
+        context.moveTo(0, 0);
+        context.lineTo(0, -8);
+        context.lineTo(-4, -11);
+        context.moveTo(4, -11);
+        context.lineTo(0, -8);
+        context.lineTo(0, -13);
 
-        // context.fillStyle = "#a1ebf4";
-        // context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
-        // context.fill();
-        // context.lineWidth = 2;
-        // context.strokeStyle = "#546d70"; // outer circle
-        // context.stroke();
+        context.moveTo(-3, -5);
+        context.lineTo(3, -5);
 
+        for(var i = 0; i < 5; i++){
+            context.rotate(Math.PI / 3);
+        context.moveTo(0, 0);
+        context.lineTo(0, -8);
+        context.lineTo(-4, -11);
+        context.moveTo(0, -8);
+        context.lineTo(4, -11);
+        context.lineTo(0, -8);
+        context.lineTo(0, -13);
+        
+        context.moveTo(-3, -5);
+        context.lineTo(3, -5);
+
+        }
+        context.stroke();
+        
 
         context.restore();
 
