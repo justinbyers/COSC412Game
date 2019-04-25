@@ -27,6 +27,11 @@ var arr;
 var arr2;
 
 
+var grad = context.createRadialGradient(75, 50, 5, 90, 60, 100);
+grad.addColorStop(.9, "red");
+grad.addColorStop(1, "blue");
+
+
 requestAnimFrame = (function () {
     return function (callback, element) {
         window.setTimeout(callback, 1000 / 60);
@@ -278,6 +283,7 @@ function slowTower(x, y) {
         // context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
         // context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
 
+
         context.moveTo(-10, 10);
         context.lineTo(0, 0);
         context.lineTo(0, -2);
@@ -296,6 +302,32 @@ function slowTower(x, y) {
         }
         context.closePath();
         context.fillStyle = "#86F5FF";
+
+        // for (var i = 0; i < 5; i++) {
+        //     context.rotate(Math.PI / 3);
+        //     context.lineTo(-0.1 * tilew / 2, -0.1 * tileh / 2);
+        //     context.lineTo(-0.1 * tilew / 2, -0.5 * tileh / 2);
+        //     context.lineTo(-0.2 * tilew / 2, -0.6 * tileh / 2);
+        //     context.lineTo(-0.2 * tilew / 2, -0.7 * tileh / 2);
+        //     context.lineTo(0, -0.8 * tileh / 2);
+        //     context.lineTo(0.2 * tilew / 2, -0.7 * tileh / 2);
+        //     context.lineTo(0.2 * tilew / 2, -0.6 * tileh / 2);
+        //     context.lineTo(0.1 * tilew / 2, -0.5 * tileh / 2);
+        //     context.lineTo(0.1 * tilew / 2, -0.1 * tileh / 2);
+        // }
+        // context.closePath();
+        // context.fillStyle = "#86F5FF";
+        // context.lineWidth = 2;
+        // context.strokeStyle = "#4CC4C2";
+        // context.fill();
+        // context.stroke();
+
+
+
+        context.fillStyle = grad;
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
+        context.fill();
+
         context.lineWidth = 2;
         context.strokeStyle = "#4CC4C2";
         context.fill();
@@ -1192,15 +1224,16 @@ function poisonTower(x, y) {
 }
 
 //test functions below
-function test() {
-    console.log(waveSize);
+function test() { //show tower info
+    document.getElementById('a').setAttribute("style", "visibility:hidden");
+    document.getElementById('aa').setAttribute("style", "visibility:visible");
+            //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
+    
 }
-function testt() {
-    console.log("b");
-    localStorage.setItem(context, canvas.toDataURL());
-    context.clearRect(0, 0, 1000, 1000);
-    for (var i = 0; i < 400; i++)
-        arr[i] = 1;
+function testt() { //show mob info
+
+    document.getElementById('a').setAttribute("style", "visibility:visible");
+    document.getElementById('aa').setAttribute("style", "visibility:hidden");
 }
 function testtt() {
     console.log("c");
