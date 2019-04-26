@@ -244,6 +244,7 @@ function snowParticle(dir, x, y) {
 }
 
 function slowTower(x, y) {
+    this.name = "Slow Tower";
     this.lvl = 1;
     this.range = 2.3;
     this.sel = false;
@@ -343,6 +344,7 @@ function slowTower(x, y) {
 }
 
 function aoeTower(x, y) {
+    this.name = "Shock Tower"
     this.lvl = 1;
     this.cost = 10;
     this.range = 2.3;
@@ -486,6 +488,8 @@ function aoeTower(x, y) {
 }
 
 function laserTower(x, y) {
+    this.name = "Lase Tower";
+    this.killed = 0;
     this.lvl = 1;
     this.range = 2.3;
     this.sel = false;
@@ -570,6 +574,10 @@ function laserTower(x, y) {
             if (dist <= this.range) {
                 mobs[i].hp -= this.dmg();
                 this.atk = true;
+                if(mobs[i].hp <= 0){
+                    console.log("DIED");
+                    this.killed++;
+                }
 
                 context.beginPath();
                 context.lineWidth = 2;
@@ -823,6 +831,7 @@ function mouseDown(e) {
             ctower = false;
             document.getElementById('a').setAttribute("style", "visibility:hidden");
             document.getElementById('aa').setAttribute("style", "visibility:visible");
+            document.getElementById('towerName').innerHTML = towers[i].name;
         } else {
             towers[i].sel = false;
         }
