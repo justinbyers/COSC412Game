@@ -245,6 +245,7 @@ function snowParticle(dir, x, y) {
 
 function slowTower(x, y) {
     this.name = "Slow Tower";
+    this.killed = 0;
     this.lvl = 1;
     this.range = 2.3;
     this.sel = false;
@@ -345,6 +346,7 @@ function slowTower(x, y) {
 
 function aoeTower(x, y) {
     this.name = "Shock Tower"
+    this.killed = 0;
     this.lvl = 1;
     this.cost = 10;
     this.range = 2.3;
@@ -476,6 +478,10 @@ function aoeTower(x, y) {
                 var dist = Math.sqrt(xdist * xdist + ydist * ydist);
                 if (dist <= this.range) {
                     mobs[i].hp -= this.dmg();
+
+                    if (mobs[i].hp <= 0) {
+                        this.killed++;
+                    }
                     foundOne = true;
                 }
             }
@@ -488,7 +494,7 @@ function aoeTower(x, y) {
 }
 
 function laserTower(x, y) {
-    this.name = "Lase Tower";
+    this.name = "Laser Tower";
     this.killed = 0;
     this.lvl = 1;
     this.range = 2.3;
@@ -574,8 +580,7 @@ function laserTower(x, y) {
             if (dist <= this.range) {
                 mobs[i].hp -= this.dmg();
                 this.atk = true;
-                if(mobs[i].hp <= 0){
-                    console.log("DIED");
+                if (mobs[i].hp <= 0) {
                     this.killed++;
                 }
 
@@ -832,6 +837,8 @@ function mouseDown(e) {
             document.getElementById('a').setAttribute("style", "visibility:hidden");
             document.getElementById('aa').setAttribute("style", "visibility:visible");
             document.getElementById('towerName').innerHTML = towers[i].name;
+            document.getElementById('towerLevel').innerHTML = towers[i].lvl;
+            document.getElementById('towerTotalKilled').innerHTML = towers[i].killed;
         } else {
             towers[i].sel = false;
         }
@@ -876,7 +883,7 @@ function mouseDown(e) {
         }
         updateUI();
     }
-    else if (!foundOne){
+    else if (!foundOne) {
         document.getElementById('aa').setAttribute("style", "visibility:hidden");
         document.getElementById('a').setAttribute("style", "visibility:visible");
         updateUI();
@@ -981,7 +988,7 @@ function updateUI() {
     document.getElementById('goldAmount').innerHTML = numberFormat(gold);
     document.getElementById('scoreTotal').innerHTML = score;
 
- 
+
     document.getElementById('totalKilled').innerHTML = totalKilled;
     if (playerHealth <= 0) {
         document.getElementById("pageTitle").innerHTML = "GAME OVER";

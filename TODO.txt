@@ -3,16 +3,16 @@ TODO List:
 - Speed up / Slow down button feature
 - rightCol (middleRow) section with tower / selected tower info
 - bottomRow section with premium features (boosts, boons, etc)
-- More towers
 - Diverse mobs (shapes)
 - Diverse mobs (color/type (fast, slow, more hp))
 - Change title name and visual to something more creative
 - make gradient circular colors for the shock and ice towers
 - revert slow tower particles, or create a better particle (upgraded tower has too much junk shooting out)
 
-
-
+- fix tower info section to update in real time (currently must reclick tower to update info)
+- starting arrow direction bolds when laser tower attack (wtf??? prob something to do with .lineWidth somewhere)
 
 Completed:
+- revisit slow tower design
 - make shock tower less squiggly
 - arrow to indicate where the wave starts from
