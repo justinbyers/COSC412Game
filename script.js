@@ -34,9 +34,10 @@ var highestScore = -1;
 
 var obst = new Array(size);
 
+var SHOCK_DURATION = 25;
 
 //UPGRADES
-var upgrade_shockChance = 50 //100, 75, 50, 25 upgrades levels, 100 = no chance, 75 = 25% chance, 50 = 50% chance, 25 = 75% chance
+var upgrade_shockChance = 75 //100, 75, 50, 25 upgrades levels, 100 = no chance, 75 = 25% chance, 50 = 50% chance, 25 = 75% chance
 var upgrade_shockRechargeSpeed = 50; //50, default charge speed, 45, 40, 35, 30, 25
 var upgrade_snowParticles = 1;
 
@@ -236,16 +237,19 @@ function snowParticle(dir, x, y) {
 
 function slowTower(x, y) {
     this.name = "Slow Tower";
-    this.killed = 0;
-    this.lvl = 1;
+    this.lvl = 1;    
     this.range = 2.3;
-    this.sel = false;
-    this.anim = 0;
+    this.killed = 0;
+
     this.recharge = 13; //snow particle recharge rare, upgrade_snowParticleRecharge idea here
     this.charge = this.recharge;
 
+    this.sel = false;
+    this.anim = 0;
+
     this.x = x;
     this.y = y;
+
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + 0.5;
     }
@@ -337,15 +341,17 @@ function slowTower(x, y) {
 }
 
 function shockTower(x, y) {
-    this.name = "Shock Tower"
-    this.killed = 0;
-    this.lvl = 1;
+    this.name = "Shock Tower";     
     this.cost = 10;
+    this.lvl = 1;    
     this.range = 2.3;
-    this.sel = false;
-    this.charge = 20;
-    this.anim = 0;
+    this.killed = 0;
+
     this.recharge = upgrade_shockRechargeSpeed;
+    this.charge = 20;
+
+    this.sel = false;
+    this.anim = 0;
 
     this.x = x;
     this.y = y;
@@ -458,6 +464,7 @@ function shockTower(x, y) {
                 if (dist <= this.range) {
                     mobs[i].hp -= this.dmg();
                     mobs[i].shocked = Math.random() * 100;
+                    mobs[i].shockDuration = SHOCK_DURATION;
 
                     if (mobs[i].hp <= 0) {
                         this.killed++;
@@ -479,7 +486,7 @@ function laserTower(x, y) {
     this.lvl = 1;
     this.range = 2.3;
     this.sel = false;
-    this.cost = 4;
+    //this.cost = 4; obsolete??
 
     this.x = x;
     this.y = y;
@@ -510,17 +517,13 @@ function laserTower(x, y) {
         context.lineWidth = 2;
         context.strokeStyle = "#353535"; //outline color
         context.beginPath();
-        // context.moveTo(-0.40 * tilew, 0.42 * tileh);
-        // context.lineTo(-0.15 * tilew, 0.2 * tileh);
-        // context.lineTo(0, -0.2 * tileh);
-        // context.lineTo(0.15 * tilew, 0.2 * tileh);
-        // context.lineTo(0.4 * tilew, 0.42 * tileh);
-        // context.lineTo(-0.4 * tilew, 0.42 * tileh);
+
         context.lineTo(0 * tilew, .4 * tileh);
         context.lineTo(.35 * tilew, -8);
         context.lineTo(-.35 * tilew, -8);
         context.lineTo(0, .4 * tileh);
         context.lineTo(0, .4 * tileh);
+
         context.fill();
         context.stroke();
 
@@ -528,6 +531,7 @@ function laserTower(x, y) {
             context.fillStyle = "#ff6363";
             context.strokeStyle = "#FF1C1C";
         }
+
         context.beginPath();
         context.arc(0, -0.2 * tileh, Math.floor(Math.min(tilew, tileh) * 0.2), 0, 2 * Math.PI, false);
         context.fill();
@@ -581,18 +585,21 @@ function laserTower(x, y) {
 
 function mob(level) {
     this.lvl = level;
+    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP;
+    this.maxhp = this.hp;
+
     this.index = 0;
-    this.a = path[0];
+
     this.slowDuration = 0;
+    this.shockDuration = SHOCK_DURATION;
     this.shocked = 0;
-    this.x = this.a.x;
-    this.y = this.a.y;
+    this.x = path[0].x;
+    this.y = path[0].y;
     this.xoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tilew / 2));
     this.yoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tileh / 2));
     this.xbase = this.x;
     this.ybase = this.y;
-    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP;
-    this.maxhp = this.hp;
+
 
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + this.xoffset + 0.5;
@@ -616,12 +623,30 @@ function mob(level) {
         context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
         context.fill();
         context.stroke();
-        if (this.hp < this.maxhp) {
+        if (this.hp < this.maxhp) { //missing hp
             context.fillStyle = "#000"; //missing hp color
             context.beginPath();
             context.moveTo(0, 0);
             context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
             context.fill();
+        }
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0){ //currently shocked
+            context.beginPath();
+            context.moveTo(0,0);
+
+            context.lineTo(3, -14); //top of lightning bolt
+            context.lineTo(-7, 1.5); //down left
+            context.lineTo(1, 1.5); //right horizontally
+            context.lineTo(-2, 14); //down left/straight
+    
+            context.lineTo(8, -1.5); //up right
+            context.lineTo(0, -1.5); //left horizontally
+            context.lineTo(3, -14); //up right/straight   
+
+            context.fillStyle = "#ffff00";
+
+            context.fill();
+            context.stroke();
         }
 
 
@@ -642,8 +667,8 @@ function mob(level) {
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
-        if (this.shocked > upgrade_shockChance) {
-            this.shocked--;
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) {
+            this.shockDuration--;
             speed = 0;
         }
         else
