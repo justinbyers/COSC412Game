@@ -24,7 +24,7 @@ var level = 1;
 var playerHealth = 100;
 var gold = 500;
 var score = 0;
-var arr;
+var groundColorArray;
 var arr2;
 var monstersLeft = 0;
 var totalKilled = 0;
@@ -32,14 +32,19 @@ var totalKilled = 0;
 var highestLevel = -1;
 var highestScore = -1;
 
+var obst = new Array(size);
+
 
 //UPGRADES
-var upgrade_shockChance = 100 //100, 75, 50, 25 upgrades levels
+var upgrade_shockChance = 50 //100, 75, 50, 25 upgrades levels, 100 = no chance, 75 = 25% chance, 50 = 50% chance, 25 = 75% chance
+var upgrade_shockRechargeSpeed = 50; //50, default charge speed, 45, 40, 35, 30, 25
+var upgrade_snowParticles = 1;
 
 
-var grad = context.createRadialGradient(75, 50, 5, 90, 60, 100);
-grad.addColorStop(.9, "red");
-grad.addColorStop(1, "blue");
+var CHEAT_MOBHP = 0;
+var CHEAT_MOBAMOUNT;
+
+
 var slowTowerFillColor = "#4CC4C2";
 
 
@@ -55,15 +60,16 @@ requestAnimFrame(draw);
 
 function onLoadUp() {
 
-
     // title menu code here
-    
 
     if (true) { //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
-        var num = 0;
-        towers[num++] = new aoeTower(2, 2); //remove these 3 to start game w/ blank map
+        waveDelay = 1;
+        CHEAT_MOBHP = 9999;
+        CHEAT_MOBAMOUNT = 99;
+        var num = 0; //for towers, see next 3 lines of code
+        towers[num++] = new shockTower(2, 2); //remove these 3 to start game w/ blank map
         towers[num++] = new slowTower(7, 4); //used for quickly testing tower .lineTo() drawings
         towers[num++] = new laserTower(3, 3);
 
@@ -72,43 +78,15 @@ function onLoadUp() {
     tilew = Math.floor((canvas.width - size) / size);
     tileh = Math.floor((canvas.width - size) / size);
 
-    updateUI();
-
     document.getElementById('tower1bt').value = "Laser tower (" + numberFormat(towerCosts[0]) + ")";
     document.getElementById('tower2bt').value = "Shock tower (" + numberFormat(towerCosts[1]) + ")";
     document.getElementById('tower3bt').value = "Ice tower (" + numberFormat(towerCosts[2]) + ")";
-    // document.getElementById('tower4bt').value = "Wall (" + numberFormat(towerCosts[3]) + ")";
 
-    arr = randomizedGroundColor();
+    groundColorArray = randomizedGroundColor();
 
+    updateUI();
     setupPath();
     genPath();
-
-    // path = new Array(new Point(0, 1),
-    //     new Point(1, 1), new Point(2, 1),
-    //     new Point(2, 2), new Point(2, 3),
-    //     new Point(2, 4), new Point(2, 5),
-    //     new Point(3, 5), new Point(4, 5),
-    //     new Point(5, 5), new Point(5, 6),
-    //     new Point(5, 7), new Point(5, 8),
-    //     new Point(5, 9));
-
-    // directions[0][1].from = new VisPoint(1, 1);
-    // directions[1][1].from = new VisPoint(2, 1);
-    // directions[2][1].from = new VisPoint(2, 2);
-    // directions[2][2].from = new VisPoint(2, 3);
-    // directions[2][3].from = new VisPoint(2, 4);
-    // directions[2][4].from = new VisPoint(2, 5);
-    // directions[2][5].from = new VisPoint(3, 5);
-    // directions[3][5].from = new VisPoint(4, 5);
-    // directions[4][5].from = new VisPoint(5, 5);
-    // directions[5][5].from = new VisPoint(5, 6);
-    // directions[5][6].from = new VisPoint(5, 7);
-    // directions[5][7].from = new VisPoint(5, 8);
-    // directions[5][8].from = new VisPoint(5, 9);
-    // directions[5][9].from = new VisPoint(5, 10);
-
-
 }
 
 function setupPath() {
@@ -263,7 +241,7 @@ function slowTower(x, y) {
     this.range = 2.3;
     this.sel = false;
     this.anim = 0;
-    this.recharge = 13;
+    this.recharge = 13; //snow particle recharge rare, upgrade_snowParticleRecharge idea here
     this.charge = this.recharge;
 
     this.x = x;
@@ -343,10 +321,6 @@ function slowTower(x, y) {
             document.getElementById('towerDamage').innerHTML = "---";
             document.getElementById('towerTotalKilled').innerHTML = "---";
         }
-        context.strokeStyle = '#FFF';
-        context.strokeText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
-        context.fillStyle = '#000';
-        context.fillText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
 
         context.restore();
     }
@@ -362,7 +336,7 @@ function slowTower(x, y) {
     }
 }
 
-function aoeTower(x, y) {
+function shockTower(x, y) {
     this.name = "Shock Tower"
     this.killed = 0;
     this.lvl = 1;
@@ -371,7 +345,7 @@ function aoeTower(x, y) {
     this.sel = false;
     this.charge = 20;
     this.anim = 0;
-    this.recharge = 50;
+    this.recharge = upgrade_shockRechargeSpeed;
 
     this.x = x;
     this.y = y;
@@ -435,14 +409,16 @@ function aoeTower(x, y) {
             this.anim = (this.anim + 1) % 360;
         }
 
-        context.lineTo(3, -12);
-        context.lineTo(-7, 1.5);
-        context.lineTo(1, 1.5);
-        context.lineTo(-2, 10);
+        context.lineTo(3, -12); //top of lightning bolt
+        context.lineTo(-7, 1.5); //down left
+        context.lineTo(1, 1.5); //right horizontally
+        context.lineTo(-2, 10); //down left/straight
 
-        context.lineTo(8, -1.5);
-        context.lineTo(0, -1.5);
-        context.lineTo(3, -12);
+        context.lineTo(8, -1.5); //up right
+        context.lineTo(0, -1.5); //left horizontally
+        context.lineTo(3, -12); //up right/straight
+        context.fillStyle = "#333333";
+        context.fill();
 
         context.lineWidth = 1.5;
         context.stroke();
@@ -464,11 +440,6 @@ function aoeTower(x, y) {
             document.getElementById('towerDamage').innerHTML = this.dmg();
             document.getElementById('towerTotalKilled').innerHTML = this.killed;
         }
-
-        context.strokeStyle = '#FFF';
-        context.strokeText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
-        context.fillStyle = '#000';
-        context.fillText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
 
         context.restore();
 
@@ -578,10 +549,6 @@ function laserTower(x, y) {
             document.getElementById('towerTotalKilled').innerHTML = this.killed;
         }
 
-        context.strokeStyle = '#FFF'; // tower level color
-        context.strokeText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
-        context.fillStyle = '#000';
-        context.fillText(this.lvl, 1 - tilew / 2, -1 + tileh / 2);
         context.restore();
     }
 
@@ -624,7 +591,7 @@ function mob(level) {
     this.yoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tileh / 2));
     this.xbase = this.x;
     this.ybase = this.y;
-    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl;
+    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP;
     this.maxhp = this.hp;
 
     this.getXCenter = function () {
@@ -638,11 +605,11 @@ function mob(level) {
         context.save();
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
-        if(this.slowDuration > 0)
+        if (this.slowDuration > 0)
             context.fillStyle = "rgb(0, 65, 150)";
         else
             context.fillStyle = "#00b670"; //monster color
-    
+
 
         context.strokeStyle = "#111111";
         context.beginPath();
@@ -675,7 +642,7 @@ function mob(level) {
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
-        if(this.shocked > upgrade_shockChance){
+        if (this.shocked > upgrade_shockChance) {
             this.shocked--;
             speed = 0;
         }
@@ -711,17 +678,14 @@ function mob(level) {
 
 //SHIT LAGGY I THINK
 function paintPath() {
-
     context.globalAlpha = 1;
-
     var tile = 0;
 
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
-            context.fillStyle = arr[tile++];
+            context.fillStyle = groundColorArray[tile++];
             context.fillRect(i * tilew + i, j * tileh + j, size * size, size * size);
         }
-
     }
     context.beginPath();
     context.stroke();
@@ -730,7 +694,7 @@ function paintPath() {
 
 function randomizedGroundColor() {
 
-    arr = new Array();
+    groundColorArray = new Array();
 
     for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
 
@@ -751,10 +715,10 @@ function randomizedGroundColor() {
 
 
         }
-        arr[i] = color;
+        groundColorArray[i] = color;
     }
 
-    return arr;
+    return groundColorArray;
 }
 var counter = 0;
 
@@ -836,7 +800,7 @@ function draw() {
             updateUI();
             updateHighestLevel(level);
             waveDelay = DEFAULT_WAVE_DELAY;
-            waveSize = Math.floor(level / 2) + 2;
+            waveSize = Math.floor(level / 2) + 2 + CHEAT_MOBAMOUNT;
             document.getElementById('monstersLeft').innerHTML = waveSize;
         }
     }
@@ -876,43 +840,44 @@ function mouseDown(e) {
         }
     }
     if (!foundOne && ctower) { //tower placed
-        if (e.button == 2) {
+        if ((e.button == 2) || (obst[ingameXsel][ingameYsel] == false)) { // "nevermind, cancel tower selection" feature OR tower placement on top of path
             ctower = false;
             return false;
         }
-        switch (towerType) {
-            case 1: if (towerCosts[0] <= gold) {
-                towers[towers.length] = new laserTower(ingameXsel, ingameYsel);
-                gold -= towerCosts[0];
-                ctower = false;
+
+        else {
+            switch (towerType) {
+                case 1: if (towerCosts[0] <= gold) {
+                    towers[towers.length] = new laserTower(ingameXsel, ingameYsel);
+                    gold -= towerCosts[0];
+                    ctower = false;
+                }
+                    break;
+                case 2: if (towerCosts[1] <= gold) {
+                    towers[towers.length] = new shockTower(ingameXsel, ingameYsel);
+                    gold -= towerCosts[1];
+                    ctower = false;
+                }
+                    break;
+                case 3: if (towerCosts[2] <= gold) {
+                    towers[towers.length] = new slowTower(ingameXsel, ingameYsel);
+                    gold -= towerCosts[2];
+                    ctower = false;
+                }
+
             }
-                break;
-            case 2: if (towerCosts[1] <= gold) {
-                towers[towers.length] = new aoeTower(ingameXsel, ingameYsel);
-                gold -= towerCosts[1];
-                ctower = false;
-            }
-                break;
-            case 3: if (towerCosts[2] <= gold) {
-                towers[towers.length] = new slowTower(ingameXsel, ingameYsel);
-                gold -= towerCosts[2];
-                ctower = false;
-            }
-                break;
-            case 4: if (towerCosts[3] <= gold) {
-                towers[towers.length] = new wallTower(ingameXsel, ingameYsel);
-                gold -= towerCosts[3];
-                ctower = false;
-            }
-                break;
         }
-        if (e.button == 1) ctower = true;
+
+        if (e.button == 1) 
+            ctower = true;
+        
         if (!genPath()) {
             towers.splice(towers.length - 1, 1);
             gold += towerCosts[towerType - 1];
             ctower = true;
             genPath();
         }
+
         updateUI();
     }
     else if (!foundOne) {
@@ -954,16 +919,14 @@ function mouseMove(e) {
 
 function upgrade() {
     for (var i = 0; i < towers.length; i++) {
-        if (!towers[i].sel) {
+        if (!towers[i].sel) 
             continue;
-        }
+        
         if (gold >= towers[i].getUpgradeCost()) {
             gold -= towers[i].getUpgradeCost();
             towers[i].lvl++;
             updateUI();
-        } else {
-            //console.log("insufficient gold");
-        }
+        } 
     }
 }
 
@@ -972,14 +935,15 @@ function updateUI() {
     document.getElementById('sellbutton').disabled = true;
     document.getElementById('upgradebutton').value = "Upgrade";
     document.getElementById('sellbutton').value = "Sell";
+
     if (playerHealth > 0) {
         for (var i = 0; i < towers.length; i++) {
             if (towers[i].sel) {
                 if (towers[i].getUpgradeCost() > 0) {
                     document.getElementById('upgradebutton').value = "Upgrade (" + numberFormat(towers[i].getUpgradeCost()) + ")";
-                    if (gold >= towers[i].getUpgradeCost()) {
+                    if (gold >= towers[i].getUpgradeCost()) 
                         document.getElementById('upgradebutton').disabled = false;
-                    }
+                    
                 }
                 document.getElementById('sellbutton').value = "Sell (" + numberFormat(towers[i].getSellValue()) + ")";
                 document.getElementById('sellbutton').disabled = false;
@@ -1004,25 +968,12 @@ function updateUI() {
     else
         document.getElementById('tower3bt').disabled = true;
 
+    document.getElementById('hp').innerHTML = playerHealth; //hp value 
+    document.getElementById('Wave#').innerHTML = level - 1; //wave # value
+    document.getElementById('goldAmount').innerHTML = numberFormat(gold); //gold amount value
+    document.getElementById('scoreTotal').innerHTML = score; //total score value
 
-    // if (gold >= towerCosts[3] && playerHealth > 0)
-    //     document.getElementById('tower4bt').disabled = false;
-    // else
-    //     document.getElementById('tower4bt').disabled = true;
-
-    // if (gold >= towerCosts[4] && playerHealth > 0)
-    //     document.getElementById('cTower5Bt').disabled = false;
-    // else
-    //     document.getElementById('cTower5Bt').disabled = true;
-
-    document.getElementById('hp').innerHTML = playerHealth;
-    document.getElementById('Wave#').innerHTML = level - 1;
-    document.getElementById('goldAmount').innerHTML = numberFormat(gold);
-    document.getElementById('scoreTotal').innerHTML = score;
-
-
-    document.getElementById('totalKilled').innerHTML = totalKilled;
-
+    document.getElementById('totalKilled').innerHTML = totalKilled; //total killed value
 
     if (playerHealth <= 0) {
         document.getElementById("pageTitle").innerHTML = "GAME OVER";
@@ -1076,22 +1027,33 @@ function VisPoint(x, y) {
 
 
 function genPath() {
-    var obst = new Array(size);
 
     for (var i = 0; i < size; i++)
         obst[i] = new Array(size);
 
-    for (var i = 0; i < towers.length; i++)
-        obst[towers[i].x][towers[i].y] = true;
+    for (var i = 0; i < path.length; i++) {
+        obst[path[i].x][path[i].y] = false;
+    }
 
+    for (var i = 0; i < towers.length; i++) {
+
+
+        obst[towers[i].x][towers[i].y] = true;
+    }
     return (path != -1);
 }
 
 document.onkeydown = function (keyPress) {
     var key = keyPress.which;
 
-    if (key == 85)  // 'u' 
+    if (key == 85) // 'u' 
         upgrade();
+
+    if (key == 83) // 's'
+        sell();
+
+    if (key == 82) // 'r'
+        restart();
 
     else if (key == 49 && gold >= towerCosts[0]) {  // 1
         ctower = true;
@@ -1108,14 +1070,10 @@ document.onkeydown = function (keyPress) {
         towerType = 3;
     }
 
-    else if (key == 52 && gold >= towerCosts[3]) { // 4
-        ctower = true;
-        towerType = 4;
-    }
 }
 
-function updateHighestLevel(level){
-    if(level > highestLevel)
+function updateHighestLevel(level) {
+    if (level > highestLevel)
         highestLevel = level;
 }
 
