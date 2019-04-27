@@ -8,7 +8,7 @@ var towers = new Array();
 var mobs = new Array();
 var flakes = new Array();
 var size = 10;
-var towerCosts = new Array(40, 200, 1000, 10, 10); //laser, aoe, slow, wall, x
+var towerCosts = new Array(40, 200, 1000); //laser, aoe, slow, wall, x
 var directions;
 
 var ctower = false;
@@ -16,6 +16,7 @@ var ingameXsel = 0;
 var ingameYsel = 0;
 var towerType = 1;
 
+var DEFAULT_WAVE_DELAY = 400;
 var waveSize = 0;
 var mobDelay = 0;
 var waveDelay = 200; //how fast the wave starts
@@ -27,6 +28,13 @@ var arr;
 var arr2;
 var monstersLeft = 0;
 var totalKilled = 0;
+
+var highestLevel = -1;
+var highestScore = -1;
+
+
+//UPGRADES
+var upgrade_shockChance = 100 //100, 75, 50, 25 upgrades levels
 
 
 var grad = context.createRadialGradient(75, 50, 5, 90, 60, 100);
@@ -202,6 +210,7 @@ function snowParticle(dir, x, y) {
                 var xdist = (mobs[i].getXCenter() - (this.x * tilew + this.x)) / tilew;
                 var ydist = (mobs[i].getYCenter() - (this.y * tilew + this.y)) / tileh;
                 var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+
                 if (dist < 0.2) {
                     mobs[i].slowDuration = 60;
                 }
@@ -368,7 +377,8 @@ function aoeTower(x, y) {
     this.y = y;
 
     this.dmg = function () {
-        return (Math.pow(1.93, this.lvl) * 80).toFixed(0);
+        return (Math.pow(1.93, this.lvl) * 40).toFixed(0);
+
     }
 
     this.getXCenter = function () {
@@ -476,6 +486,7 @@ function aoeTower(x, y) {
                 var dist = Math.sqrt(xdist * xdist + ydist * ydist);
                 if (dist <= this.range) {
                     mobs[i].hp -= this.dmg();
+                    mobs[i].shocked = Math.random() * 100;
 
                     if (mobs[i].hp <= 0) {
                         this.killed++;
@@ -606,6 +617,7 @@ function mob(level) {
     this.index = 0;
     this.a = path[0];
     this.slowDuration = 0;
+    this.shocked = 0;
     this.x = this.a.x;
     this.y = this.a.y;
     this.xoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tilew / 2));
@@ -630,6 +642,7 @@ function mob(level) {
             context.fillStyle = "rgb(0, 65, 150)";
         else
             context.fillStyle = "#00b670"; //monster color
+    
 
         context.strokeStyle = "#111111";
         context.beginPath();
@@ -644,13 +657,13 @@ function mob(level) {
             context.fill();
         }
 
-            
+
 
         context.restore();
     }
     this.update = function () {
         if (this.hp <= 0) {
-            gold += Math.floor(Math.pow(2.175, this.lvl)) + 5; //GOLD CONTROL
+            gold += Math.floor(Math.pow(2.175, this.lvl)) + 1; //GOLD CONTROL
             score += Math.floor(Math.pow(1.18, this.lvl)) + 0; //SCORE CONTROL
             monstersLeft--;
             totalKilled++;
@@ -660,6 +673,15 @@ function mob(level) {
 
         var speed = (this.slowDuration-- > 0 ? 0.02 : 0.05);
         if (this.slowDuration < 0) this.slowDuration = 0;
+
+        var prevSpeed = speed;
+        if(this.shocked > upgrade_shockChance){
+            this.shocked--;
+            speed = 0;
+        }
+        else
+            speed = prevSpeed;
+
         var pre = Math.floor(this.index);
         this.index += speed;
         if (this.index >= 1) {
@@ -763,6 +785,7 @@ function draw() {
     var startY = path[0].y;
 
     context.lineWidth = 1;
+
     context.strokeStyle = "#111111"; //starting point arrow
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
     context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
@@ -811,7 +834,8 @@ function draw() {
         if (waveDelay-- <= 0) {
             level++;
             updateUI();
-            waveDelay = 200;
+            updateHighestLevel(level);
+            waveDelay = DEFAULT_WAVE_DELAY;
             waveSize = Math.floor(level / 2) + 2;
             document.getElementById('monstersLeft').innerHTML = waveSize;
         }
@@ -1017,7 +1041,7 @@ function restart() {
 
     waveSize = 0;
     mobDelay = 0;
-    waveDelay = 400;
+    waveDelay = DEFAULT_WAVE_DELAY;
     level = 1;
     playerHealth = 50;
     gold = 500;
@@ -1088,6 +1112,11 @@ document.onkeydown = function (keyPress) {
         ctower = true;
         towerType = 4;
     }
+}
+
+function updateHighestLevel(level){
+    if(level > highestLevel)
+        highestLevel = level;
 }
 
 //test functions below
