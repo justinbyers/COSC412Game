@@ -13,7 +13,7 @@
     background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
     border: 2px solid;
     padding: 10px 10px 10px 10px;
-    width: 794px;
+    width: 790px;
 }
 
 #rowBox {
@@ -68,7 +68,7 @@
 #rightCol {
     float: left;
     height: 400px;
-    width: 156px;
+    width: 158px;
     text-align: center;
     margin: 5px 5px 5px 5px;
     border: 5px solid #867855;
@@ -125,7 +125,7 @@
 }
 
 #waveInfo {
-    width: 138px;
+    width: 140px;
     height: 285px;
     max-width: 140;
     text-align: center;
