@@ -24,8 +24,6 @@
                 <div id="leftCol">
                     <div id="infoBox">
 
-                        Score:
-                        <hr class="number" type="number" value="score" id="scoreTotal">
                         Lives:
                         <hr class="number" type="number" value="playerHealth" id="hp">
                         Gold:
@@ -37,7 +35,9 @@
 
                     </div>
                     <div id="towerBtns">
+
                         <div id=towerBtnsRow>
+                            <div style="padding: 2px 0px 5px 0px;">Purchase Towers:</div>
                             <div class="tooltip" id=laserTowerPic onclick="ctower=true;towerType=1"><span
                                     class="tooltiptext">Laser Tower<br>Cost: <span id=tower1bt>40</span> Gold</span>
                             </div>
@@ -49,28 +49,67 @@
                             </div>
                         </div>
 
-                        <div id=tooltipBox>
-
-                        </div>
-
-                        <div id=towerUtilBtnsRow>
-                            <div class="sellBtn">
-                                <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton"
-                                    disabled="">
-                            </div>
-
-                            <div class="upgradeBtn">
-                                <input class="button" type="button" onclick="upgrade()" value="Upgrade"
-                                    id="upgradebutton" disabled="">
-                            </div>
-                        </div>
 
 
                     </div>
-                    <div id="towerUtilBtns">
 
+                    <div id=tooltipBox>
+
+                        <div class="gameInfoDivs" id="laserTowerInfo" style="visibility:hidden">
+                            <span id="laserTowerName"></span>
+                            <br><br>
+                            Level: <span id="laserTowerLevel">1</span>
+                            <br>
+                            Damage: <span id="laserTowerDamage">0 </span>
+                            <br>
+                            Mobs Killed: <span id="laserTowerTotalKilled">0</span>
+                        </div>
+
+                        <div class="gameInfoDivs" id="shockTowerInfo" style="visibility:hidden">
+                            <span id="shockTowerName"></span>
+                            <br><br>
+                            Level: <span id="shockTowerLevel">1</span>
+                            <br>
+                            Damage: <span id="shockTowerDamage">0 </span>
+                            <br>
+                            Mobs Killed: <span id="shockTowerTotalKilled">0</span>
+                            <br>
+                            Stun: <span id="shockChance"></span> %
+                            <br>
+                        </div>
+
+                        <div class="gameInfoDivs" id="slowTowerInfo" style="visibility:hidden">
+                            <span id="slowTowerName"></span>
+                            <br><br>
+                            Level: <span id="slowTowerLevel">1</span>
+                            <br>
+
+
+                        </div>
+
+                        <div class=gameInfoDivs id=enemyInfo style="visibility: visible">
+                                Enemy Info <br> <br>
+                                # of Mobs: <span id="monstersLeft">0</span> <br>
+                                Mob HP: <span id="monstersHealth">-</span> <br>
+                                Total Killed: <span id="totalKilled">0</span>
+                                <br><br>
+                        </div>
 
                     </div>
+
+                    <div id=towerUtilBtns>
+                        <div class="sellBtn">
+                            <input class="button" type='button' onclick="sell()" value="Sell" id="sellbutton"
+                                disabled="">
+                        </div>
+
+                        <div class="upgradeBtn">
+                            <input class="button" type="button" onclick="upgrade()" value="Upgrade" id="upgradebutton"
+                                disabled="">
+                        </div>
+                    </div>
+
+
 
                 </div>
 
@@ -83,90 +122,23 @@
                     </canvas>
                 </div>
 
-                <div id="thirdCol" style="display:none">
-                    <div id="towerButtons">
-                        <div id=towerButtonWrapper>
-
-                            <div id=towerButtonContainers>
-                                <div class="tooltip" id=laserTowerPic onclick="ctower=true;towerType=1"><span
-                                        class="tooltiptext">yeet</span></div>
-
-                            </div>
-
-                            <div id=towerButtonContainers>
-
-                                <div class="tooltip" id=shockTowerPic onclick="ctower=true;towerType=2"><span
-                                        class="tooltiptext">yeet</span></div>
-                            </div>
-                            <div id=towerButtonContainers>
-                                <div class="tooltip" id=slowTowerPic onclick="ctower=true;towerType=3"><span
-                                        class="tooltiptext">yeet</span></div>
-                            </div>
-
-                        </div>
-
-                        <div id=towerUtilWrapper>
-                            aaa
-                        </div>
-
-
-
-                    </div>
-                </div>
-
                 <div id="rightCol">
-                    <div id=gameInfoWrapper>
-                        <div class="gameInfoDivs" id="waveInfo" style="visibility:visible">
-                            Wave Info <br> <br>
-                            # of Mobs: <span id="monstersLeft">0</span> <br>
-                            Mob HP: <span id="monstersHealth">-</span> <br>
-                            Total Killed: <span id="totalKilled">0</span>
-                            <br><br>
 
-                        </div>
+                    <div  id="waveInfo" style="visibility:visible">
+                        Score:
+                        <hr class="number" type="number" value="score" id="scoreTotal">
 
-                        <div class="gameInfoDivs" id="laserTowerInfo" style="visibility:hidden">
-                            <span id="laserTowerName"></span>
-                            <br><br>
-                            Level: <span id="laserTowerLevel">1</span>
-                            <br>
-                            Damage: <span id="laserTowerDamage">0 </span>
-                            <br>
-                            Enemies Killed: <span id="laserTowerTotalKilled">0</span>
-                        </div>
-
-                        <div class="gameInfoDivs" id="shockTowerInfo" style="visibility:hidden">
-                            <span id="shockTowerName"></span>
-                            <br><br>
-                            Level: <span id="shockTowerLevel">1</span>
-                            <br>
-                            Damage: <span id="shockTowerDamage">0 </span>
-                            <br>
-                            Enemies Killed: <span id="shockTowerTotalKilled">0</span>
-                            <br>
-                            Shock Chance: <span id="shockChance"></span> %
-                            <br>
-                        </div>
-
-                        <div class="gameInfoDivs" id="slowTowerInfo" style="visibility:hidden">
-                            <span id="slowTowerName"></span>
-                            <br><br>
-                            Level: <span id="slowTowerLevel">1</span>
-                            <br>
-
-
-                        </div>
                     </div>
 
                     <div id="gameUtilBtns">
-                        <input class='shop' type='button' onclick="openShop" value="Shop">
+                        <input class='shop' type='button' onclick="togglePause()" value="Shop">
                         <input class='restart' type="button" onclick="restart()" value="Restart">
                     </div>
                 </div>
 
 
             </div>
-            <div id="bottomRow">
+            <div id="bottomRow" style="display:none">
                 <div style="text-align: center; padding: 70px; ">-Premium Upgrades Uere-</div>
             </div>
 

@@ -47,6 +47,7 @@ var CHEAT_MOBAMOUNT;
 
 
 var slowTowerFillColor = "#4CC4C2";
+var paused = false;
 
 
 requestAnimFrame = (function () {
@@ -58,6 +59,21 @@ requestAnimFrame = (function () {
 onLoadUp();
 requestAnimFrame(draw);
 
+function togglePause() {
+    if (!paused) {
+        clearTimeout(draw)
+        console.log("1");
+        paused = true;
+    }
+
+    else if (paused) {
+        //requestAnimFrame(draw);
+        console.log("2");
+        paused = false;
+    }
+
+}
+
 
 function onLoadUp() {
 
@@ -66,8 +82,8 @@ function onLoadUp() {
     if (true) { //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
-        waveDelay = 1;
-        CHEAT_MOBHP = 9999;
+        waveDelay = 100;
+        CHEAT_MOBHP = 999999;
         CHEAT_MOBAMOUNT = 99;
         var num = 0; //for towers, see next 3 lines of code
         towers[num++] = new shockTower(2, 2); //remove these 3 to start game w/ blank map
@@ -79,9 +95,9 @@ function onLoadUp() {
     tilew = Math.floor((canvas.width - size) / size);
     tileh = Math.floor((canvas.width - size) / size);
 
-    document.getElementById('tower1bt').value = "Laser tower (" + numberFormat(towerCosts[0]) + ")";
-    document.getElementById('tower2bt').value = "Shock tower (" + numberFormat(towerCosts[1]) + ")";
-    document.getElementById('tower3bt').value = "Ice tower (" + numberFormat(towerCosts[2]) + ")";
+    document.getElementById('tower1bt').value = numberFormat(towerCosts[0]);
+    document.getElementById('tower2bt').value = numberFormat(towerCosts[1]);
+    document.getElementById('tower3bt').value = numberFormat(towerCosts[2]);
 
     groundColorArray = randomizedGroundColor();
 
@@ -170,7 +186,6 @@ function setupPath() {
 
 }
 
-
 function laserTower(x, y) {
     this.id = 1;
     this.name = "Laser Tower";
@@ -194,10 +209,10 @@ function laserTower(x, y) {
         return this.y * tileh + this.y + tileh / 2 + 0.5;
     }
     this.getUpgradeCost = function () {
-        return towerCosts[0] + Math.floor(Math.pow(1.9, this.lvl) * 60);
+        return (towerCosts[0] + Math.floor(Math.pow(1.9, this.lvl) * 60));
     }
     this.getSellValue = function () {
-        return towerCosts[0] / 2 + Math.floor((Math.pow(1.9, this.lvl - 1) - 1) * 60);
+        return (towerCosts[0] / 2 + Math.floor((Math.pow(1.9, this.lvl - 1) - 1) * 60));
     }
 
     this.draw = function () {
@@ -241,7 +256,7 @@ function laserTower(x, y) {
 
             document.getElementById('laserTowerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
             document.getElementById('laserTowerLevel').innerHTML = this.lvl;
-            document.getElementById('laserTowerDamage').innerHTML = this.dmg();
+            document.getElementById('laserTowerDamage').innerHTML = toExponentialFixaroo(this.dmg());
             document.getElementById('laserTowerTotalKilled').innerHTML = this.killed;
         }
 
@@ -274,7 +289,6 @@ function laserTower(x, y) {
 
 }
 
-
 function shockTower(x, y) {
     this.id = 2;
     this.name = "Shock Tower";
@@ -294,9 +308,9 @@ function shockTower(x, y) {
     this.y = y;
 
     this.dmg = function () {
-        return (Math.pow(1.93, this.lvl) * 40).toFixed(0);
-
+        return ((Math.pow(1.93, this.lvl) * 40)).toFixed(0);
     }
+
 
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + 0.5;
@@ -305,11 +319,12 @@ function shockTower(x, y) {
         return this.y * tileh + this.y + tileh / 2 + 0.5;
     }
 
+
     this.getUpgradeCost = function () {
-        return towerCosts[1] + Math.floor(Math.pow(2.7, this.lvl) * 80);
+        return (towerCosts[1] + Math.floor(Math.pow(2.7, this.lvl) * 80));
     }
     this.getSellValue = function () {
-        return towerCosts[1] / 2 + Math.floor((Math.pow(2.7, this.lvl - 1) - 1) * 80);
+        return (towerCosts[1] / 2 + Math.floor((Math.pow(2.7, this.lvl - 1) - 1) * 80));
     }
 
     this.draw = function () {
@@ -443,9 +458,11 @@ function slowTower(x, y) {
 
     this.getUpgradeCost = function () {
         return towerCosts[2] + Math.pow(8, this.lvl) * 100;
+
     }
     this.getSellValue = function () {
         return towerCosts[2] / 2 + (Math.pow(8, this.lvl - 1) - 1) * 100;
+
     }
 
     this.draw = function () {
@@ -661,9 +678,14 @@ function mob(level) {
         context.restore();
     }
     this.update = function () {
+
+        document.getElementById('monstersHealth').innerHTML = toExponentialFixaroo((this.maxhp).toFixed(0)); //mob hp indicator
+
         if (this.hp <= 0) {
-            gold += Math.floor(Math.pow(2.175, this.lvl)) + 1; //GOLD CONTROL
-            score += Math.floor(Math.pow(1.18, this.lvl)) + 0; //SCORE CONTROL
+
+            gold += Math.floor(Math.pow(2.175, this.lvl));
+            score += Math.floor(Math.pow(1.18, this.lvl));
+
             monstersLeft--;
             totalKilled++;
             updateUI();
@@ -708,7 +730,6 @@ function mob(level) {
     }
 }
 
-//SHIT LAGGY I THINK
 function paintPath() {
     context.globalAlpha = 1;
     var tile = 0;
@@ -722,7 +743,6 @@ function paintPath() {
     context.beginPath();
     context.stroke();
 }
-
 
 function randomizedGroundColor() {
 
@@ -755,6 +775,12 @@ function randomizedGroundColor() {
 var counter = 0;
 
 function draw() {
+
+    if (paused) {
+        confirm("AAA");
+        paused = false;
+    }
+
     requestAnimFrame(draw);
     if (playerHealth <= 0) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -865,8 +891,8 @@ function mouseDown(e) {
             updateUI();
             foundOne = true;
             ctower = false;
-            
-            document.getElementById('waveInfo').setAttribute("style", "visibility:hidden");
+
+            document.getElementById('enemyInfo').setAttribute("style", "visibility:hidden");
             document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
             document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
             document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
@@ -927,7 +953,7 @@ function mouseDown(e) {
         updateUI();
     }
     else if (!foundOne) {
-        document.getElementById('waveInfo').setAttribute("style", "visibility:visible");
+        document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
         document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
         document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
         document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
@@ -940,7 +966,9 @@ function mouseDown(e) {
 function sell() {
     for (var i = 0; i < towers.length; i++) {
         if (towers[i].sel) {
+
             gold += towers[i].getSellValue();
+
             towers.splice(i, 1);
             genPath();
             updateUI();
@@ -988,12 +1016,12 @@ function updateUI() {
         for (var i = 0; i < towers.length; i++) {
             if (towers[i].sel) {
                 if (towers[i].getUpgradeCost() > 0) {
-                    document.getElementById('upgradebutton').value = "Upgrade (" + numberFormat(towers[i].getUpgradeCost()) + ")";
+                    document.getElementById('upgradebutton').value = "Upgrade (" + toExponentialFixaroo(towers[i].getUpgradeCost()) + ")";
                     if (gold >= towers[i].getUpgradeCost())
                         document.getElementById('upgradebutton').disabled = false;
 
                 }
-                document.getElementById('sellbutton').value = "Sell (" + numberFormat(towers[i].getSellValue()) + ")";
+                document.getElementById('sellbutton').value = "Sell (" + toExponentialFixaroo(towers[i].getSellValue()) + ")";
                 document.getElementById('sellbutton').disabled = false;
                 break;
             }
@@ -1018,8 +1046,11 @@ function updateUI() {
 
     document.getElementById('hp').innerHTML = playerHealth; //hp value 
     document.getElementById('Wave#').innerHTML = level - 1; //wave # value
-    document.getElementById('goldAmount').innerHTML = numberFormat(gold); //gold amount value
-    document.getElementById('scoreTotal').innerHTML = score; //total score value
+
+
+
+    document.getElementById('goldAmount').innerHTML = toExponentialFixaroo(gold); //gold amount value
+    document.getElementById('scoreTotal').innerHTML = toExponentialFixaroo(score); //total score value
 
     document.getElementById('totalKilled').innerHTML = totalKilled; //total killed value
 
@@ -1046,6 +1077,15 @@ function restart() {
     gold = 500;
     updateUI();
     genPath();
+}
+
+function toExponentialFixaroo(val) {
+
+    if (val < 99999)
+        return val;
+    else
+        return Number.parseFloat(val).toExponential(2);
+
 }
 
 function numberFormat(val) {
@@ -1124,6 +1164,7 @@ function updateHighestLevel(level) {
     if (level > highestLevel)
         highestLevel = level;
 }
+
 
 //test functions below
 function test() { //show tower info

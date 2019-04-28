@@ -4,7 +4,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -300px;
+    margin-left: -400px;
     margin-top: -300px;
 }
 
@@ -31,10 +31,9 @@
 #middleRow {
     border: 5px solid #867855;
     border-top: 0px;
-    border-bottom: 0px;
     margin: 0px auto 0px auto;
     width: auto;
-    height: 400px;
+    height: 420px;
     position: relative;
 }
 
@@ -49,7 +48,7 @@
 #leftCol {
     float: left;
     height: 400px;
-    width: 160px;
+    width: 158px;
     text-align: center;
     margin: 5px 5px 5px 5px;
     border: 5px solid #867855;
@@ -66,52 +65,10 @@
     border: 4px solid #867855;
 }
 
-#thirdCol {
-    float: left;
-    position: relative;
-    width: 70px;
-    height: 410px;
-    margin: 5px 5px 5px 5px;
-    background: #867855;
-}
-
-#towerButtons {
-    float: left;
-    width: 60px;
-    height: 400px;
-    background: rgb(134, 120, 85);
-    background: linear-gradient(180deg, rgba(134, 120, 85, 1) 0%, rgba(94, 85, 60, 1) 100%);
-    margin: 5px 5px 5px 5px;
-}
-
-#towerButtonWrapper {
-    width: 43px;
-    height: auto;
-    border: 4px solid #867855;
-    margin: 4px;
-    background: #dfc98f;
-}
-
-#towerButtonContainers {
-    display: inline-block;
-    width: 38px;
-    height: 38px;
-    background: #dfc98f;
-    margin: 3px;
-}
-
-#towerButtonWrapper {
-    width: 43px;
-    height: auto;
-    border: 4px solid #867855;
-    margin: 4px;
-    background: #dfc98f;
-}
-
 #rightCol {
     float: left;
     height: 400px;
-    width: 160px;
+    width: 156px;
     text-align: center;
     margin: 5px 5px 5px 5px;
     border: 5px solid #867855;
@@ -123,13 +80,13 @@
     border: 4px solid #867855;
     background: #dfc98f;
     width: 140px;
-    height: 160px;
-    margin: 5px 5px 5px 5px;
+    height: 104px;
+    margin: 3px 5px 5px 5px;
     padding: 5px 0px 0px 0px;
 }
 
 #towerBtns {
-    margin: 10px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
 }
 
 #towerBtnsRow {
@@ -137,50 +94,64 @@
     border: 4px solid #867855;
     background: #dfc98f;
     width: 140px;
-    height: 46px;
+    height: 70px;
     padding: 5px 0px 0px 0px;
 }
 
-#towerUtilBtnsRow {
-    display: block;
-    border: 4px solid #867855;
-    background: #dfc98f;
-    width: 140px;
-    height: 46px;
-    padding: 5px 0px 0px 0px;
-}
-
-#towerUtilBtns {
+#tooltipBoxWrapper {
     width: auto;
     margin: 10px 5px 0px 5px;
 }
 
+#tooltipBox {
+    display: inline-block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 140px;
+    height: 130px;
+    margin: 0px 5px 0px 5px;
+    border-bottom: 0px;
+}
+
+#towerUtilBtns {
+    align-content: center;
+    display: block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 140px;
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+    border-top: 0px
+}
+
+#waveInfo {
+    width: 138px;
+    height: 310px;
+    max-width: 140;
+    text-align: center;
+    margin: 5px;
+    padding: 5px 0px 0px 0px;
+    background: #dfc98f;
+    border: 4px solid #867855;
+}
+
 #gameUtilBtns {
-    width: auto;
-    height: 60px;
+    width: 138px;
+    height: 20px;
     margin: 10px 5px 5px 5px;
-    color: rgb(126, 14, 14);
     border: none;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    margin: 15px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
 }
 
-#gameInfoWrapper {
-    width: 160px;
-    height: 320px;
-
-}
-
-#waveInfo, #laserTowerInfo, #shockTowerInfo, #slowTowerInfo {
-    float: left;
-    height: 300px;
-    width: 140px;
-    max-width: 140px;
+#laserTowerInfo, #shockTowerInfo, #slowTowerInfo, #enemyInfo {
+    height: 120px;
+    width: 131px;
+    max-width: 140;
     text-align: center;
-    margin: 5px 5px 5px 5px;
-    border: 5px solid #867855;
+    margin: 5px;
     background: #dfc98f;
 }
 
@@ -188,29 +159,32 @@
     width: 36px;
     height: 36px;
     background: url('towers.gif') 0px 0px;
+    cursor: pointer;
 }
 
 #shockTowerPic {
     width: 38px;
     height: 38px;
     background: url('towers.gif') -38px 0px;
+    cursor: pointer;
 }
 
 #slowTowerPic {
     width: 38px;
     height: 38px;
     background: url('towers.gif') -76px 0px;
+    cursor: pointer;
 }
 
-#laserTowerPic:active {
+#laserTowerPic:hover {
     background: url('towers.gif') 0px -38px;
 }
 
-#shockTowerPic:active {
+#shockTowerPic:hover {
     background: url('towers.gif') -38px -38px;
 }
 
-#slowTowerPic:active {
+#slowTowerPic:hover {
     background: url('towers.gif') -76px -38px;
 }
 
@@ -264,10 +238,8 @@
     text-align: center;
     text-decoration: none;
     font-size: 12px;
-    padding: 1px 5px 1px 5px;
-    margin: 0px 2px 0px 2px;
-    width: auto;
-    height: 20px;
+    width: 139px;
+    height: 19px;
     cursor: pointer;
 }
 
