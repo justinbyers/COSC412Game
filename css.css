@@ -66,6 +66,48 @@
     border: 4px solid #867855;
 }
 
+#thirdCol {
+    float: left;
+    position: relative;
+    width: 70px;
+    height: 410px;
+    margin: 5px 5px 5px 5px;
+    background: #867855;
+}
+
+#towerButtons {
+    float: left;
+    width: 60px;
+    height: 400px;
+    background: rgb(134, 120, 85);
+    background: linear-gradient(180deg, rgba(134, 120, 85, 1) 0%, rgba(94, 85, 60, 1) 100%);
+    margin: 5px 5px 5px 5px;
+}
+
+#towerButtonWrapper {
+    width: 43px;
+    height: auto;
+    border: 4px solid #867855;
+    margin: 4px;
+    background: #dfc98f;
+}
+
+#towerButtonContainers {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    background: #dfc98f;
+    margin: 3px;
+}
+
+#towerButtonWrapper {
+    width: 43px;
+    height: auto;
+    border: 4px solid #867855;
+    margin: 4px;
+    background: #dfc98f;
+}
+
 #rightCol {
     float: left;
     height: 400px;
@@ -81,13 +123,31 @@
     border: 4px solid #867855;
     background: #dfc98f;
     width: 140px;
-    height: 215px;
+    height: 160px;
     margin: 5px 5px 5px 5px;
     padding: 5px 0px 0px 0px;
 }
 
 #towerBtns {
     margin: 10px 5px 5px 5px;
+}
+
+#towerBtnsRow {
+    display: block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 140px;
+    height: 46px;
+    padding: 5px 0px 0px 0px;
+}
+
+#towerUtilBtnsRow {
+    display: block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 140px;
+    height: 46px;
+    padding: 5px 0px 0px 0px;
 }
 
 #towerUtilBtns {
@@ -97,6 +157,7 @@
 
 #gameUtilBtns {
     width: auto;
+    height: 60px;
     margin: 10px 5px 5px 5px;
     color: rgb(126, 14, 14);
     border: none;
@@ -106,9 +167,15 @@
     margin: 15px 0px 20px 0px;
 }
 
-#a, #aa{
+#gameInfoWrapper {
+    width: 160px;
+    height: 320px;
+
+}
+
+#waveInfo, #laserTowerInfo, #shockTowerInfo, #slowTowerInfo {
     float: left;
-    height: 380px;
+    height: 300px;
     width: 140px;
     max-width: 140px;
     text-align: center;
@@ -116,35 +183,92 @@
     border: 5px solid #867855;
     background: #dfc98f;
 }
+
+#laserTowerPic {
+    width: 36px;
+    height: 36px;
+    background: url('towers.gif') 0px 0px;
+}
+
+#shockTowerPic {
+    width: 38px;
+    height: 38px;
+    background: url('towers.gif') -38px 0px;
+}
+
+#slowTowerPic {
+    width: 38px;
+    height: 38px;
+    background: url('towers.gif') -76px 0px;
+}
+
+#laserTowerPic:active {
+    background: url('towers.gif') 0px -38px;
+}
+
+#shockTowerPic:active {
+    background: url('towers.gif') -38px -38px;
+}
+
+#slowTowerPic:active {
+    background: url('towers.gif') -76px -38px;
+}
+
 /* CSS Document */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #36301f;
+    color: #FFF;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #36301f transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
 
 .gameInfoDivs {
     position: absolute;
     text-align: left;
 }
-.test{
+
+.test {
     background-color: rgb(0, 65, 150);
-} 
+}
+
 .button {
+    display: inline-block;
     text-align: center;
     text-decoration: none;
     font-size: 12px;
-    padding: 1px 10px 1px 10px;
-    width: 118px;
+    padding: 1px 5px 1px 5px;
+    margin: 0px 2px 0px 2px;
+    width: auto;
+    height: 20px;
     cursor: pointer;
-    position: relative;
-}
-
-a.button {
-    display: block;
-    float: left;
-    color: aqua;
-    background-color: blue;
-}
-
-.controls {
-    font-size: 1em;
-    font-weight: 700
 }
 
 #pageTitle {
@@ -154,50 +278,7 @@ a.button {
     color: #52472b
 }
 
-.upgrade {
-    background-color: rgb(155, 155, 155);
-    border: none;
-    color: white;
-    padding: 8px 10px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 8px 1px;
-    cursor: pointer;
-}
-
-/* .restart {
-    background-color: rgb(126, 14, 14);
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 20px 0px 20px 0px;
-}
-
-.restart:active {
-    background-color: rgb(126, 14, 14);
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-} */
-
-.container {
-    color: #27558a;
-}
-
-.b1 {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    text-align: center;
-    font-size: 16px;
-}
-
-.b1:hover:not(.active) {
-    background-color: #ddd;
-}
-
-.button:hover:not(.active) {
-    background-color: #ddd;
+.sellBtn, .upgradeBtn {
+    float: left;
+    width: auto;
 }

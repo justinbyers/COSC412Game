@@ -37,7 +37,7 @@ var obst = new Array(size);
 var SHOCK_DURATION = 25;
 
 //UPGRADES
-var upgrade_shockChance = 75 //100, 75, 50, 25 upgrades levels, 100 = no chance, 75 = 25% chance, 50 = 50% chance, 25 = 75% chance
+var upgrade_shockChance = 0 //100, 75, 50, 25 upgrades levels, 100 = no chance, 75 = 25% chance, 50 = 50% chance, 25 = 75% chance
 var upgrade_shockRechargeSpeed = 50; //50, default charge speed, 45, 40, 35, 30, 25
 var upgrade_snowParticles = 1;
 
@@ -170,85 +170,22 @@ function setupPath() {
 
 }
 
-function snowParticle(dir, x, y) {
-    this.xspeed = Math.cos(dir);
-    this.yspeed = Math.sin(dir);
-    this.x = x;
-    this.y = y;
-    this.life = 1;
 
-
-    this.update = function () {
-        this.x += 0.035 * this.xspeed * this.life;
-        this.y += 0.035 * this.yspeed * this.life;
-        this.life -= 0.012;
-        if (this.life <= 0) {
-            return false;
-        } else {
-            for (var i = 0; i < mobs.length; i++) {
-                var xdist = (mobs[i].getXCenter() - (this.x * tilew + this.x)) / tilew;
-                var ydist = (mobs[i].getYCenter() - (this.y * tilew + this.y)) / tileh;
-                var dist = Math.sqrt(xdist * xdist + ydist * ydist);
-
-                if (dist < 0.2) {
-                    mobs[i].slowDuration = 60;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    this.genTexture = function () {
-
-    }
-
-    this.draw = function () {
-        context.save();
-        context.globalAlpha = this.life;
-        context.translate(this.x * tilew + this.x + tileh / 2, this.y * tileh + this.y + tileh / 2);
-
-        context.rotate(Math.PI * 1.5 * this.life);
-
-        context.beginPath();
-        context.moveTo(0, -1);
-        context.lineTo(0, 5);
-        context.moveTo(0, -1);
-        context.lineTo(4, 2);
-        context.moveTo(0, -1);
-        context.lineTo(3.5, -5);
-        context.moveTo(0, -1);
-        context.lineTo(-3.5, -5);
-        context.moveTo(0, -1);
-        context.lineTo(-4, 2);
-        context.lineWidth = 3;
-        context.strokeStyle = "#4CC5C3";
-        context.stroke();
-        context.lineWidth = 1;
-        context.strokeStyle = "#FFF";
-        context.stroke();
-        context.globalAlpha = 1;
-
-        context.restore();
-
-    }
-
-}
-
-function slowTower(x, y) {
-    this.name = "Slow Tower";
-    this.lvl = 1;    
-    this.range = 2.3;
+function laserTower(x, y) {
+    this.id = 1;
+    this.name = "Laser Tower";
     this.killed = 0;
-
-    this.recharge = 13; //snow particle recharge rare, upgrade_snowParticleRecharge idea here
-    this.charge = this.recharge;
-
+    this.lvl = 1;
+    this.range = 2.3;
     this.sel = false;
-    this.anim = 0;
+    //this.cost = 4; obsolete??
 
     this.x = x;
     this.y = y;
+
+    this.dmg = function () {
+        return (Math.pow(1.7, this.lvl) * 3).toFixed(0);
+    }
 
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + 0.5;
@@ -256,62 +193,44 @@ function slowTower(x, y) {
     this.getYCenter = function () {
         return this.y * tileh + this.y + tileh / 2 + 0.5;
     }
-
     this.getUpgradeCost = function () {
-        return towerCosts[2] + Math.pow(8, this.lvl) * 100;
+        return towerCosts[0] + Math.floor(Math.pow(1.9, this.lvl) * 60);
     }
     this.getSellValue = function () {
-        return towerCosts[2] / 2 + (Math.pow(8, this.lvl - 1) - 1) * 100;
+        return towerCosts[0] / 2 + Math.floor((Math.pow(1.9, this.lvl - 1) - 1) * 60);
     }
 
     this.draw = function () {
         context.save();
-        context.beginPath();
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
-        this.anim = (this.anim + 1.8) % 360;
-        context.save();
 
-        context.fillStyle = "#FFFFFF";
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
+        context.fillStyle = "#777777"; //body color
+        context.lineWidth = 2;
+        context.strokeStyle = "#353535"; //outline color
+        context.beginPath();
+
+        context.lineTo(0 * tilew, .4 * tileh);
+        context.lineTo(.35 * tilew, -8);
+        context.lineTo(-.35 * tilew, -8);
+        context.lineTo(0, .4 * tileh);
+        context.lineTo(0, .4 * tileh);
+
         context.fill();
-
-
-        context.strokeStyle = slowTowerFillColor;
-        context.lineWidth = 1.5;
-
-        context.moveTo(0, 0);
-        context.lineTo(0, -8);
-        context.lineTo(-4, -11);
-        context.moveTo(4, -11);
-        context.lineTo(0, -8);
-        context.lineTo(0, -13);
-
-        context.moveTo(-3, -5);
-        context.lineTo(3, -5);
-
-        for (var i = 0; i < 5; i++) {
-            context.rotate(Math.PI / 3);
-            context.moveTo(0, 0);
-            context.lineTo(0, -8);
-            context.lineTo(-4, -11);
-            context.moveTo(0, -8);
-            context.lineTo(4, -11);
-            context.lineTo(0, -8);
-            context.lineTo(0, -13);
-
-            context.moveTo(-3, -5);
-            context.lineTo(3, -5);
-
-        }
         context.stroke();
 
+        if (this.atk) {
+            context.fillStyle = "#ff6363";
+            context.strokeStyle = "#FF1C1C";
+        }
 
-        context.restore();
+        context.beginPath();
+        context.arc(0, -0.2 * tileh, Math.floor(Math.min(tilew, tileh) * 0.2), 0, 2 * Math.PI, false);
+        context.fill();
+        context.stroke();
 
         if (this.sel) {
             context.strokeStyle = "#FF0";
-            context.lineWidth = 2;
             context.beginPath();
             context.moveTo(-tilew / 2, -tileh / 2);
             context.lineTo(-tilew / 2, tileh / 2);
@@ -320,35 +239,53 @@ function slowTower(x, y) {
             context.lineTo(-tilew / 2, -tileh / 2);
             context.stroke();
 
-            document.getElementById('towerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
-            document.getElementById('towerLevel').innerHTML = this.lvl;
-            document.getElementById('towerDamage').innerHTML = "---";
-            document.getElementById('towerTotalKilled').innerHTML = "---";
+            document.getElementById('laserTowerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
+            document.getElementById('laserTowerLevel').innerHTML = this.lvl;
+            document.getElementById('laserTowerDamage').innerHTML = this.dmg();
+            document.getElementById('laserTowerTotalKilled').innerHTML = this.killed;
         }
 
         context.restore();
     }
+
     this.attack = function () {
-        this.charge--;
-        if (this.charge <= 0) {
-            this.charge = this.recharge;
-            for (var i = 0; i < this.lvl; i++) {
-                var rot = i * Math.PI * 2 / this.lvl + Math.PI * this.anim / 180 + Math.PI / 6;
-                flakes[flakes.length] = new snowParticle(rot, this.x + Math.cos(rot) * 0.3, this.y + Math.sin(rot) * 0.3);
+        this.atk = false;
+        for (var i = 0; i < mobs.length; i++) {
+            var xdist = mobs[i].x - this.x;
+            var ydist = mobs[i].y - this.y;
+            var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+            if (dist <= this.range) {
+                mobs[i].hp -= this.dmg();
+                this.atk = true;
+                if (mobs[i].hp <= 0) {
+                    this.killed++;
+                }
+
+                context.beginPath();
+                context.lineWidth = 2;
+                context.moveTo(this.x * tilew + this.x + tilew / 2, this.y * tileh + this.y + tileh / 2 - 0.2 * tileh);
+                context.lineTo(mobs[i].getXCenter(), mobs[i].getYCenter());
+                context.strokeStyle = "#ff1c1c"; //beam color
+                context.stroke();
+                break;
             }
         }
     }
+
 }
 
+
 function shockTower(x, y) {
-    this.name = "Shock Tower";     
+    this.id = 2;
+    this.name = "Shock Tower";
     this.cost = 10;
-    this.lvl = 1;    
+    this.lvl = 1;
     this.range = 2.3;
     this.killed = 0;
 
     this.recharge = upgrade_shockRechargeSpeed;
     this.charge = 20;
+    this.shockChance = upgrade_shockChance;
 
     this.sel = false;
     this.anim = 0;
@@ -441,10 +378,11 @@ function shockTower(x, y) {
             context.lineTo(-tilew / 2, -tileh / 2);
             context.stroke();
 
-            document.getElementById('towerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
-            document.getElementById('towerLevel').innerHTML = this.lvl;
-            document.getElementById('towerDamage').innerHTML = this.dmg();
-            document.getElementById('towerTotalKilled').innerHTML = this.killed;
+            document.getElementById('shockTowerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
+            document.getElementById('shockTowerLevel').innerHTML = this.lvl;
+            document.getElementById('shockTowerDamage').innerHTML = this.dmg();
+            document.getElementById('shockTowerTotalKilled').innerHTML = this.killed;
+            document.getElementById('shockChance').innerHTML = 100 - this.shockChance;
         }
 
         context.restore();
@@ -480,20 +418,21 @@ function shockTower(x, y) {
 
 }
 
-function laserTower(x, y) {
-    this.name = "Laser Tower";
-    this.killed = 0;
+function slowTower(x, y) {
+    this.id = 3;
+    this.name = "Slow Tower";
     this.lvl = 1;
     this.range = 2.3;
+    this.killed = 0;
+
+    this.recharge = 13; //snow particle recharge rare, upgrade_snowParticleRecharge idea here
+    this.charge = this.recharge;
+
     this.sel = false;
-    //this.cost = 4; obsolete??
+    this.anim = 0;
 
     this.x = x;
     this.y = y;
-
-    this.dmg = function () {
-        return (Math.pow(1.7, this.lvl) * 3).toFixed(0);
-    }
 
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + 0.5;
@@ -501,44 +440,62 @@ function laserTower(x, y) {
     this.getYCenter = function () {
         return this.y * tileh + this.y + tileh / 2 + 0.5;
     }
+
     this.getUpgradeCost = function () {
-        return towerCosts[0] + Math.floor(Math.pow(1.9, this.lvl) * 60);
+        return towerCosts[2] + Math.pow(8, this.lvl) * 100;
     }
     this.getSellValue = function () {
-        return towerCosts[0] / 2 + Math.floor((Math.pow(1.9, this.lvl - 1) - 1) * 60);
+        return towerCosts[2] / 2 + (Math.pow(8, this.lvl - 1) - 1) * 100;
     }
 
     this.draw = function () {
         context.save();
+        context.beginPath();
         context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
 
+        this.anim = (this.anim + 1.8) % 360;
+        context.save();
 
-        context.fillStyle = "#777777"; //body color
-        context.lineWidth = 2;
-        context.strokeStyle = "#353535"; //outline color
-        context.beginPath();
-
-        context.lineTo(0 * tilew, .4 * tileh);
-        context.lineTo(.35 * tilew, -8);
-        context.lineTo(-.35 * tilew, -8);
-        context.lineTo(0, .4 * tileh);
-        context.lineTo(0, .4 * tileh);
-
+        context.fillStyle = "#FFFFFF";
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.45), 0, Math.PI * 2, false);
         context.fill();
-        context.stroke();
 
-        if (this.atk) {
-            context.fillStyle = "#ff6363";
-            context.strokeStyle = "#FF1C1C";
+
+        context.strokeStyle = slowTowerFillColor;
+        context.lineWidth = 1.5;
+
+        context.moveTo(0, 0);
+        context.lineTo(0, -8);
+        context.lineTo(-4, -11);
+        context.moveTo(4, -11);
+        context.lineTo(0, -8);
+        context.lineTo(0, -13);
+
+        context.moveTo(-3, -5);
+        context.lineTo(3, -5);
+
+        for (var i = 0; i < 5; i++) {
+            context.rotate(Math.PI / 3);
+            context.moveTo(0, 0);
+            context.lineTo(0, -8);
+            context.lineTo(-4, -11);
+            context.moveTo(0, -8);
+            context.lineTo(4, -11);
+            context.lineTo(0, -8);
+            context.lineTo(0, -13);
+
+            context.moveTo(-3, -5);
+            context.lineTo(3, -5);
+
         }
-
-        context.beginPath();
-        context.arc(0, -0.2 * tileh, Math.floor(Math.min(tilew, tileh) * 0.2), 0, 2 * Math.PI, false);
-        context.fill();
         context.stroke();
+
+
+        context.restore();
 
         if (this.sel) {
             context.strokeStyle = "#FF0";
+            context.lineWidth = 2;
             context.beginPath();
             context.moveTo(-tilew / 2, -tileh / 2);
             context.lineTo(-tilew / 2, tileh / 2);
@@ -547,56 +504,106 @@ function laserTower(x, y) {
             context.lineTo(-tilew / 2, -tileh / 2);
             context.stroke();
 
-            document.getElementById('towerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
-            document.getElementById('towerLevel').innerHTML = this.lvl;
-            document.getElementById('towerDamage').innerHTML = this.dmg();
-            document.getElementById('towerTotalKilled').innerHTML = this.killed;
+            document.getElementById('slowTowerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
+            document.getElementById('slowTowerLevel').innerHTML = this.lvl;
+
         }
 
         context.restore();
     }
-
     this.attack = function () {
-        this.atk = false;
-        for (var i = 0; i < mobs.length; i++) {
-            var xdist = mobs[i].x - this.x;
-            var ydist = mobs[i].y - this.y;
-            var dist = Math.sqrt(xdist * xdist + ydist * ydist);
-            if (dist <= this.range) {
-                mobs[i].hp -= this.dmg();
-                this.atk = true;
-                if (mobs[i].hp <= 0) {
-                    this.killed++;
-                }
-
-                context.beginPath();
-                context.lineWidth = 2;
-                context.moveTo(this.x * tilew + this.x + tilew / 2, this.y * tileh + this.y + tileh / 2 - 0.2 * tileh);
-                context.lineTo(mobs[i].getXCenter(), mobs[i].getYCenter());
-                context.strokeStyle = "#ff1c1c"; //beam color
-                context.stroke();
-                break;
+        this.charge--;
+        if (this.charge <= 0) {
+            this.charge = this.recharge;
+            for (var i = 0; i < this.lvl; i++) {
+                var rot = i * Math.PI * 2 / this.lvl + Math.PI * this.anim / 180 + Math.PI / 6;
+                flakes[flakes.length] = new snowParticle(rot, this.x + Math.cos(rot) * 0.3, this.y + Math.sin(rot) * 0.3);
             }
         }
     }
-
 }
 
+function snowParticle(dir, x, y) {
+    this.xspeed = Math.cos(dir);
+    this.yspeed = Math.sin(dir);
+    this.x = x;
+    this.y = y;
+    this.life = 1;
+
+
+    this.update = function () {
+        this.x += 0.035 * this.xspeed * this.life;
+        this.y += 0.035 * this.yspeed * this.life;
+        this.life -= 0.012;
+        if (this.life <= 0) {
+            return false;
+        } else {
+            for (var i = 0; i < mobs.length; i++) {
+                var xdist = (mobs[i].getXCenter() - (this.x * tilew + this.x)) / tilew;
+                var ydist = (mobs[i].getYCenter() - (this.y * tilew + this.y)) / tileh;
+                var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+
+                if (dist < 0.2) {
+                    mobs[i].slowDuration = 60;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    this.genTexture = function () {
+
+    }
+
+    this.draw = function () {
+        context.save();
+        context.globalAlpha = this.life;
+        context.translate(this.x * tilew + this.x + tileh / 2, this.y * tileh + this.y + tileh / 2);
+
+        context.rotate(Math.PI * 1.5 * this.life);
+
+        context.beginPath();
+        context.moveTo(0, -1);
+        context.lineTo(0, 5);
+        context.moveTo(0, -1);
+        context.lineTo(4, 2);
+        context.moveTo(0, -1);
+        context.lineTo(3.5, -5);
+        context.moveTo(0, -1);
+        context.lineTo(-3.5, -5);
+        context.moveTo(0, -1);
+        context.lineTo(-4, 2);
+        context.lineWidth = 3;
+        context.strokeStyle = "#4CC5C3";
+        context.stroke();
+        context.lineWidth = 1;
+        context.strokeStyle = "#FFF";
+        context.stroke();
+        context.globalAlpha = 1;
+
+        context.restore();
+
+    }
+
+}
 
 function mob(level) {
     this.lvl = level;
     this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP;
     this.maxhp = this.hp;
 
-    this.index = 0;
-
     this.slowDuration = 0;
     this.shockDuration = SHOCK_DURATION;
     this.shocked = 0;
+
+    this.index = 0;
     this.x = path[0].x;
     this.y = path[0].y;
+
     this.xoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tilew / 2));
     this.yoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tileh / 2));
+
     this.xbase = this.x;
     this.ybase = this.y;
 
@@ -630,15 +637,15 @@ function mob(level) {
             context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
             context.fill();
         }
-        if (this.shocked > upgrade_shockChance && this.shockDuration > 0){ //currently shocked
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) { //currently shocked
             context.beginPath();
-            context.moveTo(0,0);
+            context.moveTo(0, 0);
 
             context.lineTo(3, -14); //top of lightning bolt
             context.lineTo(-7, 1.5); //down left
             context.lineTo(1, 1.5); //right horizontally
             context.lineTo(-2, 14); //down left/straight
-    
+
             context.lineTo(8, -1.5); //up right
             context.lineTo(0, -1.5); //left horizontally
             context.lineTo(3, -14); //up right/straight   
@@ -858,8 +865,22 @@ function mouseDown(e) {
             updateUI();
             foundOne = true;
             ctower = false;
-            document.getElementById('a').setAttribute("style", "visibility:hidden");
-            document.getElementById('aa').setAttribute("style", "visibility:visible");
+            
+            document.getElementById('waveInfo').setAttribute("style", "visibility:hidden");
+            document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
+            document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
+            document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
+
+            switch (towers[i].id) {
+                case 1: document.getElementById('laserTowerInfo').setAttribute("style", "visibility:visible");
+                    break;
+                case 2: document.getElementById('shockTowerInfo').setAttribute("style", "visibility:visible");
+                    break;
+                case 3: document.getElementById('slowTowerInfo').setAttribute("style", "visibility:visible");
+                    break;
+            }
+
+
         } else {
             towers[i].sel = false;
         }
@@ -893,9 +914,9 @@ function mouseDown(e) {
             }
         }
 
-        if (e.button == 1) 
+        if (e.button == 1)
             ctower = true;
-        
+
         if (!genPath()) {
             towers.splice(towers.length - 1, 1);
             gold += towerCosts[towerType - 1];
@@ -906,8 +927,10 @@ function mouseDown(e) {
         updateUI();
     }
     else if (!foundOne) {
-        document.getElementById('aa').setAttribute("style", "visibility:hidden");
-        document.getElementById('a').setAttribute("style", "visibility:visible");
+        document.getElementById('waveInfo').setAttribute("style", "visibility:visible");
+        document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
+        document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
+        document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
         updateUI();
     }
 
@@ -944,14 +967,14 @@ function mouseMove(e) {
 
 function upgrade() {
     for (var i = 0; i < towers.length; i++) {
-        if (!towers[i].sel) 
+        if (!towers[i].sel)
             continue;
-        
+
         if (gold >= towers[i].getUpgradeCost()) {
             gold -= towers[i].getUpgradeCost();
             towers[i].lvl++;
             updateUI();
-        } 
+        }
     }
 }
 
@@ -966,9 +989,9 @@ function updateUI() {
             if (towers[i].sel) {
                 if (towers[i].getUpgradeCost() > 0) {
                     document.getElementById('upgradebutton').value = "Upgrade (" + numberFormat(towers[i].getUpgradeCost()) + ")";
-                    if (gold >= towers[i].getUpgradeCost()) 
+                    if (gold >= towers[i].getUpgradeCost())
                         document.getElementById('upgradebutton').disabled = false;
-                    
+
                 }
                 document.getElementById('sellbutton').value = "Sell (" + numberFormat(towers[i].getSellValue()) + ")";
                 document.getElementById('sellbutton').disabled = false;
