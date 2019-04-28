@@ -83,18 +83,23 @@
                             <br><br>
                             Level: <span id="slowTowerLevel">1</span>
                             <br>
+                            Duration <span id=slowTowerDuration>0</span> Sec
+                            <br>
 
 
                         </div>
 
                         <div class=gameInfoDivs id=enemyInfo style="visibility: visible">
-                                Enemy Info <br> <br>
-                                # of Mobs: <span id="monstersLeft">0</span> <br>
-                                Mob HP: <span id="monstersHealth">-</span> <br>
-                                Total Killed: <span id="totalKilled">0</span>
-                                <br><br>
+                            Enemy Info <br> <br>
+                            # of Mobs: <span id="monstersLeft">0</span> <br>
+                            Mob HP: <span id="monstersHealth">-</span> <br>
+                            Total Killed: <span id="totalKilled">0</span>
+                            <br><br>
                         </div>
 
+                        <div class=gameInfoDivs id=pausedNotif style="visibility: hidden">
+                            GAME <br>IS <br>PAUSED
+                        </div>
                     </div>
 
                     <div id=towerUtilBtns>
@@ -124,15 +129,34 @@
 
                 <div id="rightCol">
 
-                    <div  id="waveInfo" style="visibility:visible">
+                    <div id="waveInfo" style="visibility:visible">
                         Score:
                         <hr class="number" type="number" value="score" id="scoreTotal">
 
                     </div>
 
                     <div id="gameUtilBtns">
-                        <input class='shop' type='button' onclick="togglePause()" value="Shop">
-                        <input class='restart' type="button" onclick="restart()" value="Restart">
+
+                        <div class="pauseBtn">
+                            <input class="utilbutton" type='button' onclick="togglePause()" value="Pause"
+                                id="pausebutton">
+                        </div>
+
+                        <div class="restartBtn">
+                            <input class="utilbutton" type="button" onclick="restart()" value="Restart"
+                                id="restartbutton">
+                        </div>
+
+                        <div class="shopBtn">
+                            <input class="button" type="button" onclick="openShop()" value="Shop Menu" id="shopbutton">
+                        </div>
+
+                        <div class="menuBtn">
+                            <input class="button" type='button' onclick="openMenu()" value="Main Menu"
+                                id="menubutton">
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -155,7 +179,7 @@
         </div>
     </div>
 
-    title code here
+    <!-- title code here -->
     </div>
 
 

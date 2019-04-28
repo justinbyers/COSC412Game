@@ -59,22 +59,6 @@ requestAnimFrame = (function () {
 onLoadUp();
 requestAnimFrame(draw);
 
-function togglePause() {
-    if (!paused) {
-        clearTimeout(draw)
-        console.log("1");
-        paused = true;
-    }
-
-    else if (paused) {
-        //requestAnimFrame(draw);
-        console.log("2");
-        paused = false;
-    }
-
-}
-
-
 function onLoadUp() {
 
     // title menu code here
@@ -569,9 +553,6 @@ function snowParticle(dir, x, y) {
         return true;
     }
 
-    this.genTexture = function () {
-
-    }
 
     this.draw = function () {
         context.save();
@@ -776,15 +757,14 @@ var counter = 0;
 
 function draw() {
 
-    if (paused) {
-        confirm("AAA");
-        paused = false;
-    }
+    if (paused)  //this pauses the program until the resume button is pressed
+        return;
+
+    if (playerHealth <= 0) return;
 
     requestAnimFrame(draw);
-    if (playerHealth <= 0) return;
-    context.clearRect(0, 0, canvas.width, canvas.height);
 
+    context.clearRect(0, 0, canvas.width, canvas.height);
     context.globalAlpha = 1;
 
     if (counter < 1)
@@ -1143,6 +1123,9 @@ document.onkeydown = function (keyPress) {
     if (key == 82) // 'r'
         restart();
 
+    if (key == 32) // space bar
+        togglePause();
+
     else if (key == 49 && gold >= towerCosts[0]) {  // 1
         ctower = true;
         towerType = 1;
@@ -1163,6 +1146,28 @@ document.onkeydown = function (keyPress) {
 function updateHighestLevel(level) {
     if (level > highestLevel)
         highestLevel = level;
+}
+
+function togglePause() {
+
+    if (!paused) {
+        paused = true;
+        document.getElementById('pausedNotif').setAttribute("style", "visibility: visible");
+        document.getElementById('enemyInfo').setAttribute("style", "visibility:hidden");
+        document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
+        document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
+        document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
+
+    }
+    
+    else if (paused) {
+        document.getElementById('pausedNotif').setAttribute("style", "visibility: hidden");
+        document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
+
+        requestAnimFrame(draw);
+        paused = false;
+    }
+
 }
 
 
