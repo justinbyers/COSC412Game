@@ -58,11 +58,11 @@
 
 #midCol {
     float: left;
-    height: 402px;
-    width: 402px;
+    height: 400px;
+    width: 400px;
     margin: 5px 5px 5px 5px;
     position: relative;
-    border: 4px solid #867855;
+    border: 5px solid #867855;
 }
 
 #rightCol {

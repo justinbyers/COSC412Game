@@ -32,7 +32,7 @@ var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
 
-var mapSelection = 1; //map selection, choice
+var mapSelection = 3; //map selection, choice
 var difficultySelection = 0; //difficult selection, choice
 
 var highestLevel = -1;
@@ -236,7 +236,7 @@ function paintPath() {
             }
             else {
                 context.fillStyle = groundColorArray[tile++];
-                context.fillRect(i * tilew + i, j * tileh + j, size * 4, size *4);
+                context.fillRect(i * tilew + i, j * tileh + j, size * 4, size * 4);
 
             }
         }
@@ -948,7 +948,7 @@ function draw() {
         paintPath();
 
 
-    
+
 
     switch (mapSelection) { //path color
         case 1: context.fillStyle = "#e0c786"; //grass map -> brown/dirt path
@@ -986,24 +986,40 @@ function draw() {
     var startY = path[0].y;
 
     context.lineWidth = 2;
+    context.strokeStyle = "#111";
 
-    if(mapSelection == 2)
-        context.strokeStyle = "#FFF"; //starting point arrow
-    else
-        context.strokeStyle = "#111";
-    context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
-    context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
-    context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
-    context.moveTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
-    context.lineTo(startX * tilew + startX + 35, startY * tileh + startY + 20);
+    if (mapSelection == 1) {
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
+        context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
+        context.moveTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
+        context.lineTo(startX * tilew + startX + 35, startY * tileh + startY + 20);
+    }
+
+    else if (mapSelection == 2) {
+        context.strokeStyle = "#FFF";
+        context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
+        context.lineTo(startX * tilew + startX + 30, startY * tileh + startY + 20);
+        context.moveTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 33);
+    }
+    else {
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
+        context.lineTo(startX * tilew + startX + 30, startY * tileh + startY + 20);
+        context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
+        context.moveTo(startX * tilew + startX + 8, startY * tileh + startY + 20);
+        context.lineTo(startX * tilew + startX + 30, startY * tileh + startY + 20);
+    }
 
     context.stroke();
+    context.restore();
 
     //---
     context.beginPath();
     context.strokeStyle = "#555"; //grid lines between tiles
     context.lineWidth = 2;
-    
+
     for (var i = 0; i < 21; i++) {
         context.moveTo(i * tilew + i, 0);
         context.lineTo(i * tilew + i, canvas.height);
