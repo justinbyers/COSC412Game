@@ -15,7 +15,7 @@
     <div id="innerWrapper">
         <div id="rowBox">
             <div id="topRow">
-                <h1 id="pageTitle">Game</h1>
+                <h1 id="pageTitle">Peas Tower Defense</h1>
                 <div id="canvastop">
 
                 </div>
@@ -116,6 +116,23 @@
 
                 </hr>
                 <div id="midCol">
+
+                    <div id=popupScreen style="visibility:visible">
+
+                            <div id="popup">a</div>
+
+                        <div id=popupButtons>
+                            <div class="restartBtn">
+                                <input class="popupBtns" type="button" onclick="restart()" value="Restart"
+                                    id="popupRestartBtn">
+                            </div>
+                            <div class="menuBtn">
+                                <input class="popupBtns" type='button' onclick="openMenu()" value="Main Menu"
+                                    id="popupMenuBtn">
+                            </div>
+                        </div>
+
+                    </div>
 
                     <canvas id="canvas" width="400" height="400" onmousedown="mouseDown(event)"
                         onmousemove="mouseMove(event)" style="border: 1px solid black">

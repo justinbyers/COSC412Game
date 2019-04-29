@@ -17,7 +17,7 @@ var ingameXsel = 0;
 var ingameYsel = 0;
 var towerType = 1;
 
-var DEFAULT_WAVE_DELAY = 400;
+var DEFAULT_WAVE_DELAY = 1000;
 var waveSize = 0;
 var mobDelay = 0;
 var waveDelay = 200; //how fast the wave starts
@@ -33,8 +33,8 @@ var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
 
-var mapSelection = 3; //map selection, choice
-var difficultySelection = 3; //difficult selection, choice
+var mapSelection = 2; //map selection, choice
+var difficultySelection = 1; //difficult selection, choice
 
 var highestLevel = -1;
 var highestScore = -1;
@@ -55,6 +55,7 @@ var CHEAT_MOBAMOUNT = 0;
 
 var slowTowerFillColor = "#4CC4C2";
 var paused = false;
+var victory = false;
 
 
 requestAnimFrame = (function () {
@@ -74,8 +75,8 @@ function onLoadUp() {
         gold = Infinity;
         playerHealth = Infinity;
         waveDelay = 100;
-        CHEAT_MOBHP = 999999;
-        CHEAT_MOBAMOUNT = 99;
+        CHEAT_MOBHP = 0;
+        CHEAT_MOBAMOUNT = 0;
         var num = 0; //for towers, see next 3 lines of code
         towers[num++] = new shockTower(3, 2); //remove these 3 to start game w/ blank map
         towers[num++] = new slowTower(7, 1); //used for quickly testing tower .lineTo() drawings
@@ -953,12 +954,27 @@ function mob(level) {
     }
 }
 
+
 function draw() {
 
     if (paused)  //this pauses the program until the resume button is pressed
         return;
 
-    if (playerHealth <= 0) return;
+    if (playerHealth <= 0) {
+        document.getElementById('popup').innerHTML = ("DEFEAT!");
+        //document.getElementById('popup').setAttribute = ("style", "display: initial")
+        return;
+    }
+
+    if(victory){
+        //document.getElementById('popup').innerHTML("VICTORY!");
+        document.getElementById("popup").innerHTML = ("VICTORY!");
+        //document.getElementById('popup').setAttribute = ("style", "display: initial")
+        return;
+    }
+    if (level >= difficultySelection * 5 + 1){
+        victory = true;
+    }
 
     requestAnimFrame(draw);
 
@@ -1063,6 +1079,13 @@ function draw() {
         if (!mobs[i].update()) {
             mobs.splice(i, 1); // remove this element
         }
+        if(mobs.length == 0){
+            waveDelay = 150;
+            level++;
+            updateHighestLevel(level);
+            updateUI();
+        }
+        
     }
     for (var i = 0; i < towers.length; i++) {
         towers[i].attack();
@@ -1076,9 +1099,7 @@ function draw() {
 
     if (waveSize == 0) {
         if (waveDelay-- <= 0) {
-            level++;
             updateUI();
-            updateHighestLevel(level);
             waveDelay = DEFAULT_WAVE_DELAY;
             waveSize = Math.floor(level / 2) + 2 + CHEAT_MOBAMOUNT;
             document.getElementById('monstersLeft').innerHTML = waveSize;
@@ -1334,7 +1355,7 @@ function updateUI() {
     document.getElementById('totalKilled').innerHTML = totalKilled; //total killed value
 
     document.getElementById('scoreTotal').innerHTML = toExponentialFixaroo(score); //total score value
-    document.getElementById('Wave#').innerHTML = level - 1 + " / " + totalWaves; //wave # value
+    document.getElementById('Wave#').innerHTML = level - 1 + " of " + totalWaves; //wave # value
 
     if (playerHealth <= 0) {
         document.getElementById("pageTitle").innerHTML = "GAME OVER";

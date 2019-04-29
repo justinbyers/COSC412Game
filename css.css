@@ -98,6 +98,28 @@
     padding: 5px 0px 0px 0px;
 }
 
+#canvas{
+    position: relative;
+}
+
+#popupScreen{
+    position: absolute;
+    z-index : 1;
+    width: 340px;
+    height: 100px;
+    text-align: center;
+    margin: 0px 20px 0px 20px;
+    
+    border: 4px solid #867855;
+    background: #dfc98f;
+}
+
+.popupBtns{
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+}
+
 #skillTree {
     display: block;
     border: 4px solid #867855;
