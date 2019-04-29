@@ -98,6 +98,24 @@
     padding: 5px 0px 0px 0px;
 }
 
+#skillTree {
+    display: block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 385px;
+    height: 380px;
+    padding: 5px 0px 0px 0px;
+}
+
+#shop {
+    display: block;
+    border: 4px solid #867855;
+    background: #dfc98f;
+    width: 385px;
+    height: 70px;
+    padding: 5px 0px 0px 0px;
+}
+
 #tooltipBoxWrapper {
     width: auto;
     margin: 10px 5px 0px 5px;
@@ -277,4 +295,32 @@
 .sellBtn, .upgradeBtn {
     float: left;
     width: auto;
+}
+
+/* Skill tree shit */
+#laserTowerST {
+    width: 36px;
+    height: 36px;
+    background: url('towers.gif') 0px 0px;
+    cursor: pointer;
+    float: left;
+    margin: 0px 50px 50px 80px;
+}
+
+#shockTowerST {
+    width: 38px;
+    height: 38px;
+    background: url('towers.gif') -38px 0px;
+    cursor: pointer;
+    float: left;
+    margin: 0px 50px 50px 0px;
+}
+
+#slowTowerST {
+    width: 38px;
+    height: 38px;
+    background: url('towers.gif') -76px 0px;
+    cursor: pointer;
+    float: left;
+    margin: 0px 50px 50px 0px;
 }
