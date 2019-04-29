@@ -27,13 +27,14 @@ var gold = 500;
 var score = 0;
 var monstersLeft = 0;
 var totalKilled = 0;
+var totalWaves;
 
 var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
 
 var mapSelection = 3; //map selection, choice
-var difficultySelection = 0; //difficult selection, choice
+var difficultySelection = 3; //difficult selection, choice
 
 var highestLevel = -1;
 var highestScore = -1;
@@ -82,6 +83,8 @@ function onLoadUp() {
 
     }
 
+    configureDifficultySettings();
+
     tilew = Math.floor((canvas.width - size) / size);
     tileh = Math.floor((canvas.width - size) / size);
 
@@ -98,6 +101,24 @@ function onLoadUp() {
     updateUI();
     setupPath();
     genPath();
+}
+
+function configureDifficultySettings(){
+
+    //easy difficulty
+    if(difficultySelection == 1) {
+        totalWaves = 5;
+    }
+
+    //medium difficulty
+    else if(difficultySelection == 2){
+        totalWaves = 10;
+    }
+
+    //hard difficulty
+    else if(difficultySelection == 3){
+        totalWaves = 15;
+    }
 }
 
 function setupPath() {
@@ -1308,14 +1329,12 @@ function updateUI() {
         document.getElementById('tower3bt').disabled = true;
 
     document.getElementById('hp').innerHTML = playerHealth; //hp value 
-    document.getElementById('Wave#').innerHTML = level - 1; //wave # value
-
-
-
     document.getElementById('goldAmount').innerHTML = toExponentialFixaroo(gold); //gold amount value
-    document.getElementById('scoreTotal').innerHTML = toExponentialFixaroo(score); //total score value
 
     document.getElementById('totalKilled').innerHTML = totalKilled; //total killed value
+
+    document.getElementById('scoreTotal').innerHTML = toExponentialFixaroo(score); //total score value
+    document.getElementById('Wave#').innerHTML = level - 1 + " / " + totalWaves; //wave # value
 
     if (playerHealth <= 0) {
         document.getElementById("pageTitle").innerHTML = "GAME OVER";
@@ -1358,12 +1377,13 @@ function togglePause() {
         document.getElementById('laserTowerInfo').setAttribute("style", "visibility:hidden");
         document.getElementById('shockTowerInfo').setAttribute("style", "visibility:hidden");
         document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
-
+        document.getElementById('pausebutton').value = "Resume";
     }
 
     else if (paused) {
         document.getElementById('pausedNotif').setAttribute("style", "visibility: hidden");
         document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
+        document.getElementById('pausebutton').value = "Pause";
 
         requestAnimFrame(draw);
         paused = false;

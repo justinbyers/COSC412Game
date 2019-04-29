@@ -161,7 +161,6 @@
     width: 140px;
     height: 79px;
     margin: 0px 5px 0px 5px;
-
     /* width: 138px;
     height: 20px;
     margin: 10px 5px 5px 5px;
@@ -181,13 +180,13 @@
     background: #dfc98f;
 }
 
-#pausedNotif{
+#pausedNotif {
     font-size: 33px;
     font-style: oblique;
     color: red;
     font-weight: bold;
-
 }
+
 #laserTowerPic {
     width: 36px;
     height: 36px;
@@ -275,6 +274,7 @@
     height: 19px;
     cursor: pointer;
 }
+
 .utilbutton {
     display: inline-block;
     text-align: center;
@@ -298,6 +298,7 @@
 }
 
 /* Skill tree shit */
+
 #laserTowerST {
     width: 36px;
     height: 36px;
