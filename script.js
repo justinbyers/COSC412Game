@@ -110,63 +110,162 @@ function setupPath() {
     //     new Point(5, 7), new Point(5, 8),
     //     new Point(5, 9)); //used to paint path on 
 
-    path = new Array(new Point(9, 4),
-        new Point(8, 4), new Point(8, 3), new Point(7, 3),
-        new Point(6, 3), new Point(6, 2), new Point(5, 2),
-        new Point(4, 2), new Point(4, 1), new Point(3, 1),
-        new Point(2, 1), new Point(1, 1), new Point(1, 2),
-        new Point(1, 3), new Point(1, 4), new Point(2, 4),
-        new Point(2, 5), new Point(2, 6), new Point(3, 6),
-        new Point(3, 7), new Point(3, 8), new Point(4, 8),
-        new Point(4, 9)
+    // Level 1 - Forest 
+    // path = new Array(new Point(9, 4),
+    //     new Point(8, 4), new Point(8, 3), new Point(7, 3),
+    //     new Point(6, 3), new Point(6, 2), new Point(5, 2),
+    //     new Point(4, 2), new Point(4, 1), new Point(3, 1),
+    //     new Point(2, 1), new Point(1, 1), new Point(1, 2),
+    //     new Point(1, 3), new Point(1, 4), new Point(2, 4),
+    //     new Point(2, 5), new Point(2, 6), new Point(3, 6),
+    //     new Point(3, 7), new Point(3, 8), new Point(4, 8),
+    //     new Point(4, 9)
+    // );
+
+    //Level 2 - Lava
+    // path = new Array(new Point(0, 0),
+    //     new Point(0, 1), new Point(1, 1), new Point(1, 2),
+    //     new Point(1, 3), new Point(1, 4), new Point(1, 5),
+    //     new Point(0, 5), new Point(0, 6), new Point(0, 7),
+    //     new Point(0, 8), new Point(0, 9), new Point(1, 9),
+    //     new Point(2, 9), new Point(3, 9), new Point(3, 8),
+    //     new Point(3, 7), new Point(3, 6), new Point(4, 6),
+    //     new Point(5, 6), new Point(5, 7), new Point(5, 8),
+    //     new Point(5, 9), new Point(6, 9), new Point(7, 9),
+    //     new Point(7, 8), new Point(7, 7), new Point(7, 6), 
+    //     new Point(8, 6), new Point(9, 6), new Point(9, 5), 
+    //     new Point(9, 4), new Point(8, 4), new Point(7, 4), 
+    //     new Point(6, 4), new Point(5, 4), new Point(4, 4), 
+    //     new Point(3, 4), new Point(3, 3), new Point(3, 2), 
+    //     new Point(3, 1), new Point(4, 1), new Point(5, 1), 
+    //     new Point(5, 2), new Point(6, 2), new Point(7, 2), 
+    //     new Point(8, 2), new Point(8, 1), new Point(8, 0), 
+    //     new Point(9, 0), 
+    // );
+
+    //Level 3 - Water
+    path = new Array(new Point(3, 0),
+        new Point(3, 1), new Point(3, 2), new Point(2, 2),
+        new Point(2, 3), new Point(1, 3), new Point(1, 4),
+        new Point(1, 5), new Point(1, 6), new Point(1, 7),
+        new Point(2, 7), new Point(2, 8), new Point(3, 8),
+        new Point(3, 9), new Point(4, 9), new Point(5, 9),
+        new Point(6, 9), new Point(6, 8), new Point(7, 8),
+        new Point(7, 7), new Point(8, 7), new Point(8, 6),
+        new Point(8, 5), new Point(8, 4), new Point(8, 3),
+        new Point(7, 3), new Point(7, 2), new Point(6, 2), 
+        new Point(6, 1), new Point(6, 0)
     );
 
 
-
-
-
     //PATH 1 DIRECTIONS:
-    // directions[0][1].from = new VisPoint(1, 1);
-    // directions[1][1].from = new VisPoint(2, 1);
-    // directions[2][1].from = new VisPoint(2, 2);
-    // directions[2][2].from = new VisPoint(2, 3);
-    // directions[2][3].from = new VisPoint(2, 4);
+    // directions[9][4].from = new VisPoint(8, 4);
+    // directions[8][4].from = new VisPoint(8, 3);
+    // directions[8][3].from = new VisPoint(7, 3);
+    // directions[7][3].from = new VisPoint(6, 3);
+    // directions[6][3].from = new VisPoint(6, 2);
+    // directions[6][2].from = new VisPoint(5, 2);
+    // directions[5][2].from = new VisPoint(4, 2);
+    // directions[4][2].from = new VisPoint(4, 1);
+    // directions[4][1].from = new VisPoint(3, 1);
+    // directions[3][1].from = new VisPoint(2, 1);
+    // directions[2][1].from = new VisPoint(1, 1);
+    // directions[1][1].from = new VisPoint(1, 2);
+    // directions[1][2].from = new VisPoint(1, 3);
+    // directions[1][3].from = new VisPoint(1, 4);
+    // directions[1][4].from = new VisPoint(2, 4);
     // directions[2][4].from = new VisPoint(2, 5);
-    // directions[2][5].from = new VisPoint(3, 5);
-    // directions[3][5].from = new VisPoint(4, 5);
-    // directions[4][5].from = new VisPoint(5, 5);
-    // directions[5][5].from = new VisPoint(5, 6);
+    // directions[2][5].from = new VisPoint(2, 6);
+    // directions[2][6].from = new VisPoint(3, 6);
+    // directions[3][6].from = new VisPoint(3, 7);
+    // directions[3][7].from = new VisPoint(3, 8);
+    // directions[3][8].from = new VisPoint(4, 8);
+    // directions[4][8].from = new VisPoint(4, 9);
+    // directions[4][9].from = new VisPoint(4, 10);
+
+    //PATH 2 DIRECTIONS:
+    // directions[0][0].from = new VisPoint(0, 1);
+    // directions[0][1].from = new VisPoint(1, 1);
+    // directions[1][1].from = new VisPoint(1, 2);
+    // directions[1][2].from = new VisPoint(1, 3);
+    // directions[1][3].from = new VisPoint(1, 4);
+    // directions[1][4].from = new VisPoint(1, 5);
+    // directions[1][5].from = new VisPoint(0, 5);
+    // directions[0][5].from = new VisPoint(0, 6);
+    // directions[0][6].from = new VisPoint(0, 7);
+    // directions[0][7].from = new VisPoint(0, 8);
+    // directions[0][8].from = new VisPoint(0, 9);
+    // directions[0][9].from = new VisPoint(1, 9);
+    // directions[1][9].from = new VisPoint(2, 9);
+    // directions[2][9].from = new VisPoint(3, 9);
+    // directions[3][9].from = new VisPoint(3, 8);
+    // directions[3][8].from = new VisPoint(3, 7);
+    // directions[3][7].from = new VisPoint(3, 6);
+    // directions[3][6].from = new VisPoint(4, 6);
+    // directions[4][6].from = new VisPoint(5, 6);
     // directions[5][6].from = new VisPoint(5, 7);
     // directions[5][7].from = new VisPoint(5, 8);
     // directions[5][8].from = new VisPoint(5, 9);
-    // directions[5][9].from = new VisPoint(5, 10);
+    // directions[5][9].from = new VisPoint(6, 9);
+    // directions[6][9].from = new VisPoint(7, 9);
+    // directions[7][9].from = new VisPoint(7, 8);
+    // directions[7][8].from = new VisPoint(7, 7);
+    // directions[7][7].from = new VisPoint(7, 6);
+    // directions[7][6].from = new VisPoint(8, 6);
+    // directions[8][6].from = new VisPoint(9, 6);
+    // directions[9][6].from = new VisPoint(9, 5);
+    // directions[9][5].from = new VisPoint(9, 4);
+    // directions[9][4].from = new VisPoint(8, 4);
+    // directions[8][4].from = new VisPoint(7, 4);
+    // directions[7][4].from = new VisPoint(6, 4);
+    // directions[6][4].from = new VisPoint(5, 4);
+    // directions[5][4].from = new VisPoint(4, 4);
+    // directions[4][4].from = new VisPoint(3, 4);
+    // directions[3][4].from = new VisPoint(3, 3);
+    // directions[3][3].from = new VisPoint(3, 2);
+    // directions[3][2].from = new VisPoint(3, 1);
+    // directions[3][1].from = new VisPoint(4, 1);
+    // directions[4][1].from = new VisPoint(5, 1);
+    // directions[5][1].from = new VisPoint(5, 2);
+    // directions[5][2].from = new VisPoint(6, 2);
+    // directions[6][2].from = new VisPoint(7, 2);
+    // directions[7][2].from = new VisPoint(8, 2);
+    // directions[8][2].from = new VisPoint(8, 1);
+    // directions[8][1].from = new VisPoint(8, 0);
+    // directions[8][0].from = new VisPoint(9, 0);
+    // directions[9][0].from = new VisPoint(10, 0);
 
-    //PATH 2 DIRECTIONS:
-    directions[9][4].from = new VisPoint(8, 4);
+    //PATH 3 DIRECTIONS:
+    directions[3][0].from = new VisPoint(3, 1);
+    directions[3][1].from = new VisPoint(3, 2);
+    directions[3][2].from = new VisPoint(2, 2);
+    directions[2][2].from = new VisPoint(2, 3);
+    directions[2][3].from = new VisPoint(1, 3);
+    directions[1][3].from = new VisPoint(1, 4);
+    directions[1][4].from = new VisPoint(1, 5);
+    directions[1][5].from = new VisPoint(1, 6);
+    directions[1][6].from = new VisPoint(1, 7);
+    directions[1][7].from = new VisPoint(2, 7);
+    directions[2][7].from = new VisPoint(2, 8);
+    directions[2][8].from = new VisPoint(3, 8);
+    directions[3][8].from = new VisPoint(3, 9);
+    directions[3][9].from = new VisPoint(4, 9);
+    directions[4][9].from = new VisPoint(5, 9);
+    directions[5][9].from = new VisPoint(6, 9);
+    directions[6][9].from = new VisPoint(6, 8);
+    directions[6][8].from = new VisPoint(7, 8);
+    directions[7][8].from = new VisPoint(7, 7);
+    directions[7][7].from = new VisPoint(8, 7);
+    directions[8][7].from = new VisPoint(8, 6);
+    directions[8][6].from = new VisPoint(8, 5);
+    directions[8][5].from = new VisPoint(8, 4);
     directions[8][4].from = new VisPoint(8, 3);
     directions[8][3].from = new VisPoint(7, 3);
-    directions[7][3].from = new VisPoint(6, 3);
-    directions[6][3].from = new VisPoint(6, 2);
-    directions[6][2].from = new VisPoint(5, 2);
-    directions[5][2].from = new VisPoint(4, 2);
-    directions[4][2].from = new VisPoint(4, 1);
-    directions[4][1].from = new VisPoint(3, 1);
-    directions[3][1].from = new VisPoint(2, 1);
-    directions[2][1].from = new VisPoint(1, 1);
-    directions[1][1].from = new VisPoint(1, 2);
-    directions[1][2].from = new VisPoint(1, 3);
-    directions[1][3].from = new VisPoint(1, 4);
-    directions[1][4].from = new VisPoint(2, 4);
-    directions[2][4].from = new VisPoint(2, 5);
-    directions[2][5].from = new VisPoint(2, 6);
-    directions[2][6].from = new VisPoint(3, 6);
-    directions[3][6].from = new VisPoint(3, 7);
-    directions[3][7].from = new VisPoint(3, 8);
-    directions[3][8].from = new VisPoint(4, 8);
-    directions[4][8].from = new VisPoint(4, 9);
-    directions[4][9].from = new VisPoint(4, 10);
-
-
+    directions[7][3].from = new VisPoint(7, 2);
+    directions[7][2].from = new VisPoint(6, 2);
+    directions[6][2].from = new VisPoint(6, 1);
+    directions[6][1].from = new VisPoint(6, 0);
+    directions[6][0].from = new VisPoint(6, -1);
 
 }
 
@@ -734,18 +833,44 @@ function randomizedGroundColor() {
         var num = Math.floor(Math.random() * 5);
         var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
 
-        switch (num) { //feel free to change these #hex codes to whatever. or add more
-            case 0: color = "#71aa3d";
-                break;
-            case 1: color = "#5b8e39";
-                break;
-            case 2: color = "#6fb231";
-                break;
-            case 3: color = "#7caf52";
-                break;
-            case 4: color = "#4b9b29";
-                break;
+        // Level 1 - Forest Level
+        // switch (num) { //feel free to change these #hex codes to whatever. or add more
+        //     case 0: color = "#71aa3d";
+        //         break;
+        //     case 1: color = "#5b8e39";
+        //         break;
+        //     case 2: color = "#6fb231";
+        //         break;
+        //     case 3: color = "#7caf52";
+        //         break;
+        //     case 4: color = "#4b9b29";
+        //         break;
 
+        // Level 2 - Lava Level
+        // switch (num) { //feel free to change these #hex codes to whatever. or add more
+        //     case 0: color = "#d67026";
+        //         break;
+        //     case 1: color = "#de8f33";
+        //         break;
+        //     case 2: color = "#c84f1a";
+        //         break;
+        //     case 3: color = "#cd5b1f";
+        //         break;
+        //     case 4: color = "#d97e2b";
+        //         break;
+
+        // Level 3 - Water Level
+        switch (num) { //feel free to change these #hex codes to whatever. or add more
+            case 0: color = "#3d6cf8";
+                break;
+            case 1: color = "#1f55fd";
+                break;
+            case 2: color = "#255cff";
+                break;
+            case 3: color = "#1d55ff";
+                break;
+            case 4: color = "#275bfd";
+                break;
 
         }
         groundColorArray[i] = color;
@@ -770,7 +895,15 @@ function draw() {
     if (counter < 1)
         paintPath();
 
-    context.fillStyle = "#83644a"; //PATH COLOR
+    // Level 1 Color shit brown
+    //context.fillStyle = "#83644a"; //PATH COLOR
+
+    //Level 2 Color black-ish
+    //context.fillStyle = "#3a3734";
+
+    //Level 3 Color sand
+    context.fillStyle = "#e4dfac";
+
     for (var i = 1; i < path.length; i++) {
         var a = path[i];
         context.fillRect(a.x * tilew + a.x, a.y * tileh + a.y, tilew, tileh);
@@ -780,7 +913,15 @@ function draw() {
         context.fillStyle = "#29FF37"; //color of tile when you press a tower and then hover a tile
         context.fillRect(ingameXsel * tilew + ingameXsel, ingameYsel * tileh + ingameYsel, tilew, tileh);
     }
-    context.fillStyle = "#83644a"; //start/end color
+    //context.fillStyle = "#83644a"; //start/end color
+    
+    //Level 2 Color black-ish
+    //context.fillStyle = "#3a3734";
+
+    //Level 3 Color sand
+    context.fillStyle = "#e4dfac";
+
+    
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
 
     var startX = path[0].x;
