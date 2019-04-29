@@ -10,6 +10,7 @@ var flakes = new Array();
 var size = 10;
 var towerCosts = new Array(40, 200, 1000); //laser, aoe, slow, wall, x
 var directions;
+var counter = 0;
 
 var ctower = false;
 var ingameXsel = 0;
@@ -24,12 +25,14 @@ var level = 1;
 var playerHealth = 100;
 var gold = 500;
 var score = 0;
-var groundColorArray;
-var arr2;
 var monstersLeft = 0;
 var totalKilled = 0;
 
-var mapSelection = 3; //map selection, choice
+var groundColorArray;
+var oceanColorArray;
+var lavaColorArray;
+
+var mapSelection = 1; //map selection, choice
 var difficultySelection = 0; //difficult selection, choice
 
 var highestLevel = -1;
@@ -46,7 +49,7 @@ var upgrade_snowParticles = 1;
 
 
 var CHEAT_MOBHP = 0;
-var CHEAT_MOBAMOUNT;
+var CHEAT_MOBAMOUNT = 0;
 
 
 var slowTowerFillColor = "#4CC4C2";
@@ -73,8 +76,8 @@ function onLoadUp() {
         CHEAT_MOBHP = 999999;
         CHEAT_MOBAMOUNT = 99;
         var num = 0; //for towers, see next 3 lines of code
-        towers[num++] = new shockTower(2, 2); //remove these 3 to start game w/ blank map
-        towers[num++] = new slowTower(7, 4); //used for quickly testing tower .lineTo() drawings
+        towers[num++] = new shockTower(3, 2); //remove these 3 to start game w/ blank map
+        towers[num++] = new slowTower(7, 1); //used for quickly testing tower .lineTo() drawings
         towers[num++] = new laserTower(3, 3);
 
     }
@@ -86,7 +89,11 @@ function onLoadUp() {
     document.getElementById('tower2bt').value = numberFormat(towerCosts[1]);
     document.getElementById('tower3bt').value = numberFormat(towerCosts[2]);
 
+
+
     groundColorArray = randomizedGroundColor();
+    oceanColorArray = randomizedOceanColor();
+    lavaColorArray = randomizedLavaColor();
 
     updateUI();
     setupPath();
@@ -104,202 +111,287 @@ function setupPath() {
         }
     }
 
-    // path = new Array(new Point(0, 1),
-    //     new Point(1, 1), new Point(2, 1),
-    //     new Point(2, 2), new Point(2, 3),
-    //     new Point(2, 4), new Point(2, 5),
-    //     new Point(3, 5), new Point(4, 5),
-    //     new Point(5, 5), new Point(5, 6),
-    //     new Point(5, 7), new Point(5, 8),
-    //     new Point(5, 9)); //used to paint path on 
+    //Level 1 - Forest
+    if (mapSelection == 1) {
+        path = new Array(new Point(9, 4),
+            new Point(8, 4), new Point(8, 3), new Point(7, 3),
+            new Point(6, 3), new Point(6, 2), new Point(5, 2),
+            new Point(4, 2), new Point(4, 1), new Point(3, 1),
+            new Point(2, 1), new Point(1, 1), new Point(1, 2),
+            new Point(1, 3), new Point(1, 4), new Point(2, 4),
+            new Point(2, 5), new Point(2, 6), new Point(3, 6),
+            new Point(3, 7), new Point(3, 8), new Point(4, 8),
+            new Point(4, 9));
 
-    // Level 1 - Forest 
-    // path = new Array(new Point(9, 4),
-    //     new Point(8, 4), new Point(8, 3), new Point(7, 3),
-    //     new Point(6, 3), new Point(6, 2), new Point(5, 2),
-    //     new Point(4, 2), new Point(4, 1), new Point(3, 1),
-    //     new Point(2, 1), new Point(1, 1), new Point(1, 2),
-    //     new Point(1, 3), new Point(1, 4), new Point(2, 4),
-    //     new Point(2, 5), new Point(2, 6), new Point(3, 6),
-    //     new Point(3, 7), new Point(3, 8), new Point(4, 8),
-    //     new Point(4, 9)
-    // );
+        directions[9][4].from = new VisPoint(8, 4);
+        directions[8][4].from = new VisPoint(8, 3);
+        directions[8][3].from = new VisPoint(7, 3);
+        directions[7][3].from = new VisPoint(6, 3);
+        directions[6][3].from = new VisPoint(6, 2);
+        directions[6][2].from = new VisPoint(5, 2);
+        directions[5][2].from = new VisPoint(4, 2);
+        directions[4][2].from = new VisPoint(4, 1);
+        directions[4][1].from = new VisPoint(3, 1);
+        directions[3][1].from = new VisPoint(2, 1);
+        directions[2][1].from = new VisPoint(1, 1);
+        directions[1][1].from = new VisPoint(1, 2);
+        directions[1][2].from = new VisPoint(1, 3);
+        directions[1][3].from = new VisPoint(1, 4);
+        directions[1][4].from = new VisPoint(2, 4);
+        directions[2][4].from = new VisPoint(2, 5);
+        directions[2][5].from = new VisPoint(2, 6);
+        directions[2][6].from = new VisPoint(3, 6);
+        directions[3][6].from = new VisPoint(3, 7);
+        directions[3][7].from = new VisPoint(3, 8);
+        directions[3][8].from = new VisPoint(4, 8);
+        directions[4][8].from = new VisPoint(4, 9);
+        directions[4][9].from = new VisPoint(4, 10);
+    }
 
     //Level 2 - Lava
-    // path = new Array(new Point(0, 0),
-    //     new Point(0, 1), new Point(1, 1), new Point(1, 2),
-    //     new Point(1, 3), new Point(1, 4), new Point(1, 5),
-    //     new Point(0, 5), new Point(0, 6), new Point(0, 7),
-    //     new Point(0, 8), new Point(0, 9), new Point(1, 9),
-    //     new Point(2, 9), new Point(3, 9), new Point(3, 8),
-    //     new Point(3, 7), new Point(3, 6), new Point(4, 6),
-    //     new Point(5, 6), new Point(5, 7), new Point(5, 8),
-    //     new Point(5, 9), new Point(6, 9), new Point(7, 9),
-    //     new Point(7, 8), new Point(7, 7), new Point(7, 6), 
-    //     new Point(8, 6), new Point(9, 6), new Point(9, 5), 
-    //     new Point(9, 4), new Point(8, 4), new Point(7, 4), 
-    //     new Point(6, 4), new Point(5, 4), new Point(4, 4), 
-    //     new Point(3, 4), new Point(3, 3), new Point(3, 2), 
-    //     new Point(3, 1), new Point(4, 1), new Point(5, 1), 
-    //     new Point(5, 2), new Point(6, 2), new Point(7, 2), 
-    //     new Point(8, 2), new Point(8, 1), new Point(8, 0), 
-    //     new Point(9, 0), 
-    // );
+    else if (mapSelection == 2) {
+
+        path = new Array(new Point(2, 9),
+            new Point(2, 8), new Point(2, 7), new Point(2, 6),
+            new Point(3, 6), new Point(3, 5), new Point(3, 4),
+            new Point(4, 4), new Point(4, 3), new Point(5, 3),
+            new Point(6, 3), new Point(6, 2), new Point(7, 2),
+            new Point(8, 2), new Point(9, 2), new Point(9, 2));
+
+        directions[2][9].from = new VisPoint(2, 8);
+        directions[2][8].from = new VisPoint(2, 7);
+        directions[2][7].from = new VisPoint(2, 6);
+        directions[2][6].from = new VisPoint(3, 6);
+        directions[3][6].from = new VisPoint(3, 5);
+        directions[3][5].from = new VisPoint(3, 4);
+        directions[3][4].from = new VisPoint(4, 4);
+        directions[4][4].from = new VisPoint(4, 3);
+        directions[4][3].from = new VisPoint(5, 3);
+        directions[5][3].from = new VisPoint(6, 3);
+        directions[6][3].from = new VisPoint(6, 2);
+        directions[6][2].from = new VisPoint(7, 2);
+        directions[7][2].from = new VisPoint(8, 2);
+        directions[8][2].from = new VisPoint(9, 2);
+        directions[9][2].from = new VisPoint(10, 2);
+
+    }
 
     //Level 3 - Water
-    path = new Array(
-        new Point(0, 0), new Point(1, 0),
-        new Point(1, 1), new Point(2, 1),
-        new Point(2, 2), new Point(2, 3),
-        new Point(2, 4), new Point(2, 5),
-        new Point(3, 5), new Point(3, 6),
-        new Point(3, 7), new Point(4, 7),
-        new Point(4, 8), new Point(5, 8),
-        new Point(6, 8), new Point(7, 8),
-        new Point(7, 7), new Point(8, 7),
-        new Point(8, 6), new Point(8, 5),
-        new Point(9, 4), new Point(8, 4),
-        new Point(9, 3)
-    );
+    else if (mapSelection == 3) {
+        path = new Array(
+            new Point(0, 0), new Point(1, 0),
+            new Point(1, 1), new Point(2, 1),
+            new Point(2, 2), new Point(2, 3),
+            new Point(2, 4), new Point(2, 5),
+            new Point(3, 5), new Point(3, 6),
+            new Point(3, 7), new Point(4, 7),
+            new Point(4, 8), new Point(5, 8),
+            new Point(6, 8), new Point(7, 8),
+            new Point(7, 7), new Point(8, 7),
+            new Point(8, 6), new Point(8, 5),
+            new Point(9, 4), new Point(8, 4),
+            new Point(9, 3));
 
-
-    //PATH 1 DIRECTIONS: FOREST LEVEL
-    // directions[9][4].from = new VisPoint(8, 4);
-    // directions[8][4].from = new VisPoint(8, 3);
-    // directions[8][3].from = new VisPoint(7, 3);
-    // directions[7][3].from = new VisPoint(6, 3);
-    // directions[6][3].from = new VisPoint(6, 2);
-    // directions[6][2].from = new VisPoint(5, 2);
-    // directions[5][2].from = new VisPoint(4, 2);
-    // directions[4][2].from = new VisPoint(4, 1);
-    // directions[4][1].from = new VisPoint(3, 1);
-    // directions[3][1].from = new VisPoint(2, 1);
-    // directions[2][1].from = new VisPoint(1, 1);
-    // directions[1][1].from = new VisPoint(1, 2);
-    // directions[1][2].from = new VisPoint(1, 3);
-    // directions[1][3].from = new VisPoint(1, 4);
-    // directions[1][4].from = new VisPoint(2, 4);
-    // directions[2][4].from = new VisPoint(2, 5);
-    // directions[2][5].from = new VisPoint(2, 6);
-    // directions[2][6].from = new VisPoint(3, 6);
-    // directions[3][6].from = new VisPoint(3, 7);
-    // directions[3][7].from = new VisPoint(3, 8);
-    // directions[3][8].from = new VisPoint(4, 8);
-    // directions[4][8].from = new VisPoint(4, 9);
-    // directions[4][9].from = new VisPoint(4, 10);
-
-    //PATH 2 DIRECTIONS: LAVA LEVEL
-    // directions[0][0].from = new VisPoint(0, 1);
-    // directions[0][1].from = new VisPoint(1, 1);
-    // directions[1][1].from = new VisPoint(1, 2);
-    // directions[1][2].from = new VisPoint(1, 3);
-    // directions[1][3].from = new VisPoint(1, 4);
-    // directions[1][4].from = new VisPoint(1, 5);
-    // directions[1][5].from = new VisPoint(0, 5);
-    // directions[0][5].from = new VisPoint(0, 6);
-    // directions[0][6].from = new VisPoint(0, 7);
-    // directions[0][7].from = new VisPoint(0, 8);
-    // directions[0][8].from = new VisPoint(0, 9);
-    // directions[0][9].from = new VisPoint(1, 9);
-    // directions[1][9].from = new VisPoint(2, 9);
-    // directions[2][9].from = new VisPoint(3, 9);
-    // directions[3][9].from = new VisPoint(3, 8);
-    // directions[3][8].from = new VisPoint(3, 7);
-    // directions[3][7].from = new VisPoint(3, 6);
-    // directions[3][6].from = new VisPoint(4, 6);
-    // directions[4][6].from = new VisPoint(5, 6);
-    // directions[5][6].from = new VisPoint(5, 7);
-    // directions[5][7].from = new VisPoint(5, 8);
-    // directions[5][8].from = new VisPoint(5, 9);
-    // directions[5][9].from = new VisPoint(6, 9);
-    // directions[6][9].from = new VisPoint(7, 9);
-    // directions[7][9].from = new VisPoint(7, 8);
-    // directions[7][8].from = new VisPoint(7, 7);
-    // directions[7][7].from = new VisPoint(7, 6);
-    // directions[7][6].from = new VisPoint(8, 6);
-    // directions[8][6].from = new VisPoint(9, 6);
-    // directions[9][6].from = new VisPoint(9, 5);
-    // directions[9][5].from = new VisPoint(9, 4);
-    // directions[9][4].from = new VisPoint(8, 4);
-    // directions[8][4].from = new VisPoint(7, 4);
-    // directions[7][4].from = new VisPoint(6, 4);
-    // directions[6][4].from = new VisPoint(5, 4);
-    // directions[5][4].from = new VisPoint(4, 4);
-    // directions[4][4].from = new VisPoint(3, 4);
-    // directions[3][4].from = new VisPoint(3, 3);
-    // directions[3][3].from = new VisPoint(3, 2);
-    // directions[3][2].from = new VisPoint(3, 1);
-    // directions[3][1].from = new VisPoint(4, 1);
-    // directions[4][1].from = new VisPoint(5, 1);
-    // directions[5][1].from = new VisPoint(5, 2);
-    // directions[5][2].from = new VisPoint(6, 2);
-    // directions[6][2].from = new VisPoint(7, 2);
-    // directions[7][2].from = new VisPoint(8, 2);
-    // directions[8][2].from = new VisPoint(8, 1);
-    // directions[8][1].from = new VisPoint(8, 0);
-    // directions[8][0].from = new VisPoint(9, 0);
-    // directions[9][0].from = new VisPoint(10, 0);
-
-    //PATH 3 DIRECTIONS: WATER LEVEL
-
-    directions[0][0].from = new VisPoint(1,0);
-    directions[1][0].from = new VisPoint(1,1);
-    directions[1][1].from = new VisPoint(2,1);
-    directions[2][1].from = new VisPoint(2,2);
-    directions[2][2].from = new VisPoint(2,3);
-    directions[2][3].from = new VisPoint(2,4);
-    directions[2][4].from = new VisPoint(2,5);
-    directions[2][5].from = new VisPoint(3,5);
-    directions[3][5].from = new VisPoint(3,6);
-    directions[3][6].from = new VisPoint(3,7);
-    directions[3][7].from = new VisPoint(4,7);
-    directions[4][7].from = new VisPoint(4,8);
-    directions[4][8].from = new VisPoint(5,8);
-    directions[5][8].from = new VisPoint(6,8);
-    directions[6][8].from = new VisPoint(7,8);
-    directions[7][8].from = new VisPoint(7,7);
-    directions[7][7].from = new VisPoint(8,7);
-    directions[8][7].from = new VisPoint(8,6);
-    directions[8][6].from = new VisPoint(8,5);
-    directions[8][5].from = new VisPoint(8,4);
-    directions[8][4].from = new VisPoint(9,4);
-    directions[9][4].from = new VisPoint(9,3);
-    directions[9][3].from = new VisPoint(10,3);
-
-    // directions[][].from = new VisPoint(,);
-
-    // directions[3][0].from = new VisPoint(3, 1);
-    // directions[3][1].from = new VisPoint(3, 2);
-    // directions[3][2].from = new VisPoint(2, 2);
-    // directions[2][2].from = new VisPoint(2, 3);
-    // directions[2][3].from = new VisPoint(1, 3);
-    // directions[1][3].from = new VisPoint(1, 4);
-    // directions[1][4].from = new VisPoint(1, 5);
-    // directions[1][5].from = new VisPoint(1, 6);
-    // directions[1][6].from = new VisPoint(1, 7);
-    // directions[1][7].from = new VisPoint(2, 7);
-    // directions[2][7].from = new VisPoint(2, 8);
-    // directions[2][8].from = new VisPoint(3, 8);
-    // directions[3][8].from = new VisPoint(3, 9);
-    // directions[3][9].from = new VisPoint(4, 9);
-    // directions[4][9].from = new VisPoint(5, 9);
-    // directions[5][9].from = new VisPoint(6, 9);
-    // directions[6][9].from = new VisPoint(6, 8);
-    // directions[6][8].from = new VisPoint(7, 8);
-    // directions[7][8].from = new VisPoint(7, 7);
-    // directions[7][7].from = new VisPoint(8, 7);
-    // directions[8][7].from = new VisPoint(8, 6);
-    // directions[8][6].from = new VisPoint(8, 5);
-    // directions[8][5].from = new VisPoint(8, 4);
-    // directions[8][4].from = new VisPoint(8, 3);
-    // directions[8][3].from = new VisPoint(7, 3);
-    // directions[7][3].from = new VisPoint(7, 2);
-    // directions[7][2].from = new VisPoint(6, 2);
-    // directions[6][2].from = new VisPoint(6, 1);
-    // directions[6][1].from = new VisPoint(6, 0);
-    // directions[6][0].from = new VisPoint(6, -1);
+        directions[0][0].from = new VisPoint(1, 0);
+        directions[1][0].from = new VisPoint(1, 1);
+        directions[1][1].from = new VisPoint(2, 1);
+        directions[2][1].from = new VisPoint(2, 2);
+        directions[2][2].from = new VisPoint(2, 3);
+        directions[2][3].from = new VisPoint(2, 4);
+        directions[2][4].from = new VisPoint(2, 5);
+        directions[2][5].from = new VisPoint(3, 5);
+        directions[3][5].from = new VisPoint(3, 6);
+        directions[3][6].from = new VisPoint(3, 7);
+        directions[3][7].from = new VisPoint(4, 7);
+        directions[4][7].from = new VisPoint(4, 8);
+        directions[4][8].from = new VisPoint(5, 8);
+        directions[5][8].from = new VisPoint(6, 8);
+        directions[6][8].from = new VisPoint(7, 8);
+        directions[7][8].from = new VisPoint(7, 7);
+        directions[7][7].from = new VisPoint(8, 7);
+        directions[8][7].from = new VisPoint(8, 6);
+        directions[8][6].from = new VisPoint(8, 5);
+        directions[8][5].from = new VisPoint(8, 4);
+        directions[8][4].from = new VisPoint(9, 4);
+        directions[9][4].from = new VisPoint(9, 3);
+        directions[9][3].from = new VisPoint(10, 3);
+    }
 
 }
+
+function paintPath() {
+    context.globalAlpha = 1;
+    context.strokeStyle = "#111";
+    var tile = 0;
+
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+            if (obst[i][j] == false && mapSelection == 2) {
+                context.fillStyle = lavaColorArray[tile++];
+                context.fillRect(i * tilew + i, j * tileh + j, size * 4 - 1, size * 4 - 1);
+            }
+            else if (obst[i][j] == false && mapSelection == 3) {
+                context.fillStyle = oceanColorArray[tile++];
+                context.fillRect(i * tilew + i, j * tileh + j, size * size, size * size);
+            }
+            else {
+                context.fillStyle = groundColorArray[tile++];
+                context.fillRect(i * tilew + i, j * tileh + j, size * 4, size *4);
+
+            }
+        }
+    }
+    context.beginPath();
+    context.stroke();
+}
+
+function genPath() {
+
+    for (var i = 0; i < size; i++)
+        obst[i] = new Array(size);
+
+    //lava
+    if (mapSelection == 2) {
+        obst[3][7] = false; obst[3][8] = false; obst[3][9] = false;
+        obst[4][5] = false; obst[4][6] = false; obst[4][7] = false;
+        obst[4][8] = false; obst[4][9] = false; obst[5][4] = false;
+        obst[5][5] = false; obst[5][6] = false; obst[5][7] = false;
+        obst[5][8] = false; obst[5][9] = false; obst[6][4] = false;
+        obst[6][5] = false; obst[6][6] = false; obst[6][7] = false;
+        obst[6][8] = false; obst[6][9] = false; obst[7][3] = false;
+        obst[7][4] = false; obst[7][5] = false; obst[7][6] = false;
+        obst[7][7] = false; obst[7][8] = false; obst[7][9] = false;
+        obst[8][3] = false; obst[8][4] = false; obst[8][5] = false;
+        obst[8][6] = false; obst[8][7] = false; obst[8][8] = false;
+        obst[8][9] = false; obst[9][3] = false; obst[9][4] = false;
+        obst[9][5] = false; obst[9][6] = false; obst[9][7] = false;
+        obst[9][8] = false; obst[9][9] = false;
+    }
+
+    //ocean
+    if (mapSelection == 3) {
+        obst[0][1] = false; obst[0][2] = false; obst[0][3] = false;
+        obst[0][4] = false; obst[0][5] = false; obst[0][6] = false;
+        obst[0][7] = false; obst[0][8] = false; obst[0][9] = false;
+        obst[1][2] = false; obst[1][3] = false; obst[1][4] = false;
+        obst[1][5] = false; obst[1][6] = false; obst[1][7] = false;
+        obst[1][8] = false; obst[1][9] = false; obst[2][6] = false;
+        obst[2][7] = false; obst[2][8] = false; obst[2][9] = false;
+        obst[3][8] = false; obst[3][9] = false; obst[4][9] = false;
+        obst[5][9] = false; obst[6][9] = false; obst[7][9] = false;
+        obst[8][8] = false; obst[8][9] = false; obst[9][5] = false;
+        obst[9][6] = false; obst[9][7] = false; obst[9][8] = false;
+        obst[9][9] = false;
+    }
+
+    for (var i = 0; i < path.length; i++)
+        obst[path[i].x][path[i].y] = false;
+
+    for (var i = 0; i < towers.length; i++)
+        obst[towers[i].x][towers[i].y] = true;
+
+
+    return (path != -1);
+}
+
+function randomizedGroundColor() {
+
+    groundColorArray = new Array();
+
+    for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
+
+        var num = Math.floor(Math.random() * 5);
+        var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
+
+        if (mapSelection == 2)
+            switch (num) { //rock
+                case 0: color = "#8e967e";
+                    break;
+                case 1: color = "#a7af95";
+                    break;
+                case 2: color = "#758259";
+                    break;
+                case 3: color = "#7e966f";
+                    break;
+                case 4: color = "#52704c";
+                    break;
+            }
+
+        else
+            switch (num) { //grass
+                case 0: color = "#71aa3d";
+                    break;
+                case 1: color = "#5b8e39";
+                    break;
+                case 2: color = "#6fb231";
+                    break;
+                case 3: color = "#7caf52";
+                    break;
+                case 4: color = "#4b9b29";
+                    break;
+            }
+
+
+
+        groundColorArray[i] = color;
+    }
+
+    return groundColorArray;
+}
+
+function randomizedOceanColor() {
+    oceanColorArray = new Array();
+
+    for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
+
+        var num = Math.floor(Math.random() * 5);
+        var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
+
+        switch (num) { //water
+            case 0: color = "#4493e2";
+                break;
+            case 1: color = "#4689ea";
+                break;
+            case 2: color = "#2673e2";
+                break;
+            case 3: color = "#377fe8";
+                break;
+            case 4: color = "#3b8bdb";
+        }
+        oceanColorArray[i] = color;
+    }
+
+    return oceanColorArray;
+}
+
+function randomizedLavaColor() {
+
+    lavaColorArray = new Array();
+
+    for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
+
+        var num = Math.floor(Math.random() * 5);
+        var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
+
+        // Level 2 - Lava Level
+        switch (num) { //feel free to change these #hex codes to whatever. or add more
+            case 0: color = "#d67026";
+                break;
+            case 1: color = "#de8f33";
+                break;
+            case 2: color = "#c84f1a";
+                break;
+            case 3: color = "#cd5b1f";
+                break;
+            case 4: color = "#d97e2b";
+                break;
+        }
+        lavaColorArray[i] = color;
+    }
+
+    return lavaColorArray;
+}
+
 
 function laserTower(x, y) {
     this.id = 1;
@@ -727,15 +819,13 @@ function mob(level) {
     this.shocked = 0;
 
     this.index = 0;
+
     this.x = path[0].x;
     this.y = path[0].y;
-
-    this.xoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tilew / 2));
-    this.yoffset = Math.floor((2 * Math.random() - 1) * 0.6 * (tileh / 2));
-
     this.xbase = this.x;
     this.ybase = this.y;
-
+    this.xoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tilew / 2));
+    this.yoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tileh / 2));
 
     this.getXCenter = function () {
         return this.x * tilew + this.x + tilew / 2 + this.xoffset + 0.5;
@@ -842,76 +932,6 @@ function mob(level) {
     }
 }
 
-function paintPath() {
-    context.globalAlpha = 1;
-    var tile = 0;
-
-    for (var i = 0; i < size; i++) {
-        for (var j = 0; j < size; j++) {
-            context.fillStyle = groundColorArray[tile++];
-            context.fillRect(i * tilew + i, j * tileh + j, size * size, size * size);
-        }
-    }
-    context.beginPath();
-    context.stroke();
-}
-
-function randomizedGroundColor() {
-
-    groundColorArray = new Array();
-
-    for (var i = 0; i < 100; i++) { //should be size*size if 1 color per tile, otherwise 1200 if 9 colors per tile
-
-        var num = Math.floor(Math.random() * 5);
-        var color = "#FFFFFF"; //if you're seeing white tiles then something's fucked
-
-        // Level 1 - Forest Level
-        // switch (num) { //feel free to change these #hex codes to whatever. or add more
-        //     case 0: color = "#71aa3d";
-        //         break;
-        //     case 1: color = "#5b8e39";
-        //         break;
-        //     case 2: color = "#6fb231";
-        //         break;
-        //     case 3: color = "#7caf52";
-        //         break;
-        //     case 4: color = "#4b9b29";
-        //         break;
-
-        // Level 2 - Lava Level
-        // switch (num) { //feel free to change these #hex codes to whatever. or add more
-        //     case 0: color = "#d67026";
-        //         break;
-        //     case 1: color = "#de8f33";
-        //         break;
-        //     case 2: color = "#c84f1a";
-        //         break;
-        //     case 3: color = "#cd5b1f";
-        //         break;
-        //     case 4: color = "#d97e2b";
-        //         break;
-
-        // Level 3 - Water Level
-        switch (num) { //feel free to change these #hex codes to whatever. or add more
-            case 0: color = "#3d6cf8";
-                break;
-            case 1: color = "#1f55fd";
-                break;
-            case 2: color = "#255cff";
-                break;
-            case 3: color = "#1d55ff";
-                break;
-            case 4: color = "#275bfd";
-                break;
-
-        }
-        groundColorArray[i] = color;
-    }
-
-    return groundColorArray;
-}
-var counter = 0;
-
 function draw() {
 
     if (paused)  //this pauses the program until the resume button is pressed
@@ -927,14 +947,17 @@ function draw() {
     if (counter < 1)
         paintPath();
 
-    // Level 1 Color shit brown
-    //context.fillStyle = "#83644a"; //PATH COLOR
 
-    //Level 2 Color black-ish
-    //context.fillStyle = "#3a3734";
+    
 
-    //Level 3 Color sand
-    context.fillStyle = "#e4dfac";
+    switch (mapSelection) { //path color
+        case 1: context.fillStyle = "#e0c786"; //grass map -> brown/dirt path
+            break;
+        case 2: context.fillStyle = "#3a3734"; //lava map -> blackish/brown path
+            break;
+        case 3: context.fillStyle = "#e4dfac"; //beach map -> beige/sand path
+
+    }
 
     for (var i = 1; i < path.length; i++) {
         var a = path[i];
@@ -945,13 +968,16 @@ function draw() {
         context.fillStyle = "#29FF37"; //color of tile when you press a tower and then hover a tile
         context.fillRect(ingameXsel * tilew + ingameXsel, ingameYsel * tileh + ingameYsel, tilew, tileh);
     }
-    //context.fillStyle = "#83644a"; //start/end color
 
-    //Level 2 Color black-ish
-    //context.fillStyle = "#3a3734";
 
-    //Level 3 Color sand
-    context.fillStyle = "#e4dfac";
+    switch (mapSelection) { //start / end color
+        case 1: context.fillStyle = "#e0c786"; //dirt brown 
+            break;
+        case 2: context.fillStyle = "#3a3734"; //volcano rock black/brown
+            break;
+        case 3: context.fillStyle = "#e4dfac"; //sand yellow biege
+            break;
+    }
 
 
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
@@ -959,21 +985,25 @@ function draw() {
     var startX = path[0].x;
     var startY = path[0].y;
 
-    context.lineWidth = 1;
+    context.lineWidth = 2;
 
-    context.strokeStyle = "#111111"; //starting point arrow
+    if(mapSelection == 2)
+        context.strokeStyle = "#FFF"; //starting point arrow
+    else
+        context.strokeStyle = "#111";
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 10);
     context.lineTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
     context.lineTo(startX * tilew + startX + 20, startY * tileh + startY + 30);
-
     context.moveTo(startX * tilew + startX + 10, startY * tileh + startY + 20);
     context.lineTo(startX * tilew + startX + 35, startY * tileh + startY + 20);
 
     context.stroke();
 
-    context.strokeStyle = "#111111"; //grid lines between tiles
-    context.lineWidth = 1;
-    //context.beginPath();
+    //---
+    context.beginPath();
+    context.strokeStyle = "#555"; //grid lines between tiles
+    context.lineWidth = 2;
+    
     for (var i = 0; i < 21; i++) {
         context.moveTo(i * tilew + i, 0);
         context.lineTo(i * tilew + i, canvas.height);
@@ -984,7 +1014,9 @@ function draw() {
         context.lineTo(canvas.width, i * tilew + i);
     }
     context.stroke();
+    context.beginPath();
 
+    context.lineWidth = 1;
 
     for (var i = 0; i < towers.length; i++) {
         towers[i].draw();
@@ -1021,7 +1053,6 @@ function draw() {
         mobs[mobs.length] = new mob(level);
     }
 }
-
 
 function mouseDown(e) {
     if (playerHealth <= 0) return;
@@ -1116,20 +1147,6 @@ function mouseDown(e) {
     return false;
 }
 
-function sell() {
-    for (var i = 0; i < towers.length; i++) {
-        if (towers[i].sel) {
-
-            gold += towers[i].getSellValue();
-
-            towers.splice(i, 1);
-            genPath();
-            updateUI();
-            break;
-        }
-    }
-}
-
 function mouseMove(e) {
     var mouseX, mouseY;
 
@@ -1146,6 +1163,66 @@ function mouseMove(e) {
     ingameYsel = Math.floor((mouseY - Math.floor(mouseY / tileh)) / tileh);
 }
 
+document.onkeydown = function (keyPress) {
+    var key = keyPress.which;
+
+    if (key == 85) // 'u' 
+        upgrade();
+
+    if (key == 83) // 's'
+        sell();
+
+    if (key == 82) // 'r'
+        restart();
+
+    if (key == 32) // space bar
+        togglePause();
+
+    else if (key == 49 && gold >= towerCosts[0]) {  // 1
+        ctower = true;
+        towerType = 1;
+    }
+
+    else if (key == 50 && gold >= towerCosts[1]) { // 2
+        ctower = true;
+        towerType = 2;
+    }
+
+    else if (key == 51 && gold >= towerCosts[2]) { // 3
+        ctower = true;
+        towerType = 3;
+    }
+
+}
+
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+    this.equals = function (point) {
+        if (point == null) return false;
+        else return point.x == this.x && point.y == this.y;
+    }
+}
+
+function VisPoint(x, y) {
+    this.from = null;
+    this.loc = new Point(x, y);
+}
+
+function sell() {
+    for (var i = 0; i < towers.length; i++) {
+        if (towers[i].sel) {
+
+            gold += towers[i].getSellValue();
+
+            towers.splice(i, 1);
+            genPath();
+            updateUI();
+            break;
+        }
+    }
+}
+
 function upgrade() {
     for (var i = 0; i < towers.length; i++) {
         if (!towers[i].sel)
@@ -1157,6 +1234,23 @@ function upgrade() {
             updateUI();
         }
     }
+}
+
+function restart() {
+    if (!confirm("Are you sure you want to restart?")) return;
+    towers = new Array();
+    mobs = new Array();
+    flakes = new Array();
+    ctower = false;
+
+    waveSize = 0;
+    mobDelay = 0;
+    waveDelay = DEFAULT_WAVE_DELAY;
+    level = 1;
+    playerHealth = 50;
+    gold = 500;
+    updateUI();
+    genPath();
 }
 
 function updateUI() {
@@ -1215,21 +1309,9 @@ function updateUI() {
     }
 }
 
-function restart() {
-    if (!confirm("Are you sure you want to restart?")) return;
-    towers = new Array();
-    mobs = new Array();
-    flakes = new Array();
-    ctower = false;
-
-    waveSize = 0;
-    mobDelay = 0;
-    waveDelay = DEFAULT_WAVE_DELAY;
-    level = 1;
-    playerHealth = 50;
-    gold = 500;
-    updateUI();
-    genPath();
+function updateHighestLevel(level) {
+    if (level > highestLevel)
+        highestLevel = level;
 }
 
 function toExponentialFixaroo(val) {
@@ -1249,76 +1331,6 @@ function numberFormat(val) {
         st = st.replace(regx, '$1,$2');
     }
     return st;
-}
-
-
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
-    this.equals = function (point) {
-        if (point == null) return false;
-        else return point.x == this.x && point.y == this.y;
-    }
-}
-
-function VisPoint(x, y) {
-    this.from = null;
-    this.loc = new Point(x, y);
-}
-
-
-function genPath() {
-
-    for (var i = 0; i < size; i++)
-        obst[i] = new Array(size);
-
-    for (var i = 0; i < path.length; i++) {
-        obst[path[i].x][path[i].y] = false;
-    }
-
-    for (var i = 0; i < towers.length; i++) {
-
-
-        obst[towers[i].x][towers[i].y] = true;
-    }
-    return (path != -1);
-}
-
-document.onkeydown = function (keyPress) {
-    var key = keyPress.which;
-
-    if (key == 85) // 'u' 
-        upgrade();
-
-    if (key == 83) // 's'
-        sell();
-
-    if (key == 82) // 'r'
-        restart();
-
-    if (key == 32) // space bar
-        togglePause();
-
-    else if (key == 49 && gold >= towerCosts[0]) {  // 1
-        ctower = true;
-        towerType = 1;
-    }
-
-    else if (key == 50 && gold >= towerCosts[1]) { // 2
-        ctower = true;
-        towerType = 2;
-    }
-
-    else if (key == 51 && gold >= towerCosts[2]) { // 3
-        ctower = true;
-        towerType = 3;
-    }
-
-}
-
-function updateHighestLevel(level) {
-    if (level > highestLevel)
-        highestLevel = level;
 }
 
 function togglePause() {
