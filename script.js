@@ -29,10 +29,13 @@ var arr2;
 var monstersLeft = 0;
 var totalKilled = 0;
 
+var mapSelection = 3; //map selection, choice
+var difficultySelection = 0; //difficult selection, choice
+
 var highestLevel = -1;
 var highestScore = -1;
 
-var obst = new Array(size);
+var obst = new Array(size); //obstacles, things like path, ocean, etc where u cannot place towers
 
 var SHOCK_DURATION = 25;
 
@@ -144,21 +147,23 @@ function setupPath() {
     // );
 
     //Level 3 - Water
-    path = new Array(new Point(3, 0),
-        new Point(3, 1), new Point(3, 2), new Point(2, 2),
-        new Point(2, 3), new Point(1, 3), new Point(1, 4),
-        new Point(1, 5), new Point(1, 6), new Point(1, 7),
-        new Point(2, 7), new Point(2, 8), new Point(3, 8),
-        new Point(3, 9), new Point(4, 9), new Point(5, 9),
-        new Point(6, 9), new Point(6, 8), new Point(7, 8),
-        new Point(7, 7), new Point(8, 7), new Point(8, 6),
-        new Point(8, 5), new Point(8, 4), new Point(8, 3),
-        new Point(7, 3), new Point(7, 2), new Point(6, 2), 
-        new Point(6, 1), new Point(6, 0)
+    path = new Array(
+        new Point(0, 0), new Point(1, 0),
+        new Point(1, 1), new Point(2, 1),
+        new Point(2, 2), new Point(2, 3),
+        new Point(2, 4), new Point(2, 5),
+        new Point(3, 5), new Point(3, 6),
+        new Point(3, 7), new Point(4, 7),
+        new Point(4, 8), new Point(5, 8),
+        new Point(6, 8), new Point(7, 8),
+        new Point(7, 7), new Point(8, 7),
+        new Point(8, 6), new Point(8, 5),
+        new Point(9, 4), new Point(8, 4),
+        new Point(9, 3)
     );
 
 
-    //PATH 1 DIRECTIONS:
+    //PATH 1 DIRECTIONS: FOREST LEVEL
     // directions[9][4].from = new VisPoint(8, 4);
     // directions[8][4].from = new VisPoint(8, 3);
     // directions[8][3].from = new VisPoint(7, 3);
@@ -183,7 +188,7 @@ function setupPath() {
     // directions[4][8].from = new VisPoint(4, 9);
     // directions[4][9].from = new VisPoint(4, 10);
 
-    //PATH 2 DIRECTIONS:
+    //PATH 2 DIRECTIONS: LAVA LEVEL
     // directions[0][0].from = new VisPoint(0, 1);
     // directions[0][1].from = new VisPoint(1, 1);
     // directions[1][1].from = new VisPoint(1, 2);
@@ -235,37 +240,64 @@ function setupPath() {
     // directions[8][0].from = new VisPoint(9, 0);
     // directions[9][0].from = new VisPoint(10, 0);
 
-    //PATH 3 DIRECTIONS:
-    directions[3][0].from = new VisPoint(3, 1);
-    directions[3][1].from = new VisPoint(3, 2);
-    directions[3][2].from = new VisPoint(2, 2);
-    directions[2][2].from = new VisPoint(2, 3);
-    directions[2][3].from = new VisPoint(1, 3);
-    directions[1][3].from = new VisPoint(1, 4);
-    directions[1][4].from = new VisPoint(1, 5);
-    directions[1][5].from = new VisPoint(1, 6);
-    directions[1][6].from = new VisPoint(1, 7);
-    directions[1][7].from = new VisPoint(2, 7);
-    directions[2][7].from = new VisPoint(2, 8);
-    directions[2][8].from = new VisPoint(3, 8);
-    directions[3][8].from = new VisPoint(3, 9);
-    directions[3][9].from = new VisPoint(4, 9);
-    directions[4][9].from = new VisPoint(5, 9);
-    directions[5][9].from = new VisPoint(6, 9);
-    directions[6][9].from = new VisPoint(6, 8);
-    directions[6][8].from = new VisPoint(7, 8);
-    directions[7][8].from = new VisPoint(7, 7);
-    directions[7][7].from = new VisPoint(8, 7);
-    directions[8][7].from = new VisPoint(8, 6);
-    directions[8][6].from = new VisPoint(8, 5);
-    directions[8][5].from = new VisPoint(8, 4);
-    directions[8][4].from = new VisPoint(8, 3);
-    directions[8][3].from = new VisPoint(7, 3);
-    directions[7][3].from = new VisPoint(7, 2);
-    directions[7][2].from = new VisPoint(6, 2);
-    directions[6][2].from = new VisPoint(6, 1);
-    directions[6][1].from = new VisPoint(6, 0);
-    directions[6][0].from = new VisPoint(6, -1);
+    //PATH 3 DIRECTIONS: WATER LEVEL
+
+    directions[0][0].from = new VisPoint(1,0);
+    directions[1][0].from = new VisPoint(1,1);
+    directions[1][1].from = new VisPoint(2,1);
+    directions[2][1].from = new VisPoint(2,2);
+    directions[2][2].from = new VisPoint(2,3);
+    directions[2][3].from = new VisPoint(2,4);
+    directions[2][4].from = new VisPoint(2,5);
+    directions[2][5].from = new VisPoint(3,5);
+    directions[3][5].from = new VisPoint(3,6);
+    directions[3][6].from = new VisPoint(3,7);
+    directions[3][7].from = new VisPoint(4,7);
+    directions[4][7].from = new VisPoint(4,8);
+    directions[4][8].from = new VisPoint(5,8);
+    directions[5][8].from = new VisPoint(6,8);
+    directions[6][8].from = new VisPoint(7,8);
+    directions[7][8].from = new VisPoint(7,7);
+    directions[7][7].from = new VisPoint(8,7);
+    directions[8][7].from = new VisPoint(8,6);
+    directions[8][6].from = new VisPoint(8,5);
+    directions[8][5].from = new VisPoint(8,4);
+    directions[8][4].from = new VisPoint(9,4);
+    directions[9][4].from = new VisPoint(9,3);
+    directions[9][3].from = new VisPoint(10,3);
+
+    // directions[][].from = new VisPoint(,);
+
+    // directions[3][0].from = new VisPoint(3, 1);
+    // directions[3][1].from = new VisPoint(3, 2);
+    // directions[3][2].from = new VisPoint(2, 2);
+    // directions[2][2].from = new VisPoint(2, 3);
+    // directions[2][3].from = new VisPoint(1, 3);
+    // directions[1][3].from = new VisPoint(1, 4);
+    // directions[1][4].from = new VisPoint(1, 5);
+    // directions[1][5].from = new VisPoint(1, 6);
+    // directions[1][6].from = new VisPoint(1, 7);
+    // directions[1][7].from = new VisPoint(2, 7);
+    // directions[2][7].from = new VisPoint(2, 8);
+    // directions[2][8].from = new VisPoint(3, 8);
+    // directions[3][8].from = new VisPoint(3, 9);
+    // directions[3][9].from = new VisPoint(4, 9);
+    // directions[4][9].from = new VisPoint(5, 9);
+    // directions[5][9].from = new VisPoint(6, 9);
+    // directions[6][9].from = new VisPoint(6, 8);
+    // directions[6][8].from = new VisPoint(7, 8);
+    // directions[7][8].from = new VisPoint(7, 7);
+    // directions[7][7].from = new VisPoint(8, 7);
+    // directions[8][7].from = new VisPoint(8, 6);
+    // directions[8][6].from = new VisPoint(8, 5);
+    // directions[8][5].from = new VisPoint(8, 4);
+    // directions[8][4].from = new VisPoint(8, 3);
+    // directions[8][3].from = new VisPoint(7, 3);
+    // directions[7][3].from = new VisPoint(7, 2);
+    // directions[7][2].from = new VisPoint(6, 2);
+    // directions[6][2].from = new VisPoint(6, 1);
+    // directions[6][1].from = new VisPoint(6, 0);
+    // directions[6][0].from = new VisPoint(6, -1);
 
 }
 
@@ -478,7 +510,7 @@ function shockTower(x, y) {
 
             document.getElementById('shockTowerName').innerHTML = this.name; //realtime update of name, lvl, mobs killed
             document.getElementById('shockTowerLevel').innerHTML = this.lvl;
-            document.getElementById('shockTowerDamage').innerHTML = this.dmg();
+            document.getElementById('shockTowerDamage').innerHTML = toExponentialFixaroo(this.dmg());
             document.getElementById('shockTowerTotalKilled').innerHTML = this.killed;
             document.getElementById('shockChance').innerHTML = 100 - this.shockChance;
         }
@@ -914,14 +946,14 @@ function draw() {
         context.fillRect(ingameXsel * tilew + ingameXsel, ingameYsel * tileh + ingameYsel, tilew, tileh);
     }
     //context.fillStyle = "#83644a"; //start/end color
-    
+
     //Level 2 Color black-ish
     //context.fillStyle = "#3a3734";
 
     //Level 3 Color sand
     context.fillStyle = "#e4dfac";
 
-    
+
     context.fillRect(path[0].x * tilew + path[0].x, path[0].y * tileh + path[0].y, tilew, tileh);
 
     var startX = path[0].x;
@@ -1300,7 +1332,7 @@ function togglePause() {
         document.getElementById('slowTowerInfo').setAttribute("style", "visibility:hidden");
 
     }
-    
+
     else if (paused) {
         document.getElementById('pausedNotif').setAttribute("style", "visibility: hidden");
         document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
