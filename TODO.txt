@@ -1,18 +1,21 @@
 TODO List:
-
-- Speed up / Slow down button feature
-- rightCol (middleRow) section with tower / selected tower info
-- bottomRow section with premium features (boosts, boons, etc)
-- Diverse mobs (shapes)
-- Diverse mobs (color/type (fast, slow, more hp))
 - Change title name and visual to something more creative
-- make gradient circular colors for the shock and ice towers
-- revert slow tower particles, or create a better particle (upgraded tower has too much junk shooting out)
-
-- fix tower info section to update in real time (currently must reclick tower to update info)
-- starting arrow direction bolds when laser tower attack (wtf??? prob something to do with .lineWidth somewhere)
+- losing all lives OR completing the # of waves (5 for easy, 10 med, 15 hard), and then restarting = game still frozen
 
 Completed:
 - revisit slow tower design
 - make shock tower less squiggly
 - arrow to indicate where the wave starts from
+- starting arrow direction bolds when laser tower attack (wtf??? prob something to do with .lineWidth somewhere)
+- rotate arrows to face correct directions for each map
+- pause/resume feature
+- rightCol (middleRow) section with tower / selected tower info
+- revert slow tower particles, or create a better particle (upgraded tower has too much junk shooting out)
+- fix tower info section to update in real time (currently must reclick tower to update info)        
+
+Dropped:
+- make gradient circular colors for the shock and ice towers                                         found better design
+- Diverse mobs (shapes)                                                                              lacking time to implement 
+- Diverse mobs (color/type (fast, slow, more hp))                                                    lacking time to implement 
+- bottomRow section with premium features (boosts, boons, etc)                                       implemented elsewhere (shop)
+- Speed up / Slow down button feature                                                                not extremely important
