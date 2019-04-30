@@ -1353,7 +1353,16 @@ function draw() {
     if (waveSize > 0 && mobDelay-- <= 0) {
         mobDelay = 6;
         waveSize--;
-        mobs[mobs.length] = new mob(level);
+        //mobs[mobs.length] = new mob(level);
+        var randnum = Math.floor(Math.random() * 3);
+        console.log(randnum);
+        switch(randnum){
+            case 0: mobs[mobs.length] = new mob(level);
+            break;
+            case 1: mobs[mobs.length] = new mob2(level);
+            break;
+            case 2: mobs[mobs.length] = new mob3(level);
+        }
     }
 }
 

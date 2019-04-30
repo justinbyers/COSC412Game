@@ -112,12 +112,32 @@
 
     border: 4px solid #867855;
     background: #dfc98f;
+    font-size: 28px;
 }
-
+#popupScreenInner{
+    float:left;
+    width:330px;
+    height: 130px;
+    background: #111;
+}
+#popup{
+    margin: 30px 0 0 0;
+}
+#popupButtons{
+    margin: 20px 0px 10px 0px;
+}
 .popupBtns{
-    display: inline-block;
-    width: 200px;
-    height: 20px;
+
+    float: left;
+    width: 130px;
+    height: 28px;
+    border: 4px solid #867855;
+}
+#popupRestartBtn{
+    margin: 20px 10px 20px 30px;
+}
+#popupMenuBtn{
+    margin: 20px 30px 20px 10px;
 }
 
 #skillTree {
