@@ -33,8 +33,8 @@ var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
 
-var mapSelection = 2; //map selection, choice
-var difficultySelection = 1; //difficult selection, choice
+var mapSelection = 1; //map selection, choice
+var difficultySelection = 3; //difficult selection, choice
 
 var highestLevel = -1;
 var highestScore = -1;
@@ -833,7 +833,7 @@ function snowParticle(dir, x, y) {
 
 function mob(level) {
     this.lvl = level;
-    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP;
+    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
     this.maxhp = this.hp;
 
     this.slowDuration = 0;
@@ -916,7 +916,7 @@ function mob(level) {
             return false;
         }
 
-        var speed = (this.slowDuration-- > 0 ? 0.02 : 0.05);
+        var speed = (this.slowDuration-- > 0 ? 0.02 : 0.05);//mob speed
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
@@ -954,6 +954,251 @@ function mob(level) {
     }
 }
 
+function mob2(level) {
+    this.lvl = level;
+    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 500 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
+    this.maxhp = this.hp;
+
+    this.slowDuration = 0;
+    this.shockDuration = SHOCK_DURATION;
+    this.shocked = 0;
+
+    this.index = 0;
+
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.xbase = this.x;
+    this.ybase = this.y;
+    this.xoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tilew / 2));
+    this.yoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tileh / 2));
+
+    this.getXCenter = function () {
+        return this.x * tilew + this.x + tilew / 2 + this.xoffset + 0.5;
+    }
+    this.getYCenter = function () {
+        return this.y * tileh + this.y + tileh / 2 + this.yoffset + 0.5;
+    }
+
+    this.draw = function () {
+        context.save();
+        context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
+
+        if (this.slowDuration > 0)
+            context.fillStyle = "rgb(0, 65, 150)";
+        else
+            context.fillStyle = "#c90c1b"; //monster color
+
+
+        context.strokeStyle = "#111111";
+        context.beginPath();
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
+        context.fill();
+        context.stroke();
+        if (this.hp < this.maxhp) { //missing hp
+            context.fillStyle = "#000"; //missing hp color
+            context.beginPath();
+            context.moveTo(0, 0);
+            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
+            context.fill();
+        }
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) { //currently shocked
+            context.beginPath();
+            context.moveTo(0, 0);
+
+            context.lineTo(3, -14); //top of lightning bolt
+            context.lineTo(-7, 1.5); //down left
+            context.lineTo(1, 1.5); //right horizontally
+            context.lineTo(-2, 14); //down left/straight
+
+            context.lineTo(8, -1.5); //up right
+            context.lineTo(0, -1.5); //left horizontally
+            context.lineTo(3, -14); //up right/straight   
+
+            context.fillStyle = "#ffff00";
+
+            context.fill();
+            context.stroke();
+        }
+
+
+
+        context.restore();
+    }
+    this.update = function () {
+
+        document.getElementById('monstersHealth').innerHTML = toExponentialFixaroo((this.maxhp).toFixed(0)); //mob hp indicator
+
+        if (this.hp <= 0) {
+
+            gold += Math.floor(Math.pow(2.5, this.lvl));
+            score += Math.floor(Math.pow(1.25, this.lvl));
+
+            monstersLeft--;
+            totalKilled++;
+            updateUI();
+            return false;
+        }
+
+        var speed = (this.slowDuration-- > 0 ? 0.01 : 0.02);//mob speed
+        if (this.slowDuration < 0) this.slowDuration = 0;
+
+        var prevSpeed = speed;
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) {
+            this.shockDuration--;
+            speed = 0;
+        }
+        else
+            speed = prevSpeed;
+
+        var pre = Math.floor(this.index);
+        this.index += speed;
+        if (this.index >= 1) {
+            if (directions[this.xbase][this.ybase].from != 1) {
+                var xi = this.xbase;
+                var yi = this.ybase;
+                this.xbase = directions[xi][yi].from.loc.x;
+                this.ybase = directions[xi][yi].from.loc.y;
+            }
+            this.index = 0;
+        }
+        if (this.xbase >= size || this.ybase >= size) {
+            playerHealth--;
+            updateUI();
+            return false;
+        }
+        var a = directions[this.xbase][this.ybase].loc;
+        var b = directions[this.xbase][this.ybase].from.loc;
+        if (b == null || a == null) return true;
+
+        this.x = a.x * (1 - this.index) + b.x * this.index;
+        this.y = a.y * (1 - this.index) + b.y * this.index;
+
+        return true;
+    }
+}
+
+function mob3(level) {
+    this.lvl = level;
+    this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 10 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
+    this.maxhp = this.hp;
+
+    this.slowDuration = 0;
+    this.shockDuration = SHOCK_DURATION;
+    this.shocked = 0;
+
+    this.index = 0;
+
+    this.x = path[0].x;
+    this.y = path[0].y;
+    this.xbase = this.x;
+    this.ybase = this.y;
+    this.xoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tilew / 2));
+    this.yoffset = Math.floor((2 * Math.random() - 1) * 0.5 * (tileh / 2));
+
+    this.getXCenter = function () {
+        return this.x * tilew + this.x + tilew / 2 + this.xoffset + 0.5;
+    }
+    this.getYCenter = function () {
+        return this.y * tileh + this.y + tileh / 2 + this.yoffset + 0.5;
+    }
+
+    this.draw = function () {
+        context.save();
+        context.translate(Math.floor(this.getXCenter()), Math.floor(this.getYCenter()));
+
+        if (this.slowDuration > 0)
+            context.fillStyle = "rgb(0, 65, 150)";
+        else
+            context.fillStyle = "#e9ed04"; //monster color
+
+
+        context.strokeStyle = "#111111";
+        context.beginPath();
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
+        context.fill();
+        context.stroke();
+        if (this.hp < this.maxhp) { //missing hp
+            context.fillStyle = "#000"; //missing hp color
+            context.beginPath();
+            context.moveTo(0, 0);
+            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
+            context.fill();
+        }
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) { //currently shocked
+            context.beginPath();
+            context.moveTo(0, 0);
+
+            context.lineTo(3, -14); //top of lightning bolt
+            context.lineTo(-7, 1.5); //down left
+            context.lineTo(1, 1.5); //right horizontally
+            context.lineTo(-2, 14); //down left/straight
+
+            context.lineTo(8, -1.5); //up right
+            context.lineTo(0, -1.5); //left horizontally
+            context.lineTo(3, -14); //up right/straight   
+
+            context.fillStyle = "#ffff00";
+
+            context.fill();
+            context.stroke();
+        }
+
+
+
+        context.restore();
+    }
+    this.update = function () {
+
+        document.getElementById('monstersHealth').innerHTML = toExponentialFixaroo((this.maxhp).toFixed(0)); //mob hp indicator
+
+        if (this.hp <= 0) {
+
+            gold += Math.floor(Math.pow(1.755, this.lvl));
+            score += Math.floor(Math.pow(1.00, this.lvl));
+
+            monstersLeft--;
+            totalKilled++;
+            updateUI();
+            return false;
+        }
+
+        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.3); //mob speed
+        if (this.slowDuration < 0) this.slowDuration = 0;
+
+        var prevSpeed = speed;
+        if (this.shocked > upgrade_shockChance && this.shockDuration > 0) {
+            this.shockDuration--;
+            speed = 0;
+        }
+        else
+            speed = prevSpeed;
+
+        var pre = Math.floor(this.index);
+        this.index += speed;
+        if (this.index >= 1) {
+            if (directions[this.xbase][this.ybase].from != 1) {
+                var xi = this.xbase;
+                var yi = this.ybase;
+                this.xbase = directions[xi][yi].from.loc.x;
+                this.ybase = directions[xi][yi].from.loc.y;
+            }
+            this.index = 0;
+        }
+        if (this.xbase >= size || this.ybase >= size) {
+            playerHealth--;
+            updateUI();
+            return false;
+        }
+        var a = directions[this.xbase][this.ybase].loc;
+        var b = directions[this.xbase][this.ybase].from.loc;
+        if (b == null || a == null) return true;
+
+        this.x = a.x * (1 - this.index) + b.x * this.index;
+        this.y = a.y * (1 - this.index) + b.y * this.index;
+
+        return true;
+    }
+}
 
 function draw() {
 
@@ -1101,7 +1346,7 @@ function draw() {
         if (waveDelay-- <= 0) {
             updateUI();
             waveDelay = DEFAULT_WAVE_DELAY;
-            waveSize = Math.floor(level / 2) + 2 + CHEAT_MOBAMOUNT;
+            waveSize = Math.floor(level / 2) + 10 + CHEAT_MOBAMOUNT;
             document.getElementById('monstersLeft').innerHTML = waveSize;
         }
     }
