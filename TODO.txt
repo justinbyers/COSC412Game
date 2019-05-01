@@ -1,7 +1,8 @@
 TODO List:
 - Change title name and visual to something more creative
-- losing all lives OR completing the # of waves (5 for easy, 10 med, 15 hard), and then restarting = game still frozen
-
+- bug: losing all lives OR completing the # of waves (5 for easy, 10 med, 15 hard), and then restarting = game still frozen
+- bug: placing towers near start and insta-killing mobs makes waves speed by
+        (potential fix is on line 1370, where the mob delay is. perhaps track # of mobs TO be spawned, then subtract that # from mobskilled and mobsescaped)
 Completed:
 - revisit slow tower design
 - make shock tower less squiggly

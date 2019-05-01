@@ -33,7 +33,7 @@ var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
 
-var mapSelection = 1; //map selection, choice
+var mapSelection = 3; //map selection, choice
 var difficultySelection = 3; //difficult selection, choice
 
 var highestLevel = -1;
@@ -104,21 +104,36 @@ function onLoadUp() {
     genPath();
 }
 
-function configureDifficultySettings(){
+function configureDifficultySettings() {
 
     //easy difficulty
-    if(difficultySelection == 1) {
+    if (difficultySelection == 1) {
         totalWaves = 5;
+        waveMultiplier = 1;
+        document.getElementById("difficultyLevel").innerHTML = "Easy";
     }
 
     //medium difficulty
-    else if(difficultySelection == 2){
+    else if (difficultySelection == 2) {
         totalWaves = 10;
+        waveMultiplier = 2;
+        document.getElementById("difficultyLevel").innerHTML = "Medium";
     }
 
     //hard difficulty
-    else if(difficultySelection == 3){
+    else if (difficultySelection == 3) {
         totalWaves = 15;
+        waveMultiplier = 3;
+        document.getElementById("difficultyLevel").innerHTML = "Hard";
+    }
+
+    switch (mapSelection) {
+        case 1: document.getElementById("mapName").innerHTML = "Grassland";
+            break;
+        case 2: document.getElementById("mapName").innerHTML = "Volcano";
+            break
+        case 3: document.getElementById("mapName").innerHTML = "Beach";
+            break
     }
 }
 
@@ -1211,13 +1226,13 @@ function draw() {
         return;
     }
 
-    if(victory){
+    if (victory) {
         //document.getElementById('popup').innerHTML("VICTORY!");
         document.getElementById("popup").innerHTML = ("VICTORY!");
         //document.getElementById('popup').setAttribute = ("style", "display: initial")
         return;
     }
-    if (level >= difficultySelection * 5 + 1){
+    if (level >= difficultySelection * 5 + 1) {
         victory = true;
     }
 
@@ -1324,13 +1339,13 @@ function draw() {
         if (!mobs[i].update()) {
             mobs.splice(i, 1); // remove this element
         }
-        if(mobs.length == 0){
+        if (mobs.length == 0) {
             waveDelay = 150;
             level++;
             updateHighestLevel(level);
             updateUI();
         }
-        
+
     }
     for (var i = 0; i < towers.length; i++) {
         towers[i].attack();
@@ -1347,20 +1362,20 @@ function draw() {
             updateUI();
             waveDelay = DEFAULT_WAVE_DELAY;
             waveSize = Math.floor(level / 2) + 10 + CHEAT_MOBAMOUNT;
+            waveSize = (Math.floor(Math.pow((level + 7), 2.3)/100) + 5 + Math.floor(level / 3));
+            //console.log(level + ": " + waveSize);
             document.getElementById('monstersLeft').innerHTML = waveSize;
         }
     }
     if (waveSize > 0 && mobDelay-- <= 0) {
         mobDelay = 6;
         waveSize--;
-        //mobs[mobs.length] = new mob(level);
         var randnum = Math.floor(Math.random() * 3);
-        console.log(randnum);
-        switch(randnum){
+        switch (randnum) {
             case 0: mobs[mobs.length] = new mob(level);
-            break;
+                break;
             case 1: mobs[mobs.length] = new mob2(level);
-            break;
+                break;
             case 2: mobs[mobs.length] = new mob3(level);
         }
     }
@@ -1666,36 +1681,3 @@ function togglePause() {
 
 }
 
-
-//test functions below
-function test() { //show tower info
-    document.getElementById('a').setAttribute("style", "visibility:hidden");
-    document.getElementById('aa').setAttribute("style", "visibility:visible");
-    //document.getElementById("losetext").setAttribute("style", "visibility:visible;opacity:1");
-
-}
-function testt() { //show mob info
-
-    document.getElementById('a').setAttribute("style", "visibility:visible");
-    document.getElementById('aa').setAttribute("style", "visibility:hidden");
-}
-function testtt() {
-    console.log("c");
-    var dataURL = localStorage.getItem(canvas);
-    var img = new Image;
-    img.src = dataURL;
-    img.onload = function () {
-        context.drawImage(img, 0, 0);
-    }
-}
-function test4() {
-    // var arrsize = arr.length;
-    // for(var i = 0; i < arrsize; i++){
-    //     arr[i] = "#999999";
-    // }
-
-    for (var i = 0; i < towerCosts.length; i++) {
-        console.log(towerCosts[i]);
-    }
-    console.log((gold >= towerCosts[0] && playerHealth > 0))
-}
