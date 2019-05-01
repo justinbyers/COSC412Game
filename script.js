@@ -846,7 +846,7 @@ function snowParticle(dir, x, y) {
 
 }
 
-function mob(level) {
+function mob(level) { // Basic mob, Green Pea
     this.lvl = level;
     this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 50 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
     this.maxhp = this.hp;
@@ -969,7 +969,7 @@ function mob(level) {
     }
 }
 
-function mob2(level) {
+function mob2(level) { // Big Slow one, Red Pea
     this.lvl = level;
     this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 500 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
     this.maxhp = this.hp;
@@ -1006,14 +1006,14 @@ function mob2(level) {
 
         context.strokeStyle = "#111111";
         context.beginPath();
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.25), 0, Math.PI * 2, false); //mob size
         context.fill();
         context.stroke();
         if (this.hp < this.maxhp) { //missing hp
             context.fillStyle = "#000"; //missing hp color
             context.beginPath();
             context.moveTo(0, 0);
-            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
+            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.25), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
             context.fill();
         }
         if (this.shocked > upgrade_shockChance && this.shockDuration > 0) { //currently shocked
@@ -1092,7 +1092,7 @@ function mob2(level) {
     }
 }
 
-function mob3(level) {
+function mob3(level) { //Little fast one, Yellow Pea
     this.lvl = level;
     this.hp = Math.pow(1.20, this.lvl - 1) * 5.5 + 10 + 15 * this.lvl + CHEAT_MOBHP; //mob hp
     this.maxhp = this.hp;
@@ -1129,14 +1129,14 @@ function mob3(level) {
 
         context.strokeStyle = "#111111";
         context.beginPath();
-        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), 0, Math.PI * 2, false);
+        context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.16), 0, Math.PI * 2, false); //mob size
         context.fill();
         context.stroke();
         if (this.hp < this.maxhp) { //missing hp
             context.fillStyle = "#000"; //missing hp color
             context.beginPath();
             context.moveTo(0, 0);
-            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.2), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
+            context.arc(0, 0, Math.floor(Math.min(tilew, tileh) * 0.16), Math.PI * 2 * (this.hp / this.maxhp), Math.PI * 2, false);
             context.fill();
         }
         if (this.shocked > upgrade_shockChance && this.shockDuration > 0) { //currently shocked
@@ -1177,7 +1177,7 @@ function mob3(level) {
             return false;
         }
 
-        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.3); //mob speed
+        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.2); //mob speed
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
