@@ -12,22 +12,22 @@
 <body id="wrapper">
     <div id="welcomeInnerWrapper">
 
-            <div id=welcome>
-                <div id="welcomeText">Welcome to</div>
-                <div id=welcomeTitle>Peas Tower Defense</div>
-            </div>
-            <div id=welcomeInfo>
-                <div id=instructions>Choose a new game or load a save file:</div>
-            </div>
-            <div id=welcomeBtns>
+        <div id=welcome>
+            <div id="welcomeText">Welcome to</div>
+            <div id=welcomeTitle>Peas Tower Defense</div>
+        </div>
+        <div id=welcomeInfo>
+            <div id=instructions>Choose a new game or load a save file:</div>
+        </div>
+        <div id=welcomeBtns>
 
-                <input id=fuckoff type="button" class="menuBtn" value="New Game" onclick="newGameSetup();">
-                <input type="file" class="menuBtn" value="Load Game">
-            </div>
+            <input id=fuckoff type="button" class="menuBtn" value="New Game" onclick="newGameSetup();">
+            <input type="file" class="menuBtn" value="Load Game">
+        </div>
 
     </div>
 
-    <div id=newGameSelection style="visibility: hidden">
+    <div id=newGameSelection style="display: none">
 
         <div id="newGameWrapper">
             <div id=diffTitle>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div id="Medium">
-                    <div  class="BoxColumn" style="background-color: rgba(28, 128, 194, 0.747);">
+                    <div class="BoxColumn" style="background-color: rgba(28, 128, 194, 0.747);">
                         <img src="medium.png" alt="Shield" style="width:200px;height: 230px;" onclick="newGame('med');">
                         <h2>
                             MEDIUM
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div id=Hard>
-                    <div  class="BoxColumn" style="background-color: rgb(175, 62, 10);">
+                    <div class="BoxColumn" style="background-color: rgb(175, 62, 10);">
                         <img src="hard.png" alt="Shield" style="width:250px;height: 230px;" onclick="newGame('hard');">
                         <h2>
                             HARD
@@ -59,7 +59,20 @@
                     </div>
                 </div>
             </div>
-            <div id=mapButtons style="visibility: hidden">
+            <div id=mapButtons style="display: none">
+
+                <div id=forestMap onclick="selectMap(1);">
+                    <img src="forestMap.png" id=forestMapPic >
+
+                </div>
+
+                <div id=lavaMap>
+                        <img src="lavaMap.png" id=lavaMapPic onclick="selectMap(2);">
+                    </div>
+                <div id=beachMap>
+                    <img src="beachMap.png" id=beachMapPic onclick="selectMap(3);">
+                </div>
+
 
             </div>
 
@@ -179,7 +192,7 @@
                                     <input class="popupBtns" type="button" onclick="restart()" value="Restart"
                                         id="popupRestartBtn">
                                 </div>
-                                <div >
+                                <div>
                                     <input class="popupBtns" type='button' onclick="openMenu()" value="Main Menu"
                                         id="popupMenuBtn">
                                 </div>

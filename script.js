@@ -178,10 +178,12 @@ function configureDifficultySettings() {
 }
 
 function newGameSetup() {
-    console.log("oof");
 
     setTimeout(function () { document.getElementById('welcomeInnerWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
+    
     document.getElementById('welcomeInnerWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
+
+    setTimeout(function () { document.getElementById('newGameSelection').setAttribute("style", "-webkit-animation: fadein 1s"); }, 600);
 
     setTimeout(function () {
         document.getElementById('newGameSelection').setAttribute("style", "visibility: visible");
@@ -199,23 +201,29 @@ function newGame(diff) {
             break
         case 'hard': difficultySelection = 3;
     }
-    console.log("yee");
+
 
     setTimeout(function () { document.getElementById('diffButtons').setAttribute("style", "display:none; z-index: -1"); }, 500);
+
     document.getElementById('diffButtons').setAttribute("style", "-webkit-animation: fadeOut 1s");
 
-
     setTimeout(function () {
-        document.getElementById('mapButtons').setAttribute("style", "display:none");
-        document.getElementById('diffTitle').innerHTML = "Select Map";
-    }, 1000);
+        document.getElementById('mapButtons').setAttribute("style", "display: unset");
+        document.getElementById('diffTitle').innerHTML = "Select a Map";
+    }, 500);
 
 
 
 }
 
 function selectMap(map) {
-    document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
+
+
+    setTimeout(function () { document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
+
+    document.getElementById('newGameWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
+
+    // document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
     mapSelection = map
     makeTheGoodStuffVisible();
     gameLoadUp();
@@ -1702,6 +1710,45 @@ function restart() {
     setupPath();
     genPath();
     forceUnpause();
+}
+
+
+function openMenu() {
+
+
+    // if (!confirm("Are you sure you want to return to the menu? You will lose progress!")) return;
+    alert("Not yet implemented");
+    // document.getElementById('popupScreen').setAttribute("style", "visibility: hidden");
+
+    // towers = new Array();
+    // mobs = new Array();
+    // flakes = new Array();
+    // ctower = false;
+
+    // waveSize = 0;
+    // mobDelay = 0;
+    // waveDelay = 300;
+    // level = 1;
+    // playerHealth = 50;
+    // gold = 500;
+    // victory = false;
+
+
+    // document.getElementById('tower1bt').value = numberFormat(towerCosts[0]);
+    // document.getElementById('tower2bt').value = numberFormat(towerCosts[1]);
+    // document.getElementById('tower3bt').value = numberFormat(towerCosts[2]);
+
+
+
+    // //groundColorArray = randomizedGroundColor();
+    // oceanColorArray = randomizedOceanColor();
+    // lavaColorArray = randomizedLavaColor();
+
+    // configureDifficultySettings();
+    // updateUI();
+    // setupPath();
+    // genPath();
+    // forceUnpause();
 }
 
 function updateUI() {

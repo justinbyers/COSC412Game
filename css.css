@@ -7,6 +7,7 @@
     top: 50%;
     margin-left: -400px;
     margin-top: -300px;
+    background: #111;
 }
 
 #innerWrapper {
@@ -486,13 +487,7 @@
 
 
 }
-.BoxColumn:hover
-{
-    border-color: rgb(0, 0, 0);
-    box-shadow: 0 0 35px 2px rgb(190, 3, 214);
-    cursor: default;
-   
-}
+
 
 .menuBtn
 {
@@ -529,13 +524,17 @@ h2{
 #newGameWrapper{
     float: left;
     width: 825px;
-    height: 430px;
+    height: 440px;
     position: absolute;
+    padding: 5px;
+    border: 2px solid black;
 
     left: 50%;
     top: 50%;
     margin-left: -370px;
     margin-top: -250px;    
+    background: rgb(223, 201, 143);
+    background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
     /* box-shadow: 5px 5px rgba(0, 0, 0, 0.596); */
 }
 #Easy, #Medium, #Hard{
@@ -556,6 +555,21 @@ h2{
 #Hard{
     background: rgba(177, 82, 37, 0.685);
 }
+#Easy:hover{
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0 35px 3px rgba(39, 90, 22, 0.884);
+    cursor: default;
+}
+#Medium:hover{
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0 35px 3px rgba(0, 81, 139, 0.884);;
+    cursor: default;
+}
+#Hard:hover{
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0 35px 3px rgba(151, 48, 0, 0.884);
+    cursor: default;
+}
 
 #diffButtons{
     float:left;
@@ -570,6 +584,32 @@ h2{
 
 }
 #mapButtons{
+    width:820px;
+    align-content: center;
     float:left;
     position: relative;
+}
+
+#forestMap, #beachMap, #lavaMap{
+    float: left;
+    position: relative;
+    margin: 5px;
+    width: 200px;
+    height: 200px;
+    margin:  15px 25px 0px 25px;
+    background: #111;
+    cursor: pointer;
+
+
+}
+#forestMap{
+    margin: 15px 25px 0px 40px;
+}
+#lavaMap{
+    margin: 15px 40px 0px 40px;
+}
+#forestMapPic, #beachMapPic, #lavaMapPic{
+    border: 5px solid #52472b;
+    width: 100%;
+    height: 100%;
 }
