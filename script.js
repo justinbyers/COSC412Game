@@ -71,6 +71,7 @@ onLoadUp();
 function onLoadUp() {
     if (aaa == true) {
         gameStarted = true;
+        console.log("AA");
         gameLoadUp();
 
     }
@@ -186,7 +187,7 @@ function newGameSetup() {
     setTimeout(function () { document.getElementById('newGameSelection').setAttribute("style", "-webkit-animation: fadein 1s"); }, 600);
 
     setTimeout(function () {
-        document.getElementById('newGameSelection').setAttribute("style", "visibility: visible");
+        document.getElementById('newGameSelection').setAttribute("style", "display: unset");
         document.getElementById('newGameWrapper').setAttribute("style", "z-index: 1");
     }, 900);
 
@@ -194,6 +195,7 @@ function newGameSetup() {
 }
 
 function newGame(diff) {
+    console.log("oof");
     switch (diff) {
         case 'easy': difficultySelection = 1;
             break;
@@ -1716,8 +1718,21 @@ function restart() {
 function openMenu() {
 
 
-    // if (!confirm("Are you sure you want to return to the menu? You will lose progress!")) return;
-    alert("Not yet implemented");
+    if (!confirm("Are you sure you want to return to the menu? You will lose progress!")) return;
+
+    gameStarted = false;
+    victory = false;
+    selectMap = -1;
+    difficultySelection = -1;
+
+
+    document.getElementById('welcomeInnerWrapper').setAttribute("style", "display: unset; z-index: 1");
+    document.getElementById('innerWrapper').setAttribute("style", "display: none; z-index: -1");
+    document.getElementById('newGameWrapper').setAttribute("style", "display: unset; visibility: hidden;");
+    //document.getElementById('diffButtons').setAttribute("style", "display: unset; visibility: hidden;");
+    document.getElementById('newGameSelection').setAttribute("style", "display: hidden");
+
+
     // document.getElementById('popupScreen').setAttribute("style", "visibility: hidden");
 
     // towers = new Array();

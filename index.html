@@ -21,7 +21,7 @@
         </div>
         <div id=welcomeBtns>
 
-            <input id=fuckoff type="button" class="menuBtn" value="New Game" onclick="newGameSetup();">
+            <input type="button" class="menuBtn" value="New Game" onclick="newGameSetup();">
             <input type="file" class="menuBtn" value="Load Game">
         </div>
 
@@ -62,15 +62,17 @@
             <div id=mapButtons style="display: none">
 
                 <div id=forestMap onclick="selectMap(1);">
-                    <img src="forestMap.png" id=forestMapPic >
-
+                    <img src="forestMap.png" id=forestMapPic>
+                    <div id="mapText">Forest Map</div>
                 </div>
 
-                <div id=lavaMap>
-                        <img src="lavaMap.png" id=lavaMapPic onclick="selectMap(2);">
-                    </div>
-                <div id=beachMap>
-                    <img src="beachMap.png" id=beachMapPic onclick="selectMap(3);">
+                <div id=lavaMap onclick="selectMap(2);">
+                    <img src="lavaMap.png" id=lavaMapPic>
+                    <div id="mapText">Lava Map</div>
+                </div>
+                <div id=beachMap onclick="selectMap(3);">
+                    <img src="beachMap.png" id=beachMapPic>
+                    <div id="mapText">Beach Map</div>
                 </div>
 
 

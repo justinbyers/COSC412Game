@@ -7,12 +7,13 @@
     top: 50%;
     margin-left: -400px;
     margin-top: -300px;
-    background: #111;
+
 }
 
 #innerWrapper {
     background: rgb(223, 201, 143);
     background: linear-gradient(180deg, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
+
     border: 2px solid;
     padding: 10px 10px 10px 10px;
     width: 790px;
@@ -417,9 +418,10 @@
     height: 269px;
     left: 50%;
     top: 50%;
-    margin-left: -160px;
+    margin-left: -175px;
     margin-top: -170px;
     z-index: 1;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.548);
     
 }
 #welcome{
@@ -535,7 +537,7 @@ h2{
     margin-top: -250px;    
     background: rgb(223, 201, 143);
     background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-    /* box-shadow: 5px 5px rgba(0, 0, 0, 0.596); */
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.596); 
 }
 #Easy, #Medium, #Hard{
     margin: 5px;
@@ -612,4 +614,17 @@ h2{
     border: 5px solid #52472b;
     width: 100%;
     height: 100%;
+    box-shadow: 1px 1px 3px black;
+}
+#mapText{
+    text-align: center;
+    padding: 10px 0 0 0;
+    width: 150px;
+    height: 40px;
+    margin: -5px 0px 0px 25px;
+    border: 5px solid #52472b;
+    border-top: none;
+    box-shadow: 0px 0px 20px black;
+
+    font-size: 25px;
 }
