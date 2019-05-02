@@ -35,7 +35,7 @@ var lavaColorArray;
 var liquidChangeCounter = 0;
 
 var mapSelection = 3; //map selection, choice
-var difficultySelection = 3; //difficult selection, choice
+var difficultySelection = 1; //difficult selection, choice
 
 var highestLevel = -1;
 var highestScore = -1;
@@ -1231,15 +1231,18 @@ function draw() {
         return;
 
     if (playerHealth <= 0) {
+        document.getElementById('popupScreen').setAttribute("style", "visibility: visible");
+        document.getElementById('popupScreen').setAttribute("style", "-webkit-animation: fadein 1s");
+
         document.getElementById('popup').innerHTML = ("DEFEAT!");
-        //document.getElementById('popup').setAttribute = ("style", "display: initial")
         return;
     }
 
     if (victory) {
-        //document.getElementById('popup').innerHTML("VICTORY!");
+        document.getElementById('popupScreen').setAttribute("style", "visibility: visible");
+        document.getElementById('popupScreen').setAttribute("style", "-webkit-animation: fadein 1s");
+
         document.getElementById("popup").innerHTML = ("VICTORY!");
-        //document.getElementById('popup').setAttribute = ("style", "display: initial")
         return;
     }
     if (level >= difficultySelection * 5 + 1) {
