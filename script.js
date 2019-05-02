@@ -97,11 +97,23 @@ function makeTheGoodStuffVisible() {
 
     document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
 
-    document.getElementById('diffTitle').setAttribute("style", "z-index: -1; visibility: hidden");
-    document.getElementById('innerWrapper').setAttribute("style", "visibility: visible");
-    document.getElementById('enemyInfo').setAttribute("style", "visibility: visible");
-    document.getElementById('waveInfo').setAttribute("style", "visibility: visible");
-    document.getElementById('canvas').setAttribute("style", "visibility: visible");
+
+    setTimeout(function () { document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
+
+    document.getElementById('newGameWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
+
+    setTimeout(function () { }, 100);
+
+    setTimeout(function () {
+        document.getElementById('diffTitle').setAttribute("style", "z-index: -1; visibility: hidden");
+    }, 400);
+
+    setTimeout(function () {
+        document.getElementById('innerWrapper').setAttribute("style", "visibility: visible");
+        document.getElementById('enemyInfo').setAttribute("style", "visibility: visible");
+        document.getElementById('waveInfo').setAttribute("style", "visibility: visible");
+    }, 400);
+
 }
 
 function gameLoadUp() {
@@ -181,7 +193,7 @@ function configureDifficultySettings() {
 function newGameSetup() {
 
     setTimeout(function () { document.getElementById('welcomeInnerWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
-    
+
     document.getElementById('welcomeInnerWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
 
     setTimeout(function () { document.getElementById('newGameSelection').setAttribute("style", "-webkit-animation: fadein 1s"); }, 600);
