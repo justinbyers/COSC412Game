@@ -1,8 +1,12 @@
 TODO List:
 - Change title name and visual to something more creative
-- bug: losing all lives OR completing the # of waves (5 for easy, 10 med, 15 hard), and then restarting = game still frozen
 - bug: placing towers near start and insta-killing mobs makes waves speed by
         (potential fix is on line 1370, where the mob delay is. perhaps track # of mobs TO be spawned, then subtract that # from mobskilled and mobsescaped)
+
+- Clicking main menu will cause the game to skip difficult selection (not sure why, honestly dont care to figure it out)
+        workaround: just fuckin reload the file instead of going to main menu lmaoo
+- Need premium shop additions
+
 Completed:
 - revisit slow tower design
 - make shock tower less squiggly
@@ -12,7 +16,8 @@ Completed:
 - pause/resume feature
 - rightCol (middleRow) section with tower / selected tower info
 - revert slow tower particles, or create a better particle (upgraded tower has too much junk shooting out)
-- fix tower info section to update in real time (currently must reclick tower to update info)        
+- fix tower info section to update in real time (currently must reclick tower to update info)    
+- bug: losing all lives OR completing the # of waves (5 for easy, 10 med, 15 hard), and then restarting = game still frozen    
 
 Dropped:
 - make gradient circular colors for the shock and ice towers                                         found better design
