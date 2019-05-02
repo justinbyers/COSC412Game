@@ -32,6 +32,7 @@ var totalWaves;
 var groundColorArray;
 var oceanColorArray;
 var lavaColorArray;
+var liquidChangeCounter = 0;
 
 var mapSelection = 3; //map selection, choice
 var difficultySelection = 3; //difficult selection, choice
@@ -263,11 +264,20 @@ function paintPath() {
 
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
+            liquidChangeCounter++;
+
+            if((mapSelection == 2 || mapSelection == 3) && liquidChangeCounter == 9000){ //every 9000 tick itll change liquid colors
+                oceanColorArray = randomizedOceanColor();
+                lavaColorArray = randomizedLavaColor();
+                liquidChangeCounter = 0;
+            }
+
             if (obst[i][j] == false && mapSelection == 2) {
                 context.fillStyle = lavaColorArray[tile++];
                 context.fillRect(i * tilew + i, j * tileh + j, size * 4 - 1, size * 4 - 1);
             }
             else if (obst[i][j] == false && mapSelection == 3) {
+
                 context.fillStyle = oceanColorArray[tile++];
                 context.fillRect(i * tilew + i, j * tileh + j, size * size, size * size);
             }
@@ -1177,7 +1187,7 @@ function mob3(level) { //Little fast one, Yellow Pea
             return false;
         }
 
-        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.2); //mob speed
+        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.15); //mob speed
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
