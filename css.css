@@ -7,13 +7,11 @@
     top: 50%;
     margin-left: -400px;
     margin-top: -300px;
-
 }
 
 #innerWrapper {
     background: rgb(223, 201, 143);
     background: linear-gradient(180deg, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-
     border: 2px solid;
     padding: 10px 10px 10px 10px;
     width: 790px;
@@ -21,6 +19,7 @@
 }
 
 #rowBox {
+    height: 530px;
     border: 2px solid black;
 }
 
@@ -119,33 +118,6 @@
     z-index: 1;
     font-size: 28px;
 }
-
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@keyframes fadeOut {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
- }
-
-@-webkit-keyframes fadeOut {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
- }
 
 #popupScreenInner {
     float: left;
@@ -408,7 +380,6 @@
     margin: 0px 50px 50px 0px;
 }
 
-
 #welcomeInnerWrapper {
     position: absolute;
     background: rgb(223, 201, 143);
@@ -422,58 +393,56 @@
     margin-top: -170px;
     z-index: 1;
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.548);
-    
 }
-#welcome{
-    width: 385px;
+
+#welcome {
+    width: 380px;
     height: 130px;
     border: 5px solid #52472b;
-    margin: 3px 3px 0px 3px;
+    margin: 5px 5px 0px 5px;
     border-bottom: 0px;
-
     text-align: center;
 }
-#welcomeText{
+
+#welcomeText {
     font-size: 30px;
-    margin: 10px 0px 5px 0px;
-    
+    margin: 20px 0px 5px 0px;
 }
-#welcomeTitle{
+
+#welcomeTitle {
     font-size: 35px;
     margin: 15px 0px 10px 0px;
-
 }
-#welcomeInfo{
-    width: 385px;
-    margin: 0px 3px 0px 3px;
+
+#welcomeInfo {
+    width: 380px;
+    margin: 0px 5px 0px 5px;
     border: 5px solid #52472b;
     border-top: 0px;
     border-bottom: 0px;
     text-align: center;
 }
-#instructions{
+
+#instructions {
     font-size: 20px;
 }
-#welcomeBtns{
-    width: 385px;
-    height: 100px;
+
+#welcomeBtns {
+    width: 380px;
+    height: 95px;
     border: 5px solid #52472b;
     border-top: 0px;
-
-    margin: 0px 3px 0px 3px;
+    margin: 0px 5px 0px 5px;
     text-align: center;
-
 }
 
 #boxs:after {
-
     content: "";
     display: table;
     clear: both;
-
 }
-.BoxColumn
-{
+
+.BoxColumn {
     background-color: rgb(206, 114, 38);
     border: 2px solid black;
     float: left;
@@ -486,60 +455,58 @@
     transition: .1s ease;
     text-decoration: none;
     color: black;
-
-
 }
 
-
-.menuBtn
-{
+.menuBtn {
     margin: 35px 10px 20px 10px;
     font-size: 18pt;
     width: 149px;
     cursor: pointer;
 }
-h2{
 
+h2 {
     font-size: 20pt;
     text-align: center;
 }
 
-#Easy img{
+#Easy img {
     position: relative;
     left: 10px;
 }
-#Medium img{
+
+#Medium img {
     position: relative;
     left: 25px;
 }
-#menuText{
-    float:left;
 
+#menuText {
+    float: left;
     text-align: center;
     font: 30px;
 }
-#wrapper{
 
+#wrapper {
     background: rgb(223, 201, 143);
     background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
 }
-#newGameWrapper{
+
+#newGameWrapper {
     float: left;
     width: 825px;
     height: 440px;
     position: absolute;
     padding: 5px;
     border: 2px solid black;
-
     left: 50%;
     top: 50%;
     margin-left: -370px;
-    margin-top: -250px;    
+    margin-top: -250px;
     background: rgb(223, 201, 143);
     background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.596); 
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.596);
 }
-#Easy, #Medium, #Hard{
+
+#Easy, #Medium, #Hard {
     margin: 5px;
     float: left;
     width: 265px;
@@ -547,76 +514,84 @@ h2{
     /* background: rgba(0, 0, 0, 0.397); */
     /* box-shadow: 5px 5px rgba(0, 0, 0, 0.596); */
 }
-#Easy{
-    background:  rgba(86, 165, 59, 0.623);
-}
-#Medium{
 
+#Easy {
+    background: rgba(86, 165, 59, 0.623);
+}
+
+#Medium {
     background: rgba(46, 132, 189, 0.747);
 }
-#Hard{
+
+#Hard {
     background: rgba(177, 82, 37, 0.685);
 }
-#Easy:hover{
+
+#Easy:hover {
     border-color: rgb(0, 0, 0);
     box-shadow: 0 0 35px 3px rgba(39, 90, 22, 0.884);
     cursor: default;
 }
-#Medium:hover{
+
+#Medium:hover {
     border-color: rgb(0, 0, 0);
-    box-shadow: 0 0 35px 3px rgba(0, 81, 139, 0.884);;
+    box-shadow: 0 0 35px 3px rgba(0, 81, 139, 0.884);
+    ;
     cursor: default;
 }
-#Hard:hover{
+
+#Hard:hover {
     border-color: rgb(0, 0, 0);
     box-shadow: 0 0 35px 3px rgba(151, 48, 0, 0.884);
     cursor: default;
 }
 
-#diffButtons{
-    float:left;
+#diffButtons {
+    float: left;
     position: relative;
     /* background: rgba(0, 0, 0, 0.534); */
-    
 }
-#diffTitle{
+
+#diffTitle {
     margin: 30px;
     text-align: center;
     font-size: 50px;
-
 }
-#mapButtons{
-    width:820px;
+
+#mapButtons {
+    width: 820px;
     align-content: center;
-    float:left;
+    float: left;
     position: relative;
 }
 
-#forestMap, #beachMap, #lavaMap{
+#forestMap, #beachMap, #lavaMap {
     float: left;
     position: relative;
     margin: 5px;
     width: 200px;
     height: 200px;
-    margin:  15px 25px 0px 25px;
+    margin: 15px 25px 0px 25px;
     background: #111;
     cursor: pointer;
-
-
 }
-#forestMap{
+
+#forestMap {
     margin: 15px 25px 0px 40px;
 }
-#lavaMap{
+
+#lavaMap {
     margin: 15px 40px 0px 40px;
 }
-#forestMapPic, #beachMapPic, #lavaMapPic{
+
+#forestMapPic, #beachMapPic, #lavaMapPic {
     border: 5px solid #52472b;
     width: 100%;
     height: 100%;
     box-shadow: 1px 1px 3px black;
 }
-#mapText{
+
+#mapText {
     text-align: center;
     padding: 10px 0 0 0;
     width: 150px;
@@ -625,6 +600,103 @@ h2{
     border: 5px solid #52472b;
     border-top: none;
     box-shadow: 0px 0px 20px black;
-
     font-size: 25px;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Firefox < 16 */
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Internet Explorer */
+
+@-ms-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Opera < 12.1 */
+
+@-o-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframess fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

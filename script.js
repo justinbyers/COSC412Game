@@ -80,7 +80,7 @@ function onLoadUp() {
 
     document.getElementById('enemyInfo').setAttribute("style", "visibility: hidden");
     document.getElementById('waveInfo').setAttribute("style", "visibility: hidden");
-    document.getElementById('canvas').setAttribute("style", "visibility: visible");
+    document.getElementById('canvas').setAttribute("style", "visibility: hidden");
 
 
     // document.getElementById('').setAttribute("style", "visibility: hidden");
@@ -96,23 +96,17 @@ function onLoadUp() {
 function makeTheGoodStuffVisible() {
 
     document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
+    document.getElementById('newGameWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s; z-index: -1; visibility: hidden");
 
-
-    setTimeout(function () { document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
-
-    document.getElementById('newGameWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
-
-    setTimeout(function () { }, 100);
 
     setTimeout(function () {
+        document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); 
         document.getElementById('diffTitle').setAttribute("style", "z-index: -1; visibility: hidden");
-    }, 400);
-
-    setTimeout(function () {
         document.getElementById('innerWrapper').setAttribute("style", "visibility: visible");
         document.getElementById('enemyInfo').setAttribute("style", "visibility: visible");
         document.getElementById('waveInfo').setAttribute("style", "visibility: visible");
-    }, 400);
+        document.getElementById('canvas').setAttribute("style", "visibility: visible");
+    }, 500);
 
 }
 
@@ -232,15 +226,14 @@ function newGame(diff) {
 
 function selectMap(map) {
 
-
-    setTimeout(function () { document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
-
     document.getElementById('newGameWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
-
-    // document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
+    setTimeout(function () { document.getElementById('newGameWrapper').setAttribute("style", "display:none; z-index: -1"); 
     mapSelection = map
     makeTheGoodStuffVisible();
-    gameLoadUp();
+    gameLoadUp();}, 500);
+
+
+
 }
 function setupPath() {
 
@@ -1291,7 +1284,7 @@ function mob3(level) { //Little fast one, Yellow Pea
             return false;
         }
 
-        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.1); //mob speed
+        var speed = (this.slowDuration-- > 0 ? 0.035 : 0.1); //mob speed
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
@@ -1730,21 +1723,22 @@ function restart() {
 function openMenu() {
 
 
-    if (!confirm("Are you sure you want to return to the menu? You will lose progress!")) return;
+     if (!confirm("Are you sure you want to return to the menu? You will lose progress!")) return;
 
-    gameStarted = false;
-    victory = false;
-    selectMap = -1;
-    difficultySelection = -1;
-
-
-    document.getElementById('welcomeInnerWrapper').setAttribute("style", "display: unset; z-index: 1");
-    document.getElementById('innerWrapper').setAttribute("style", "display: none; z-index: -1");
-    document.getElementById('newGameWrapper').setAttribute("style", "display: unset; visibility: hidden;");
-    //document.getElementById('diffButtons').setAttribute("style", "display: unset; visibility: hidden;");
-    document.getElementById('newGameSelection').setAttribute("style", "display: hidden");
+     location.reload();
+    // gameStarted = false;
+    // victory = false;
+    // selectMap = -1;
+    // difficultySelection = -1;
 
 
+    // document.getElementById('welcomeInnerWrapper').setAttribute("style", "display: unset; z-index: 1");
+    // document.getElementById('innerWrapper').setAttribute("style", "display: none; z-index: -1");
+    // document.getElementById('newGameWrapper').setAttribute("style", "display: unset; visibility: hidden;");
+    // //document.getElementById('diffButtons').setAttribute("style", "display: unset; visibility: hidden;");
+    // document.getElementById('newGameSelection').setAttribute("style", "display: hidden");
+
+//--
     // document.getElementById('popupScreen').setAttribute("style", "visibility: hidden");
 
     // towers = new Array();
