@@ -71,25 +71,13 @@ onLoadUp();
 function onLoadUp() {
     if (aaa == true) {
         gameStarted = true;
-        console.log("AA");
         gameLoadUp();
 
     }
 
-    console.log("AAAAAAA");
-
     document.getElementById('enemyInfo').setAttribute("style", "visibility: hidden");
     document.getElementById('waveInfo').setAttribute("style", "visibility: hidden");
     document.getElementById('canvas').setAttribute("style", "visibility: hidden");
-
-
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-    // document.getElementById('').setAttribute("style", "visibility: hidden");
-
 
 }
 
@@ -201,7 +189,7 @@ function newGameSetup() {
 }
 
 function newGame(diff) {
-    console.log("oof");
+
     switch (diff) {
         case 'easy': difficultySelection = 1;
             break;
