@@ -57,6 +57,7 @@ var CHEAT_MOBAMOUNT = 0;
 var slowTowerFillColor = "#4CC4C2";
 var paused = false;
 var victory = false;
+var gameStarted = false;
 
 
 requestAnimFrame = (function () {
@@ -65,12 +66,50 @@ requestAnimFrame = (function () {
     };
 })();
 
+var aaa = false;
 onLoadUp();
-requestAnimFrame(draw);
-
 function onLoadUp() {
+    if (aaa == true) {
+        gameStarted = true;
+        gameLoadUp();
+
+    }
+
+    console.log("AAAAAAA");
+
+    document.getElementById('enemyInfo').setAttribute("style", "visibility: hidden");
+    document.getElementById('waveInfo').setAttribute("style", "visibility: hidden");
+    document.getElementById('canvas').setAttribute("style", "visibility: visible");
+
+
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+    // document.getElementById('').setAttribute("style", "visibility: hidden");
+
+
+}
+
+function makeTheGoodStuffVisible() {
+
+    document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
+
+    document.getElementById('diffTitle').setAttribute("style", "z-index: -1; visibility: hidden");
+    document.getElementById('innerWrapper').setAttribute("style", "visibility: visible");
+    document.getElementById('enemyInfo').setAttribute("style", "visibility: visible");
+    document.getElementById('waveInfo').setAttribute("style", "visibility: visible");
+    document.getElementById('canvas').setAttribute("style", "visibility: visible");
+}
+
+function gameLoadUp() {
+
+    gameStarted = true;
 
     // title menu code here
+
+    requestAnimFrame(draw);
 
     if (false) { //cheat commands
         gold = Infinity;
@@ -138,6 +177,49 @@ function configureDifficultySettings() {
     }
 }
 
+function newGameSetup() {
+    console.log("oof");
+
+    setTimeout(function () { document.getElementById('welcomeInnerWrapper').setAttribute("style", "display:none; z-index: -1"); }, 500);
+    document.getElementById('welcomeInnerWrapper').setAttribute("style", "-webkit-animation: fadeOut 1s");
+
+    setTimeout(function () {
+        document.getElementById('newGameSelection').setAttribute("style", "visibility: visible");
+        document.getElementById('newGameWrapper').setAttribute("style", "z-index: 1");
+    }, 900);
+
+
+}
+
+function newGame(diff) {
+    switch (diff) {
+        case 'easy': difficultySelection = 1;
+            break;
+        case 'med': difficultySelection = 2;
+            break
+        case 'hard': difficultySelection = 3;
+    }
+    console.log("yee");
+
+    setTimeout(function () { document.getElementById('diffButtons').setAttribute("style", "display:none; z-index: -1"); }, 500);
+    document.getElementById('diffButtons').setAttribute("style", "-webkit-animation: fadeOut 1s");
+
+
+    setTimeout(function () {
+        document.getElementById('mapButtons').setAttribute("style", "display:none");
+        document.getElementById('diffTitle').innerHTML = "Select Map";
+    }, 1000);
+
+
+
+}
+
+function selectMap(map) {
+    document.getElementById('newGameWrapper').setAttribute("style", "z-index: -1; visibility: hidden");
+    mapSelection = map
+    makeTheGoodStuffVisible();
+    gameLoadUp();
+}
 function setupPath() {
 
     directions = new Array();
@@ -1187,7 +1269,7 @@ function mob3(level) { //Little fast one, Yellow Pea
             return false;
         }
 
-        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.15); //mob speed
+        var speed = (this.slowDuration-- > 0 ? 0.05 : 0.1); //mob speed
         if (this.slowDuration < 0) this.slowDuration = 0;
 
         var prevSpeed = speed;
@@ -1226,6 +1308,10 @@ function mob3(level) { //Little fast one, Yellow Pea
 }
 
 function draw() {
+
+    if (!gameStarted)
+        return;
+
 
     if (playerHealth <= 0) {
         document.getElementById('popupScreen').setAttribute("style", "visibility: visible");
@@ -1396,7 +1482,7 @@ function draw() {
 
 function mouseDown(e) {
     if (playerHealth <= 0) return;
-
+    if (!gameStarted) return;
     var mouseX, mouseY;
 
     if (e.offsetX) {
@@ -1407,6 +1493,7 @@ function mouseDown(e) {
         mouseX = e.layerX;
         mouseY = e.layerY;
     }
+
 
     var foundOne = false;
     for (var i = 0; i < towers.length; i++) {
@@ -1504,6 +1591,9 @@ function mouseMove(e) {
 }
 
 document.onkeydown = function (keyPress) {
+
+    if (!gameStarted) return;
+
     var key = keyPress.which;
 
     if (key == 85) // 'u' 
@@ -1715,7 +1805,7 @@ function togglePause() {
 
 }
 
-function forceUnpause(){
+function forceUnpause() {
     document.getElementById('pausedNotif').setAttribute("style", "visibility: hidden");
     document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
     document.getElementById('pausebutton').value = "Pause";

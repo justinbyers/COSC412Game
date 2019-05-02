@@ -10,9 +10,63 @@
 </head>
 
 <body id="wrapper">
+    <div id="welcomeInnerWrapper">
+
+            <div id=welcome>
+                <div id="welcomeText">Welcome to</div>
+                <div id=welcomeTitle>Peas Tower Defense</div>
+            </div>
+            <div id=welcomeInfo>
+                <div id=instructions>Choose a new game or load a save file:</div>
+            </div>
+            <div id=welcomeBtns>
+
+                <input id=fuckoff type="button" class="menuBtn" value="New Game" onclick="newGameSetup();">
+                <input type="file" class="menuBtn" value="Load Game">
+            </div>
+
+    </div>
+
+    <div id=newGameSelection style="visibility: hidden">
+
+        <div id="newGameWrapper">
+            <div id=diffTitle>
+                Select Difficulty:
+            </div>
+            <div id=diffButtons>
+                <div id="Easy">
 
 
-    <div id="innerWrapper">
+                    <div class="BoxColumn" style="background-color: rgba(49, 102, 32, 0.747);">
+                        <img src="easy.png" alt="Shield" style="width:225px;height: 230px;" onclick="newGame('easy');">
+                        <h2>EASY</h2>
+                    </div>
+                </div>
+                <div id="Medium">
+                    <div  class="BoxColumn" style="background-color: rgba(28, 128, 194, 0.747);">
+                        <img src="medium.png" alt="Shield" style="width:200px;height: 230px;" onclick="newGame('med');">
+                        <h2>
+                            MEDIUM
+                        </h2>
+                    </div>
+                </div>
+                <div id=Hard>
+                    <div  class="BoxColumn" style="background-color: rgb(175, 62, 10);">
+                        <img src="hard.png" alt="Shield" style="width:250px;height: 230px;" onclick="newGame('hard');">
+                        <h2>
+                            HARD
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div id=mapButtons style="visibility: hidden">
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="innerWrapper" style="visibility: hidden">
         <div id="rowBox">
             <div id="topRow">
                 <h1 id="pageTitle">Peas Tower Defense</h1>
@@ -38,14 +92,14 @@
                                     class="tooltiptext">Laser Tower<br>Cost: <span id=tower1bt>40</span> Gold</span>
                             </div>
                             <div class="tooltip" id=shockTowerPic onclick="ctower=true;towerType=2"><span
-                                    class="tooltiptext">Shock Tower<br>Cost: <span id=tower2bt>200</span> Gold</span>
+                                    class="tooltiptext">Shock Tower<br>Cost: <span id=tower2bt>200</span>
+                                    Gold</span>
                             </div>
                             <div class="tooltip" id=slowTowerPic onclick="ctower=true;towerType=3"><span
-                                    class="tooltiptext">Slow Tower<br> Cost: <span id=tower3bt>250</span> Gold</span>
+                                    class="tooltiptext">Slow Tower<br> Cost: <span id=tower3bt>250</span>
+                                    Gold</span>
                             </div>
                         </div>
-
-
 
                     </div>
 
@@ -85,7 +139,7 @@
 
                         </div>
 
-                        <div class=gameInfoDivs id=enemyInfo style="visibility: visible">
+                        <div class=gameInfoDivs id=enemyInfo style="visibility: hidden">
                             Enemy Info <br> <br>
                             # of Mobs: <span id="monstersLeft">0</span> <br>
                             Mob HP: <span id="monstersHealth">-</span> <br>
@@ -118,18 +172,18 @@
                     <div id=popupScreen style="visibility:hidden">
                         <div id=popupScreenInner>
 
-                                <div id="popup">u shouldn't see this</div>
+                            <div id="popup">u shouldn't see this</div>
 
-                                <div id=popupButtons>
-                                    <div class="restartBtn">
-                                        <input class="popupBtns" type="button" onclick="restart()" value="Restart"
-                                            id="popupRestartBtn">
-                                    </div>
-                                    <div class="menuBtn">
-                                        <input class="popupBtns" type='button' onclick="openMenu()" value="Main Menu"
-                                            id="popupMenuBtn">
-                                    </div>
+                            <div id=popupButtons>
+                                <div class="restartBtn">
+                                    <input class="popupBtns" type="button" onclick="restart()" value="Restart"
+                                        id="popupRestartBtn">
                                 </div>
+                                <div >
+                                    <input class="popupBtns" type='button' onclick="openMenu()" value="Main Menu"
+                                        id="popupMenuBtn">
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -173,7 +227,7 @@
                             <input class="button" type="button" onclick="openShop()" value="Shop Menu" id="shopbutton">
                         </div>
 
-                        <div class="menuBtn">
+                        <div class="menuButton">
                             <input class="button" type='button' onclick="openMenu()" value="Main Menu" id="menubutton">
                         </div>
 

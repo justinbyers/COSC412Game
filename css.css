@@ -1,4 +1,5 @@
 #wrapper {
+    float: left;
     width: 760px;
     height: 600px;
     position: absolute;
@@ -134,6 +135,15 @@
         opacity: 1;
     }
 }
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+ }
+
+@-webkit-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+ }
 
 #popupScreenInner {
     float: left;
@@ -394,4 +404,172 @@
     cursor: pointer;
     float: left;
     margin: 0px 50px 50px 0px;
+}
+
+
+#welcomeInnerWrapper {
+    position: absolute;
+    background: rgb(223, 201, 143);
+    background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
+    border: 2px solid;
+    width: 400px;
+    height: 269px;
+    left: 50%;
+    top: 50%;
+    margin-left: -160px;
+    margin-top: -170px;
+    z-index: 1;
+    
+}
+#welcome{
+    width: 385px;
+    height: 130px;
+    border: 5px solid #52472b;
+    margin: 3px 3px 0px 3px;
+    border-bottom: 0px;
+
+    text-align: center;
+}
+#welcomeText{
+    font-size: 30px;
+    margin: 10px 0px 5px 0px;
+    
+}
+#welcomeTitle{
+    font-size: 35px;
+    margin: 15px 0px 10px 0px;
+
+}
+#welcomeInfo{
+    width: 385px;
+    margin: 0px 3px 0px 3px;
+    border: 5px solid #52472b;
+    border-top: 0px;
+    border-bottom: 0px;
+    text-align: center;
+}
+#instructions{
+    font-size: 20px;
+}
+#welcomeBtns{
+    width: 385px;
+    height: 100px;
+    border: 5px solid #52472b;
+    border-top: 0px;
+
+    margin: 0px 3px 0px 3px;
+    text-align: center;
+
+}
+
+#boxs:after {
+
+    content: "";
+    display: table;
+    clear: both;
+
+}
+.BoxColumn
+{
+    background-color: rgb(206, 114, 38);
+    border: 2px solid black;
+    float: left;
+    width: 250px;
+    padding: 0px;
+    height: 300px;
+    margin: 5px;
+    border-color: black;
+    align-content: center;
+    transition: .1s ease;
+    text-decoration: none;
+    color: black;
+
+
+}
+.BoxColumn:hover
+{
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0 35px 2px rgb(190, 3, 214);
+    cursor: default;
+   
+}
+
+.menuBtn
+{
+    margin: 35px 10px 20px 10px;
+    font-size: 18pt;
+    width: 149px;
+    cursor: pointer;
+}
+h2{
+
+    font-size: 20pt;
+    text-align: center;
+}
+
+#Easy img{
+    position: relative;
+    left: 10px;
+}
+#Medium img{
+    position: relative;
+    left: 25px;
+}
+#menuText{
+    float:left;
+
+    text-align: center;
+    font: 30px;
+}
+#wrapper{
+
+    background: rgb(223, 201, 143);
+    background: radial-gradient(circle, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
+}
+#newGameWrapper{
+    float: left;
+    width: 825px;
+    height: 430px;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    margin-left: -370px;
+    margin-top: -250px;    
+    /* box-shadow: 5px 5px rgba(0, 0, 0, 0.596); */
+}
+#Easy, #Medium, #Hard{
+    margin: 5px;
+    float: left;
+    width: 265px;
+    height: 315px;
+    /* background: rgba(0, 0, 0, 0.397); */
+    /* box-shadow: 5px 5px rgba(0, 0, 0, 0.596); */
+}
+#Easy{
+    background:  rgba(86, 165, 59, 0.623);
+}
+#Medium{
+
+    background: rgba(46, 132, 189, 0.747);
+}
+#Hard{
+    background: rgba(177, 82, 37, 0.685);
+}
+
+#diffButtons{
+    float:left;
+    position: relative;
+    /* background: rgba(0, 0, 0, 0.534); */
+    
+}
+#diffTitle{
+    margin: 30px;
+    text-align: center;
+    font-size: 50px;
+
+}
+#mapButtons{
+    float:left;
+    position: relative;
 }
