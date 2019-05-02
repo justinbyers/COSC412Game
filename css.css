@@ -11,7 +11,7 @@
 #innerWrapper {
     background: rgb(223, 201, 143);
     background: linear-gradient(180deg, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-border: 2px solid;
+    border: 2px solid;
     padding: 10px 10px 10px 10px;
     width: 790px;
     box-shadow: 4px 4px rgba(0, 0, 0, 0.377);
@@ -55,7 +55,6 @@ border: 2px solid;
     border: 5px solid #867855;
     background: rgb(134, 120, 85);
     background: linear-gradient(180deg, rgba(134, 120, 85, 1) 0%, rgba(94, 85, 60, 1) 100%);
-
 }
 
 #midCol {
@@ -105,8 +104,6 @@ border: 2px solid;
 }
 
 #popupScreen {
-
-
     width: 340px;
     height: 115px;
     margin: 122px 20px 0px 20px;
@@ -119,16 +116,24 @@ border: 2px solid;
     z-index: 1;
     font-size: 28px;
 }
+
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
+
 @-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
-
-
 
 #popupScreenInner {
     float: left;
@@ -137,14 +142,12 @@ border: 2px solid;
     border: 2px black solid;
     background: rgb(223, 201, 143);
     background: linear-gradient(180deg, rgba(223, 201, 143, 1) 0%, rgba(217, 185, 100, 1) 100%);
-
 }
 
 #popup {
     margin: 20px 0 0 0;
     font: 30px;
     font-weight: bold;
-
 }
 
 #popupButtons {
@@ -155,7 +158,6 @@ border: 2px solid;
     float: left;
     width: 128px;
     height: 28px;
-
 }
 
 #popupRestartBtn {

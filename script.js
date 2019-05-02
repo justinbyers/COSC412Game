@@ -8,7 +8,7 @@ var towers = new Array();
 var mobs = new Array();
 var flakes = new Array();
 var size = 10;
-var towerCosts = new Array(40, 200, 1000); //laser, aoe, slow, wall, x
+var towerCosts = new Array(40, 200, 250); //laser, aoe, slow, wall, x
 var directions;
 var counter = 0;
 
@@ -72,7 +72,7 @@ function onLoadUp() {
 
     // title menu code here
 
-    if (true) { //cheat commands
+    if (false) { //cheat commands
         gold = Infinity;
         playerHealth = Infinity;
         waveDelay = 100;
@@ -266,7 +266,7 @@ function paintPath() {
         for (var j = 0; j < size; j++) {
             liquidChangeCounter++;
 
-            if((mapSelection == 2 || mapSelection == 3) && liquidChangeCounter == 9000){ //every 9000 tick itll change liquid colors
+            if ((mapSelection == 2 || mapSelection == 3) && liquidChangeCounter == 9000) { //every 9000 tick itll change liquid colors
                 oceanColorArray = randomizedOceanColor();
                 lavaColorArray = randomizedLavaColor();
                 liquidChangeCounter = 0;
@@ -711,7 +711,7 @@ function slowTower(x, y) {
     }
 
     this.getUpgradeCost = function () {
-        return towerCosts[2] + Math.pow(8, this.lvl) * 100;
+        return towerCosts[2] + Math.pow(2.5, this.lvl) * 50 + 0;
 
     }
     this.getSellValue = function () {
@@ -1227,9 +1227,6 @@ function mob3(level) { //Little fast one, Yellow Pea
 
 function draw() {
 
-    if (paused)  //this pauses the program until the resume button is pressed
-        return;
-
     if (playerHealth <= 0) {
         document.getElementById('popupScreen').setAttribute("style", "visibility: visible");
         document.getElementById('popupScreen').setAttribute("style", "-webkit-animation: fadein 1s");
@@ -1248,6 +1245,9 @@ function draw() {
     if (level >= difficultySelection * 5 + 1) {
         victory = true;
     }
+
+    if (paused)  //this pauses the program until the resume button is pressed
+        return;
 
     requestAnimFrame(draw);
 
@@ -1375,7 +1375,7 @@ function draw() {
             updateUI();
             waveDelay = DEFAULT_WAVE_DELAY;
             waveSize = Math.floor(level / 2) + 10 + CHEAT_MOBAMOUNT;
-            waveSize = (Math.floor(Math.pow((level + 7), 2.3)/100) + 5 + Math.floor(level / 3));
+            waveSize = (Math.floor(Math.pow((level + 7), 2.3) / 100) + 5 + Math.floor(level / 3));
             //console.log(level + ": " + waveSize);
             document.getElementById('monstersLeft').innerHTML = waveSize;
         }
@@ -1577,7 +1577,12 @@ function upgrade() {
 }
 
 function restart() {
+
+
     if (!confirm("Are you sure you want to restart?")) return;
+
+    document.getElementById('popupScreen').setAttribute("style", "visibility: hidden");
+
     towers = new Array();
     mobs = new Array();
     flakes = new Array();
@@ -1585,12 +1590,28 @@ function restart() {
 
     waveSize = 0;
     mobDelay = 0;
-    waveDelay = DEFAULT_WAVE_DELAY;
+    waveDelay = 300;
     level = 1;
     playerHealth = 50;
     gold = 500;
+    victory = false;
+
+
+    document.getElementById('tower1bt').value = numberFormat(towerCosts[0]);
+    document.getElementById('tower2bt').value = numberFormat(towerCosts[1]);
+    document.getElementById('tower3bt').value = numberFormat(towerCosts[2]);
+
+
+
+    //groundColorArray = randomizedGroundColor();
+    oceanColorArray = randomizedOceanColor();
+    lavaColorArray = randomizedLavaColor();
+
+    configureDifficultySettings();
     updateUI();
+    setupPath();
     genPath();
+    forceUnpause();
 }
 
 function updateUI() {
@@ -1692,5 +1713,14 @@ function togglePause() {
         paused = false;
     }
 
+}
+
+function forceUnpause(){
+    document.getElementById('pausedNotif').setAttribute("style", "visibility: hidden");
+    document.getElementById('enemyInfo').setAttribute("style", "visibility:visible");
+    document.getElementById('pausebutton').value = "Pause";
+
+    requestAnimFrame(draw);
+    paused = false;
 }
 
